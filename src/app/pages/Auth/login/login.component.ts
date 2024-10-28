@@ -55,5 +55,8 @@ export class LoginComponent {
       this.showSnackBar('Inicio de sesión exitoso')
     }
   }
+  onGoogleSignIn() {
+    console.log('Inicio de sesión con Google');
 
+}
 }

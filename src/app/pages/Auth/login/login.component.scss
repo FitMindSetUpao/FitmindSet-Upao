@@ -1,97 +1,153 @@
+// Variables de colores
+$primary-color: #1976d2;
+$accent-color: #ff4081;
+$text-color: #333;
+$background-color: #f5f5f5;
+$error-color: #f44336;
+
+// Fondo general
+body {
+    background-color: $background-color;
+    font-family: Arial, sans-serif;
+}
+
+// Contenedor principal centrado y con sombra
 .login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    padding: 1rem;
-  
-    .login-header {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 0.5rem;
+    max-width: 500px;
+    margin: auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+}
+
+// Encabezado y subtexto
+.login-header {
+    font-size: 3.5rem;
+    color: $text-color;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.login-subtext {
+    font-size: 1.4rem;
+    color: gray;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+// Formulario
+.login-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+// Botón de Google estilizado
+.google-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: $accent-color;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.9rem 3.9rem;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    margin-bottom: 1rem;
+
+    &:hover {
+        background-color: darken($accent-color, 10%);
     }
-  
-    .login-subtext {
-      font-size: 1rem;
-      color: #555;
-      margin-bottom: 2rem;
-      text-align: center;
+
+    .google-icon {
+        width: 18px;
+        height: 18px;
+        margin-right: 0.5rem;
     }
-  
-    .login-form {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.15);
-      }
-  
-      .form-group {
-        margin-bottom: 1.5rem;
-      }
-  
-      .form-input {
+}
+
+// Campos de entrada
+.form-input {
+    width: 100%;
+
+    input {
         width: 100%;
-      }
-  
-      .submit-button {
-        width: 100%;
-        padding: 0.75rem;
-        margin-top: 1.5rem;
-        background-color: #28a745; 
-        color: #fff;
-        font-weight: bold;
+        color: $text-color;
+        font-size: 1rem;
+        padding: 1.9rem 0.7rem;
+        border: 1px solid #ccc;
         border-radius: 8px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-  
-        &:hover {
-          background-color: #28a745; 
-          transform: scale(1.05); 
+        outline: none;
+        transition: border-color 0.3s;
+        box-sizing: border-box;
+
+        &:focus {
+            border-color: $primary-color;
         }
-      }
     }
-  
-    .mat-form-field {
-      margin-bottom: 1rem;
+
+    .mat-error {
+        color: $error-color;
+        font-size: 0.9rem;
     }
-  
-    .mat-raised-button {
+}
+
+// Botón de envío
+.submit-button {
+    width: 100%;
+    background-color: $primary-color;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: darken($primary-color, 10%);
+    }
+}
+
+// Enlace de registro
+.register-link {
+    margin-top: 1rem;
+    text-align: center;
+
+    a {
+        color: $primary-color;
+        font-size: 1.1rem;
+        text-decoration: underline;
+        transition: color 0.3s;
+
+        &:hover {
+            color: darken($primary-color, 10%);
+        }
+    }
+}
+.reset-password-link{
+  margin-top: 1rem;
+  text-align: center;
+
+  a {
+      color: $primary-color;
       font-size: 1.1rem;
-      padding: 0.75rem;
-      border-radius: 8px;
-      transition: transform 0.2s ease, background-color 0.3s ease;
-  
+      text-decoration: underline;
+      transition: color 0.3s;
+
       &:hover {
-        transform: scale(1.05); 
-        background-color: #218838 !important; 
+          color: darken($primary-color, 10%);
       }
-    }
-  
-    .register-link {
-      text-align: center;
-      margin-top: 1.5rem;
-      font-size: 0.9rem;
-      color: #555;
-  
-      a {
-        text-decoration: none;
-        color: #007bff;
-        font-weight: bold;
-        transition: color 0.3s ease;
-  
-        &:hover {
-          color: #0056b3;
-          text-decoration: underline;
-        }
-      }
-    }
   }
-  
+}
