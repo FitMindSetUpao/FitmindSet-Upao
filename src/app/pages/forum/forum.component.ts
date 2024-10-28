@@ -27,7 +27,6 @@ export class ForumComponent implements OnInit {
     }
   }
 
-  // Método para cargar comentarios del Local Storage
   loadComments() {
     const savedComments = localStorage.getItem('comments');
     if (savedComments) {
@@ -35,8 +34,13 @@ export class ForumComponent implements OnInit {
     }
   }
 
-  // Método para guardar comentarios en Local Storage
   saveComments() {
     localStorage.setItem('comments', JSON.stringify(this.comments));
+  }
+
+  // Método para borrar comentarios del Local Storage
+  clearComments() {
+    this.comments = [];
+    localStorage.removeItem('comments');
   }
 }

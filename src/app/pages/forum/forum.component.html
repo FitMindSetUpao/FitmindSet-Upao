@@ -1,26 +1,31 @@
 <!-- src/app/pages/forum.component.html -->
 <div class="forum-container">
-    <h2>Foro de Hábitos Saludables</h2>
-    
-    <div class="comment-section">
-      <textarea 
-        [(ngModel)]="newComment" 
-        placeholder="Escribe un comentario..." 
-        rows="4"
-      ></textarea>
+  <h2>Comentarios del Foro</h2>
+  
+  <div class="comment-section">
+    <textarea 
+      [(ngModel)]="newComment" 
+      placeholder="Escribe un comentario..." 
+      rows="4"
+    ></textarea>
+
+    <!-- Contenedor para los botones -->
+    <div class="button-container">
       <button (click)="addComment()">Agregar Comentario</button>
+      <button (click)="clearComments()" class="clear-button">Ocultar Comentarios</button>
     </div>
-  
-    <ul class="comment-list">
-      <li *ngFor="let comment of comments">
-        <div class="comment-header">Comentario de usuario</div>
-        <div class="comment-date">Publicado el {{ currentDate }}</div>
-        <div class="comment-text">{{ comment }}</div>
-        <button class="details-button">Ver Perfil</button>
-      </li>
-    </ul>
   </div>
-  
-  <div class="footer">
-    © 2024 Hus - Foro de Hábitos Saludables
-  </div>
+
+  <ul class="comment-list">
+    <li *ngFor="let comment of comments">
+      <div class="comment-header">Comentario de usuario</div>
+      <div class="comment-date">Publicado el {{ currentDate }}</div>
+      <div class="comment-text">{{ comment }}</div>
+      <button class="details-button">Ver Perfil</button>
+    </li>
+  </ul>
+</div>
+
+<div class="footer">
+  © 2024 Hus - Foro de Hábitos Saludables
+</div>
