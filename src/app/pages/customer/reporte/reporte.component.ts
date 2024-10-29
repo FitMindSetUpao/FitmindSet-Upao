@@ -1,27 +1,49 @@
 import { Component, OnInit } from '@angular/core';
-import { ReporteService } from '../../../core/services/reporte.service'
+import { ActivatedRoute } from '@angular/router';
+import { ReporteService } from '../../../core/services/reporte.service';
 import { ReporteDTO } from '../../../../app/shared/models/reporte.model';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import {MatListModule} from '@angular/material/list';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-reporte',
+  standalone: true,
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatListModule,
+    MatProgressSpinnerModule,
+    CommonModule
+  ],
   templateUrl: './reporte.component.html',
-  styleUrls: ['./reporte.component.css']
+  styleUrls: ['./reporte.component.scss']
 })
 export class ReporteComponent implements OnInit {
   reporte: ReporteDTO | null = null;
 
-  constructor(private reporteService: ReporteService) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private reporteService: ReporteService
+  ) {}
 
   ngOnInit(): void {
-    const metaId = 1; // Cambia esto por el ID dinámico o parámetro de ruta
-    this.reporteService.obtenerReporte(metaId).subscribe(
-      (data: ReporteDTO) => {
-        this.reporte = data;
-      },
-      (error) => {
-        console.error('Error al obtener el reporte:', error);
+    
+    this.route.paramMap.subscribe(params => {
+      const metaId = Number(params.get('id')); 
+      if (metaId) {
+        this.reporteService.obtenerReporte(metaId).subscribe(
+          (data: ReporteDTO) => {
+            this.reporte = data;
+          },
+          (error) => {
+            console.error('Error al obtener el reporte:', error);
+          }
+        );
       }
-    );
+    });
   }
 
   calcularFechaProyectada(): string {
