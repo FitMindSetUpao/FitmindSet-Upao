@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ReporteService } from 'services/reporte.service';
-import { ReporteDTO } from '././models/reporte.model';
+import { ReporteService } from '../../../core/services/reporte.service'
+import { ReporteDTO } from '../../../../app/shared/models/reporte.model';
 
 @Component({
   selector: 'app-reporte',
