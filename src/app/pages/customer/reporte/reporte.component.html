@@ -1,0 +1,25 @@
+<mat-card *ngIf="reporte">
+    <mat-card-header>
+      <mat-card-title>Reporte de Meta: {{ reporte.nombreMeta }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Total de Seguimientos: {{ reporte.totalSeguimientos }}</p>
+      <p>Total Tiempo Invertido: {{ reporte.totalTiempoInvertido }} horas</p>
+      <p>Porcentaje Cumplido: {{ reporte.porcentajeCumplido }}%</p>
+      <p>Fecha Proyectada de Finalización: {{ calcularFechaProyectada() }}</p>
+      <p>Recomendaciones: {{ generarRecomendaciones() }}</p>
+  
+      <h3>Seguimientos:</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let seguimiento of reporte.seguimientos">
+          Tiempo Invertido: {{ seguimiento.tiempoInvertido }} horas - Fecha: {{ seguimiento.fecha }}
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+  
+  <div *ngIf="!reporte">
+    <mat-spinner></mat-spinner>
+    <p>Cargando reporte...</p>
+  </div>
+  
