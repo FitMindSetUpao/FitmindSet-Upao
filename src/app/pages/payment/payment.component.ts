@@ -31,9 +31,29 @@ export class PaymentComponent implements OnInit {
 
   // Selección de opción de pago y muestra del formulario
   selectPaymentOption(option: string) {
-    this.selectedPaymentOption.set(option); // Ahora esto funcionará
+    // Establece la nueva opción de pago
+    this.selectedPaymentOption.set(option);
     this.paymentForm.controls['paymentOption'].setValue(option);
+  
+    // Manejo condicional de controles para la opción "Tarjeta de Crédito"
+    if (option === 'Tarjeta de Crédito') {
+      if (!this.paymentForm.contains('cardNumber')) {
+        this.paymentForm.addControl('cardNumber', this.fb.control('', Validators.required));
+      }
+      if (!this.paymentForm.contains('expirationDate')) {
+        this.paymentForm.addControl('expirationDate', this.fb.control('', Validators.required));
+      }
+      if (!this.paymentForm.contains('cvv')) {
+        this.paymentForm.addControl('cvv', this.fb.control('', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]));
+      }
+    } else {
+      // Remueve los controles de tarjeta si no es la opción seleccionada
+      this.paymentForm.removeControl('cardNumber');
+      this.paymentForm.removeControl('expirationDate');
+      this.paymentForm.removeControl('cvv');
+    }
   }
+  
 
   // Método para procesar el pago
   processPayment() {
