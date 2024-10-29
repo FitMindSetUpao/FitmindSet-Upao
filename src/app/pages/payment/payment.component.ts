@@ -35,7 +35,7 @@ export class PaymentComponent implements OnInit {
     this.selectedPaymentOption.set(option);
     this.paymentForm.controls['paymentOption'].setValue(option);
   
-    // Manejo condicional de controles para la opción "Tarjeta de Crédito"
+    // Manejo condicional de controles según la opción seleccionada
     if (option === 'Tarjeta de Crédito') {
       if (!this.paymentForm.contains('cardNumber')) {
         this.paymentForm.addControl('cardNumber', this.fb.control('', Validators.required));
@@ -46,13 +46,41 @@ export class PaymentComponent implements OnInit {
       if (!this.paymentForm.contains('cvv')) {
         this.paymentForm.addControl('cvv', this.fb.control('', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]));
       }
-    } else {
-      // Remueve los controles de tarjeta si no es la opción seleccionada
+      // Remover otros controles si existen
+      this.paymentForm.removeControl('paypalAccount');
+      this.paymentForm.removeControl('paypalPassword');
+      this.paymentForm.removeControl('cci');
+      this.paymentForm.removeControl('dynamicKey');
+  
+    } else if (option === 'PayPal') {
+      if (!this.paymentForm.contains('paypalAccount')) {
+        this.paymentForm.addControl('paypalAccount', this.fb.control('', [Validators.required, Validators.pattern('^[0-9]+$')]));
+      }
+      if (!this.paymentForm.contains('paypalPassword')) {
+        this.paymentForm.addControl('paypalPassword', this.fb.control('', Validators.required));
+      }
+      // Remover otros controles si existen
       this.paymentForm.removeControl('cardNumber');
       this.paymentForm.removeControl('expirationDate');
       this.paymentForm.removeControl('cvv');
+      this.paymentForm.removeControl('cci');
+      this.paymentForm.removeControl('dynamicKey');
+  
+    } else if (option === 'Transferencia Bancaria') {
+      if (!this.paymentForm.contains('cci')) {
+        this.paymentForm.addControl('cci', this.fb.control('', [Validators.required, Validators.pattern('^[0-9]+$')]));
+      }
+      if (!this.paymentForm.contains('dynamicKey')) {
+        this.paymentForm.addControl('dynamicKey', this.fb.control('', [Validators.required, Validators.maxLength(6)]));
+      }
+      // Remover otros controles si existen
+      this.paymentForm.removeControl('cardNumber');
+      this.paymentForm.removeControl('expirationDate');
+      this.paymentForm.removeControl('cvv');
+      this.paymentForm.removeControl('paypalAccount');
+      this.paymentForm.removeControl('paypalPassword');
     }
-  }
+  }  
   
 
   // Método para procesar el pago

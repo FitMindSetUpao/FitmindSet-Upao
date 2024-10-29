@@ -34,10 +34,29 @@
         <input id="cvv" formControlName="cvv" type="password" maxlength="4" placeholder="CVV" />
       </div>
 
+      <!-- Campos de PayPal, visibles solo si la opción seleccionada es "PayPal" -->
+      <div *ngIf="option === 'PayPal'">
+        <label for="paypalAccount">Cuenta de PayPal</label>
+        <input id="paypalAccount" formControlName="paypalAccount" placeholder="Cuenta de PayPal" />
+
+        <label for="paypalPassword">Contraseña</label>
+        <input id="paypalPassword" formControlName="paypalPassword" type="password" placeholder="Contraseña" />
+      </div>
+
+      <!-- Campos de Transferencia Bancaria, visibles solo si la opción seleccionada es "Transferencia Bancaria" -->
+      <div *ngIf="option === 'Transferencia Bancaria'">
+        <label for="cci">CCI</label>
+        <input id="cci" formControlName="cci" placeholder="CCI" />
+
+        <label for="dynamicKey">Clave Dinámica Digital</label>
+        <input id="dynamicKey" formControlName="dynamicKey" type="password" maxlength="6" placeholder="Clave Dinámica" />
+      </div>
+
       <button type="submit" [disabled]="paymentForm.invalid">Procesar Pago</button>
     </form>
   </div>
 </div>
+
 
   
   <div class="footer">
