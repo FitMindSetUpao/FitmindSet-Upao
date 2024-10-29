@@ -7,7 +7,7 @@ import { provideRouter } from '@angular/router';
 import { physicalRoutes } from './app/Pages/physical/physical.routes';
 import { tokenInterceptor} from './app/Core/Interceptor/token.interceptor';
 
-bootstrapApplication(AppComponent, appConfig, )
+bootstrapApplication(AppComponent, appConfig )
   .catch((err) => console.error(err));
 
 bootstrapApplication(PhysicalComponent, {
