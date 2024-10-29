@@ -100,6 +100,61 @@
   }
 }
 
+// Estilo general para el título del modal
+h2[mat-dialog-title] {
+  text-align: center; // Centra el título
+  color: #2faf40; // Cambia el color del título a verde
+  font-size: 1.8rem; // Ajusta el tamaño del título
+  font-weight: bold; // Cambia el grosor de la fuente
+  margin-bottom: 1rem;
+}
+
+// Estilo para el contenido del modal
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Centra el contenido
+  justify-content: center;
+}
+
+// Estilo para las acciones del modal
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 0;
+}
+
+// Estilo para el campo de entrada
+mat-form-field {
+  width: 100%; // Asegura que el campo ocupe el ancho completo
+  margin-bottom: 1rem;
+
+  input {
+    font-size: 1rem;
+  }
+}
+
+// Estilo para el resultado del IMC
+.bmi-result {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: bold;
+  text-align: center; // Centra el texto de IMC
+  margin-top: 0.5rem;
+}
+
+// Botones de acción
+button[mat-raised-button] {
+  background-color: #2faf40;
+  color: #fff;
+  margin: 0 0.5rem;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #209125;
+  }
+}
+
 // Media Query para pantallas más pequeñas
 @media (max-width: 500px) {
   .register-container {
