@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { ForumComponent } from './pages/forum/forum.component';
-import { RegistroComponent } from './pages/registro/registro.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { PaymentComponent } from './pages/payment/payment.component';
 
 export const routes: Routes = [
     {
@@ -8,7 +9,11 @@ export const routes: Routes = [
         component: ForumComponent
     },
     {
-        path: 'registro',
-        component: RegistroComponent
+        path: 'register',
+        component: RegisterComponent
+    },
+    {
+        path: 'payment',
+        component: PaymentComponent
     }
 ]
