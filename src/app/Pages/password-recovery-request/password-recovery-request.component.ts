@@ -16,8 +16,8 @@ import {NgIf} from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    FormsModule,
     NgIf,
+    FormsModule,
   ],
   templateUrl: './password-recovery-request.component.html',
   styleUrl: './password-recovery-request.component.scss'
