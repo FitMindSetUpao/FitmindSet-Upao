@@ -1,26 +1,19 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { PhysicalComponent } from './app/Pages/physical/physical.component';
 import { provideRouter } from '@angular/router';
-import { physicalRoutes } from './app/Pages/physical/physical.routes';
 import { tokenInterceptor} from './app/Core/Interceptor/token.interceptor';
-
-bootstrapApplication(AppComponent, appConfig )
-  .catch((err) => console.error(err));
-
-bootstrapApplication(PhysicalComponent, {
-  providers: [provideHttpClient()]
-}).catch(err => console.error(err));
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {routes} from './app/app.routes';
+import {authInterceptor} from './app/Core/Interceptor/auth.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter([
-      { path: 'physical', children: physicalRoutes },
-      { path: '', redirectTo: '/physical', pathMatch: 'full' },
-      // Otras rutas aquí
-    ]),
-    provideHttpClient(withInterceptors([tokenInterceptor])),
+    // Proveedor de rutas, que incluye las rutas definidas en app.routes.ts
+    provideRouter(routes),
+    // Cliente HTTP con los interceptores
+    provideHttpClient(withInterceptors([authInterceptor, tokenInterceptor])),
+    // Servicio de Angular Material para Snackbar
+    MatSnackBar
   ]
 }).catch((err) => console.error(err));

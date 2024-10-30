@@ -5,7 +5,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
-import {AuthService} from '../../../Core/Service/auth.service';
+import {AuthService} from '../../Core/Service/auth.service';
 import {NgIf} from '@angular/common';
 
 @Component({

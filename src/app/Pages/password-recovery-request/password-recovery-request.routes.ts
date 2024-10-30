@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { PasswordRecoveryRequestComponent} from './password-recovery-request.component';
-import {AuthGuard} from '../../../Core/Guard/auth.guard';
+import { PasswordRecoveryRequestComponent } from './password-recovery-request.component';
+import { AuthGuard } from '../../Core/Guard/auth.guard';
 
 export const passwordRecoveryRoutes: Routes = [
   {
@@ -8,4 +8,4 @@ export const passwordRecoveryRoutes: Routes = [
     component: PasswordRecoveryRequestComponent,
     canActivate: [AuthGuard],
   }
-]
+];
