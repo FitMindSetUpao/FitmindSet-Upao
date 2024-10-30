@@ -9,11 +9,8 @@ import {authInterceptor} from './app/Core/Interceptor/auth.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    // Proveedor de rutas, que incluye las rutas definidas en app.routes.ts
     provideRouter(routes),
-    // Cliente HTTP con los interceptores
     provideHttpClient(withInterceptors([authInterceptor, tokenInterceptor])),
-    // Servicio de Angular Material para Snackbar
     MatSnackBar
   ]
 }).catch((err) => console.error(err));
