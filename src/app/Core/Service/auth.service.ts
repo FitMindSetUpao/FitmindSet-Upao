@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../../environment';
 
@@ -23,5 +23,12 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('authToken');
     this.router.navigate(['/login']);
+  }
+
+  resetPassword(newPassword: string): Observable<any> {
+    const url = `${this.apiUrl}/password-reset`;
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    return this.http.post(url, newPassword, { headers: headers });
   }
 }

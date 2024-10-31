@@ -34,7 +34,7 @@ export class PasswordRecoveryRequestComponent {
       this.authService.sendRecoveryEmail(this.emailControl.value!).subscribe({
         next: () => {
           this.snackBar.open('Correo de recuperación enviado', 'Cerrar', { duration: 3000 });
-          this.router.navigate(['/password-recovery-confirmation']);
+          this.router.navigate(['/password-confirmation']);
         },
         error: (err) => {
           console.error('Error al enviar el correo:', err);
