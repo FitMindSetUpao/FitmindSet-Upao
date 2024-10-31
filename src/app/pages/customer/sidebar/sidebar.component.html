@@ -1,0 +1,38 @@
+<div class="layout-dashboard">
+    <button class="sidebar-toggle-btn" [class.active]="isSidebarActive" (click)="toggleSidebar()">
+      <mat-icon *ngIf="!isSidebarActive">menu</mat-icon>
+      <mat-icon *ngIf="isSidebarActive">close</mat-icon>
+    </button>
+  
+    <div class="layout-sidebar" [class.collapsed]="isSidebarActive">
+      <nav>
+        <ul>
+          <li>
+            <a routerLink="/perfil" routerLinkActive="active">
+              <mat-icon>account_circle</mat-icon>
+              <span class="nav-label" *ngIf="!isSidebarActive">Perfil</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="toggleHabitosSubmenu()">
+              <mat-icon>fitness_center</mat-icon>
+              <span class="nav-label" *ngIf="!isSidebarActive">Metas de Salud</span>
+            </a>
+            <ul *ngIf="isHabitosSubmenuActive">
+              <li>
+                <a routerLink="/crear-habito" routerLinkActive="active">Crear Hábito</a>
+              </li>
+              <li>
+                <a routerLink="/mis-habitos" routerLinkActive="active">Mis Hábitos</a>
+              </li>
+              <li>
+                <a routerLink="/mis-metas" routerLinkActive="active">Mis Metas por Hábito</a>
+              </li>
+            </ul>
+          </li>
+          <!-- Resto de opciones... -->
+        </ul>
+      </nav>
+    </div>
+  </div>
+  

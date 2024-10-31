@@ -8,7 +8,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalPesoAlturaComponent } from '../../modal-peso-altura/modal-peso-altura.component'; 
+import { ModalPesoAlturaComponent } from '../modal-peso-altura/modal-peso-altura.component'; 
 
 @Component({
   selector: 'app-customer-layout',
@@ -55,7 +55,8 @@ export class CustomerLayoutComponent implements OnInit {
 
   modalPeso_Altura(): void {
     this.dialog.open(ModalPesoAlturaComponent, {
-      width: '400px' // Puedes ajustar el tamaño del modal aquí
+      width: '900px',
+      height:'600px' // Puedes ajustar el tamaño del modal aquí
     });
   }
 }
