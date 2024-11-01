@@ -7,6 +7,7 @@ import {NgIf} from '@angular/common';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthService} from '../../Core/Service/auth.service';
+import {NavbarComponent} from '../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-password-reset',
@@ -17,7 +18,8 @@ import {AuthService} from '../../Core/Service/auth.service';
     MatButtonModule,
     ReactiveFormsModule,
     FormsModule,
-    NgIf
+    NgIf,
+    NavbarComponent
   ],
   templateUrl: './password-reset.component.html',
   styleUrl: './password-reset.component.scss'

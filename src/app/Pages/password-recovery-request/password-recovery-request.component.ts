@@ -7,6 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
 import {AuthService} from '../../Core/Service/auth.service';
 import {NgIf} from '@angular/common';
+import { NavbarComponent} from '../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-password-recovery-request',
@@ -18,6 +19,7 @@ import {NgIf} from '@angular/common';
     MatButtonModule,
     NgIf,
     FormsModule,
+    NavbarComponent
   ],
   templateUrl: './password-recovery-request.component.html',
   styleUrl: './password-recovery-request.component.scss'

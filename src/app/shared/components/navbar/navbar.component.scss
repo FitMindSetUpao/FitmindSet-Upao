@@ -1,0 +1,37 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem; /* Padding vertical */
+  background-color: #5cb859;
+  color: white;
+  font-size: 1.25rem; /* Tamaño de la fuente general */
+
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.75rem; /* Tamaño del texto del logo */
+    font-weight: bold;
+    color: #fbfbfb;
+    text-decoration: none;
+
+    mat-icon {
+      font-size: 1.75rem; /* Tamaño del ícono para alinearlo con el texto */
+      margin-right: 0.5rem; /* Espacio entre el ícono y el texto */
+      color: #f6f6f6;
+    }
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .mat-button {
+    &.navbar-brand {
+      color: white;
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-transform: none;
+    }
+  }
+}
