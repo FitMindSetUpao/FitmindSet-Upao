@@ -1,0 +1,74 @@
+<div class="content">
+  <mat-card class="resource-card">
+    <mat-card-header>
+      <mat-card-title>Registrar Recurso</mat-card-title>
+      <mat-card-subtitle class="subtitle-spacing">Complete la información del recurso</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="resource-content">
+      <div class="form-and-image">
+        <!-- Formulario -->
+        <form [formGroup]="resourceForm" (ngSubmit)="onSubmit()" class="resource-form">
+          <!-- Nombre del Recurso -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Título del Recurso</mat-label>
+            <input matInput formControlName="nombreRecurso" type="text">
+            <mat-error *ngIf="resourceForm.get('nombreRecurso')?.invalid && resourceForm.get('nombreRecurso')?.touched">
+              El nombre del recurso es obligatorio y debe tener entre 3 y 100 caracteres.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Descripción del Recurso -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción del Recurso</mat-label>
+            <textarea matInput formControlName="descripcionRecurso"></textarea>
+            <mat-error *ngIf="resourceForm.get('descripcionRecurso')?.invalid && resourceForm.get('descripcionRecurso')?.touched">
+              La descripción debe tener entre 10 y 500 caracteres si es proporcionada.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Precio del Recurso -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Precio del Recurso</mat-label>
+            <input matInput formControlName="precioRecurso" type="number" min="0">
+            <mat-error *ngIf="resourceForm.get('precioRecurso')?.invalid && resourceForm.get('precioRecurso')?.touched">
+              El precio del recurso es obligatorio y debe ser positivo.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Tipo de Recurso -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Tipo de Recurso</mat-label>
+            <mat-select formControlName="tipoRecurso">
+              <mat-option value="" disabled>Seleccione un tipo</mat-option>
+              <mat-option *ngFor="let tipo of tiposDeRecurso" [value]="tipo">{{ tipo }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="resourceForm.get('tipoRecurso')?.invalid && resourceForm.get('tipoRecurso')?.touched">
+              El tipo de recurso es obligatorio.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Tipo de Hábitat ID -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Tipo de Hábitat ID</mat-label>
+            <input matInput formControlName="tipoDeHabitId" type="text">
+            <mat-error *ngIf="resourceForm.get('tipoDeHabitId')?.invalid && resourceForm.get('tipoDeHabitId')?.touched">
+              El ID de tipo de hábitat es obligatorio.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Botones de envío y cancelar -->
+          <div class="button-container">
+            <button mat-raised-button color="primary" type="submit" [disabled]="resourceForm.invalid">Registrar Recurso</button>
+            <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
+          </div>
+        </form>
+
+        <!-- Contenedor de la imagen -->
+        <div class="image-container">
+          <img src="https://i.ytimg.com/vi/E35YTQ_AUy8/maxresdefault.jpg" alt="Recurso">
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

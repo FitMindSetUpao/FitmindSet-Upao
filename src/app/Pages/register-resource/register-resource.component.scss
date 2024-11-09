@@ -1,0 +1,45 @@
+.resource-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.form-and-image {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.image-container {
+  width: 300px;
+  height: auto;
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.subtitle-spacing {
+  margin-bottom: 16px; /* Espacio debajo del subtítulo */
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-start; /* Cambiado a flex-start para alinear los botones a la izquierda */
+  gap: 10px; /* Espacio entre los botones */
+}
+
+.resource-card {
+  flex: 1;
+  margin-left: 20px; /* Separación del layout */
+  max-width: 800px;
+}
