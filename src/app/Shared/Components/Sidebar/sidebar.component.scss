@@ -1,0 +1,52 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  padding-top: 20px;
+  background-color: #4CAF50;
+  color: white !important;
+}
+
+.sidebar-header {
+  text-align: center;
+  padding-bottom: 15px;
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white !important;
+    margin: 0;
+  }
+}
+
+.mat-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 20px;
+}
+
+.mat-list-item {
+  display: flex;
+  align-items: center; // Alinea icono y texto verticalmente al centro
+  padding: 10px 0;
+  text-decoration: none;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .icono {
+    font-size: 24px;
+    margin-right: 20px; // Aumenta el espacio entre icono y texto
+    color: white !important;
+    position: relative;
+    top: 1px; // Ajusta la posición vertical del icono ligeramente
+  }
+
+  .texto {
+    color: white !important;
+    font-size: 1rem;
+  }
+}

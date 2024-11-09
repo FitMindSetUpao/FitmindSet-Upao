@@ -1,0 +1,38 @@
+<div class="perfil-container">
+  <h2>Mi Perfil</h2>
+
+  <div class="perfil-card mat-elevation-z3">
+    <!-- Header con imagen y botones de acciones -->
+    <div class="card-header">
+      <div class="profile-picture">
+        <img [src]="usuario.imagen || 'https://via.placeholder.com/150'" alt="Foto de perfil" />
+        <button mat-mini-button color="primary" (click)="cambiarImagen()">Cambiar Foto</button>
+      </div>
+      <div class="acciones">
+        <button mat-icon-button color="primary" (click)="editarPerfil()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="eliminarPerfil()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Información del usuario -->
+    <div class="card-content">
+      <h3>{{ usuario.nombre }}</h3>
+      <p><strong>Email:</strong> {{ usuario.email }}</p>
+      <p><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
+      <p><strong>Dirección:</strong> {{ usuario.direccion }}</p>
+      <p><strong>Fecha de Registro:</strong> {{ usuario.fechaRegistro }}</p>
+    </div>
+  </div>
+
+  <!-- Tarjeta de actividad reciente o información adicional -->
+  <mat-card class="additional-info mat-elevation-z2">
+    <mat-card-title>Actividad Reciente</mat-card-title>
+    <mat-card-content>
+      <p>Aquí se muestra un resumen de tu actividad reciente.</p>
+    </mat-card-content>
+  </mat-card>
+</div>

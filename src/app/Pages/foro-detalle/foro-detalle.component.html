@@ -1,0 +1,22 @@
+<div class="foro-detalle-container">
+  <mat-card class="foro-detalle-card">
+    <mat-card-header>
+      <mat-card-title>{{ foroTitulo }}</mat-card-title>
+      <mat-card-subtitle>Creada el {{ fechaCreacion }}</mat-card-subtitle>
+      <div class="acciones">
+        <button mat-stroked-button color="primary" (click)="abrirModal()" class="crear-publicacion">+ Crear Publicación</button>
+        <button mat-stroked-button color="primary" class="unirse">Unirse</button>
+      </div>
+    </mat-card-header>
+  </mat-card>
+
+  <div class="publicaciones">
+    <mat-card *ngFor="let publicacion of publicaciones" class="publicacion-card">
+      <mat-card-title>{{ publicacion.titulo }}</mat-card-title>
+      <mat-card-content>
+        <p>{{ publicacion.contenido }}</p>
+        <p class="info-publicacion">Publicado por: {{ publicacion.autor }} | Fecha: {{ publicacion.fecha }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

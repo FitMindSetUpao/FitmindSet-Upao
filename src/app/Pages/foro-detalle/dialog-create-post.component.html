@@ -1,0 +1,11 @@
+<div class="modal-content">
+  <h3>Nueva Respuesta</h3>
+  <form (ngSubmit)="enviarPublicacion()">
+    <input [(ngModel)]="titulo" name="titulo" placeholder="Escribe el título aquí" required class="form-control"/>
+    <textarea [(ngModel)]="contenido" name="contenido" placeholder="Escribe el contenido aquí" required class="form-control"></textarea>
+    <div class="modal-buttons">
+      <button mat-raised-button color="primary" type="submit" class="submit-button">Publicar</button>
+      <button mat-button color="warn" type="button" (click)="cancelar()" class="close-button">Cancelar</button>
+    </div>
+  </form>
+</div>

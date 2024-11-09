@@ -1,0 +1,26 @@
+<div class="foro-container">
+  <div class="header">
+    <h2>Foros de Hábitos Saludables</h2>
+  </div>
+  <div class="foro-list">
+    <mat-card class="foro-card" *ngFor="let foro of foros">
+      <mat-card-content>
+        <div class="foro-card-content">
+          <div class="foro-image">
+            <img src="https://via.placeholder.com/80" alt="imagen de ejemplo" />
+          </div>
+          <div class="foro-details">
+            <h3>{{ foro.titulo }}</h3>
+            <p>{{ foro.descripcion }}</p>
+            <p><strong>Categoría:</strong> {{ foro.categoria }}</p>
+            <p><strong>Autor:</strong> {{ foro.autor }}</p>
+            <p><strong>Fecha:</strong> {{ foro.fecha }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" class="details-button" [routerLink]="['/foro-detalle']">Ver detalles</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
