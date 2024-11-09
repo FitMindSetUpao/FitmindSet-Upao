@@ -8,6 +8,7 @@ import {NgForOf, NgIf} from '@angular/common';
 import {MatSelect} from '@angular/material/select';
 import {MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle} from '@angular/material/card';
 import { LayoutDashboardComponent} from '../../shared/components/layout-dashboard/layout-dashboard.component';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-register-resource',
@@ -28,7 +29,8 @@ import { LayoutDashboardComponent} from '../../shared/components/layout-dashboar
     MatCardHeader,
     MatCard,
     MatCardTitle,
-    LayoutDashboardComponent
+    LayoutDashboardComponent,
+    MatIcon
   ],
   templateUrl: './register-resource.component.html',
   styleUrl: './register-resource.component.scss'
@@ -59,6 +61,6 @@ export class RegisterResourceComponent {
   }
 
   onCancel() {
-    // Lógica para cancelar, por ejemplo, redirigir a otra página o limpiar el formulario
+    this.resourceForm.reset();
   }
 }

@@ -1,3 +1,23 @@
+.header-dark {
+  background-color: #e0e0e0; /* Color de fondo más oscuro */
+  padding: 10px;
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos se apilen verticalmente */
+  align-items: flex-start; /* Alinea los elementos al inicio */
+  border-radius: 4px 4px 0 0;
+}
+
+.header-icon {
+  font-size: 24px;
+  margin-right: auto;
+  color: black; /* Color del ícono, ajustable */
+  vertical-align: middle; /* Alinea el ícono verticalmente al centro */
+}
+
+.subtitle-spacing {
+  margin-bottom: 16px; /* Espacio debajo del subtítulo */
+}
+
 .resource-content {
   display: flex;
   justify-content: space-between;
@@ -28,13 +48,9 @@
   margin-bottom: 20px;
 }
 
-.subtitle-spacing {
-  margin-bottom: 16px; /* Espacio debajo del subtítulo */
-}
-
 .button-container {
   display: flex;
-  justify-content: flex-start; /* Cambiado a flex-start para alinear los botones a la izquierda */
+  justify-content: flex-start; /* Alinea los botones a la izquierda */
   gap: 10px; /* Espacio entre los botones */
 }
 
@@ -42,4 +58,26 @@
   flex: 1;
   margin-left: 20px; /* Separación del layout */
   max-width: 800px;
+}
+
+
+mat-card-title, mat-card-subtitle {
+  display: inline;
+  margin: 0;
+}
+
+.green-button {
+  background-color: #faf6f6;
+  color: #32a837 !important;
+
+
+  &:disabled {
+    background-color: #ffffff;
+    color: #32a837;
+    opacity: 1;
+  }
+}
+
+.green-button:hover:not(:disabled) {
+  background-color: #c4fab9;
 }

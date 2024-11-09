@@ -1,10 +1,13 @@
 <div class="content">
   <mat-card class="resource-card">
-    <mat-card-header>
-      <mat-card-title>Registrar Recurso</mat-card-title>
-      <mat-card-subtitle class="subtitle-spacing">Complete la información del recurso</mat-card-subtitle>
+    <mat-card-header class="header-dark">
+      <mat-card-title>
+        <mat-icon class="header-icon">edit_square</mat-icon>
+        Registrar Recurso
+      </mat-card-title>
     </mat-card-header>
 
+    <p></p>
     <mat-card-content class="resource-content">
       <div class="form-and-image">
         <!-- Formulario -->
@@ -59,7 +62,7 @@
 
           <!-- Botones de envío y cancelar -->
           <div class="button-container">
-            <button mat-raised-button color="primary" type="submit" [disabled]="resourceForm.invalid">Registrar Recurso</button>
+            <button mat-raised-button class="green-button" type="submit" [disabled]="resourceForm.invalid">Registrar Recurso</button>
             <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
           </div>
         </form>
