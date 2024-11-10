@@ -8,58 +8,73 @@
     <mat-icon *ngIf="isSidebarActive">close</mat-icon>
   </button>
 
+
+
   <!-- Sidebar con opciones específicas -->
   <div class="layout-sidebar" [class.collapsed]="isSidebarActive">
+
     <nav>
+      <h3 class="sidebar-title">Gestión de Recursos</h3>
       <ul>
         <li>
-          <a routerLink="/perfil" routerLinkActive="active">
-            <mat-icon>account_circle</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Perfil</span>
+          <a routerLink="/register-resource" routerLinkActive="active">
+            <mat-icon>add_circle</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Registrar recurso</span>
           </a>
         </li>
+
         <li>
-          <a routerLink="/metas-salud" routerLinkActive="active">
-            <mat-icon>fitness_center</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Metas de Salud</span>
+          <a routerLink="/" routerLinkActive="active">
+            <mat-icon>update</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Actualizar Recurso</span>
           </a>
         </li>
+
         <li>
-          <a routerLink="/notificaciones" routerLinkActive="active">
-            <mat-icon>notifications</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Notificaciones</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="habitos" routerLinkActive="active">
-            <mat-icon>fitness_center</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Mis Habitos</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/reportes" routerLinkActive="active">
+          <a routerLink="/" routerLinkActive="active">
             <mat-icon>bar_chart</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Reportes</span>
+            <span class="nav-label" *ngIf="!isSidebarActive">Reporte de Recurso</span>
           </a>
         </li>
+
+        <p></p>
+
+        <div class="divider"></div>
+
+        <h3 class="sidebar-title">Foros</h3>
         <li>
-          <a routerLink="/graficos" routerLinkActive="active">
-            <mat-icon>pie_chart</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Gráficos</span>
+          <a routerLink="/" routerLinkActive="active">
+            <mat-icon>forum</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Crear Foro</span>
           </a>
         </li>
+
         <li>
-          <a routerLink="/pagos-suscripciones" routerLinkActive="active">
-            <mat-icon>credit_card</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Pagos y Suscripciones</span>
+          <a routerLink="/" routerLinkActive="active">
+            <mat-icon>comment</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Comentarios Foro</span>
           </a>
         </li>
+
+        <p></p>
+
+        <div class="divider"></div>
+
+        <h3 class="sidebar-title">Otras Opciones</h3>
         <li>
-          <a href="#" (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Cerrar Sesión</span>
+          <a routerLink="/" routerLinkActive="active">
+            <mat-icon>settings</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Configuraciones</span>
           </a>
         </li>
+
+        <li>
+          <a routerLink="/perfil" routerLinkActive="active">
+            <mat-icon>arrow_back</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Regresar al perfil</span>
+          </a>
+        </li>
+
       </ul>
     </nav>
   </div>

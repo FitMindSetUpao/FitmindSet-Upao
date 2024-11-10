@@ -8,7 +8,7 @@ import {NgForOf, NgIf} from '@angular/common';
 import {MatSelect} from '@angular/material/select';
 import {MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle} from '@angular/material/card';
 import { LayoutDashboardComponent} from '../../shared/components/layout-dashboard/layout-dashboard.component';
-import {MatIcon} from '@angular/material/icon';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-register-resource',
@@ -37,7 +37,9 @@ import {MatIcon} from '@angular/material/icon';
 })
 export class RegisterResourceComponent {
   resourceForm: FormGroup;
-  tiposDeRecurso: string[] = ['Digital', 'Físico'];
+  tiposDeRecurso: string[] = ['Digital', 'Físico', 'Mixto'];
+  tipoDeHabitId: string[] = ['Ejercicio Regular', 'Alimentación Saludable','Medicación Diaria','Hidratación Adecuada','Sueño Reparador','Mindfulness','Reducción de Estrés','Socialización','Desarrollo Personal','Consumo Moderado de Alcohol']
+  selectedFile: File | null = null;
 
   constructor(private fb: FormBuilder) {
     this.resourceForm = this.fb.group({
@@ -49,18 +51,28 @@ export class RegisterResourceComponent {
     });
   }
 
-  OnInit(): void {}
-
   onSubmit(): void {
     if (this.resourceForm.valid) {
       console.log("Recurso registrado:", this.resourceForm.value);
-      // Aquí puedes añadir la lógica para enviar el formulario a un servicio
+      if (this.selectedFile){
+        console.log("Archivo seleccionado:", this.selectedFile);
+      }
+      // Aquí puedes añadir la lógica para enviar el formulario y el archivo a un servicio
     } else {
       console.error("Formulario inválido");
     }
   }
 
+  onFileSelected(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0){
+      this.selectedFile = fileInput.files[0];
+      console.log("Archivo seleccionado:", this.selectedFile);
+    }
+  }
+
   onCancel() {
     this.resourceForm.reset();
+    this.selectedFile = null;
   }
 }

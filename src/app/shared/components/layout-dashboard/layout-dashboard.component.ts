@@ -1,10 +1,13 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {MatIcon} from '@angular/material/icon';
-import {NgIf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {AuthService} from '../../../Core/Service/auth.service';
 import {MatDialog} from '@angular/material/dialog';
 import { PhysicalComponent} from '../../../Pages/physical/physical.component';
+import {MatGridList, MatGridTile} from '@angular/material/grid-list';
+import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-layout-dashboard',
@@ -13,7 +16,16 @@ import { PhysicalComponent} from '../../../Pages/physical/physical.component';
     MatIcon,
     NgIf,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    MatGridList,
+    MatGridTile,
+    MatCard,
+    MatCardContent,
+    MatCardActions,
+    MatCardHeader,
+    NgForOf,
+    MatButton,
+    MatCardTitle
   ],
   templateUrl: './layout-dashboard.component.html',
   styleUrl: './layout-dashboard.component.scss'

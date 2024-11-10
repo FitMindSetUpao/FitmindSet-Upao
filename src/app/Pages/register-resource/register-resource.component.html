@@ -1,4 +1,5 @@
 <div class="content">
+  <app-layout-dashboard></app-layout-dashboard>
   <mat-card class="resource-card">
     <mat-card-header class="header-dark">
       <mat-card-title>
@@ -12,7 +13,7 @@
       <div class="form-and-image">
         <!-- Formulario -->
         <form [formGroup]="resourceForm" (ngSubmit)="onSubmit()" class="resource-form">
-          <!-- Nombre del Recurso -->
+          <!-- Título del Recurso -->
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Título del Recurso</mat-label>
             <input matInput formControlName="nombreRecurso" type="text">
@@ -54,9 +55,12 @@
           <!-- Tipo de Hábitat ID -->
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Tipo de Hábitat ID</mat-label>
-            <input matInput formControlName="tipoDeHabitId" type="text">
+            <mat-select formControlName="tipoDeHabitId">
+              <mat-option value="" disabled>Seleccione un hábito</mat-option>
+              <mat-option *ngFor="let tipo of tipoDeHabitId" [value]="tipo">{{ tipo }}</mat-option>
+            </mat-select>
             <mat-error *ngIf="resourceForm.get('tipoDeHabitId')?.invalid && resourceForm.get('tipoDeHabitId')?.touched">
-              El ID de tipo de hábitat es obligatorio.
+              El tipo de hábitat es obligatorio.
             </mat-error>
           </mat-form-field>
 
