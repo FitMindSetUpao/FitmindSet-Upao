@@ -4,5 +4,7 @@ export interface UsuarioDTO {
   email: string;
   telefono: string;
   direccion: string;
-  fechaRegistro: Date;
+  fechaRegistro: string;
+  imagen?: string; // La imagen es opcional
+  activo: boolean;
 }
