@@ -1,0 +1,43 @@
+.dashboard-container {
+  padding: 20px;
+  text-align: center;
+
+  h2 {
+    font-size: 2rem;
+    color: #4caf50;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .dashboard-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    /* Asegura que el icono esté centrado y con el tamaño correcto */
+    .dashboard-icon {
+      font-size: 30px;
+      color: #4caf50;
+      margin-bottom: 10px;
+      display: flex;       /* Para centrar el contenido dentro del icono */
+      align-items: center; /* Centrar verticalmente */
+      justify-content: center; /* Centrar horizontalmente */
+      width: 100%;         /* Asegura que ocupe todo el ancho de la tarjeta */
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+    }
+  }
+}

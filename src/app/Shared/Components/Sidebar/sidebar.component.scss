@@ -11,11 +11,16 @@
   text-align: center;
   padding-bottom: 15px;
 
-  h2 {
+  a {
     font-size: 1.5rem;
     font-weight: bold;
     color: white !important;
-    margin: 0;
+    text-decoration: none;  // Elimina la subrayado
+    cursor: pointer;
+
+    &:hover {
+      color: #eeeeee;  // Opcional: un color diferente para el hover
+    }
   }
 }
 
@@ -28,7 +33,7 @@
 
 .mat-list-item {
   display: flex;
-  align-items: center; // Alinea icono y texto verticalmente al centro
+  align-items: center;
   padding: 10px 0;
   text-decoration: none;
   transition: background-color 0.3s;
@@ -39,10 +44,10 @@
 
   .icono {
     font-size: 24px;
-    margin-right: 20px; // Aumenta el espacio entre icono y texto
+    margin-right: 20px;
     color: white !important;
     position: relative;
-    top: 1px; // Ajusta la posición vertical del icono ligeramente
+    top: 1px;
   }
 
   .texto {
