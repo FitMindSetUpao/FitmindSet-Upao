@@ -39,7 +39,7 @@ export class DashboardService {
       descripcion: 'Accede a la lista completa de recursos disponibles. Aquí podrás consultar toda la información que necesitas.',
       icono: 'visibility',
       botonTexto: 'Ver Recursos',
-      ruta: '/ver-recursos'
+      ruta: '/recursos'
     }
   ];
 

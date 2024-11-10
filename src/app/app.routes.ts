@@ -4,6 +4,8 @@ import { foroRoutes } from './Pages/foro/foro.routes';
 import { foroDetalleRoutes } from './Pages/foro-detalle/foro-detalle.routes';
 import { perfilRoutes } from './Pages/perfil/perfil.routes';
 import { DashboardComponent } from './Pages/dashboard/dashboard.component';
+import { VerRecursosComponent } from './Pages/ver-recursos/ver-recursos.component';
+
 
 export const routes: Routes = [
   {
@@ -12,6 +14,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'recursos', component: VerRecursosComponent },
       { path: 'foro', children: foroRoutes },
       { path: 'foro-detalle', children: foroDetalleRoutes },
       { path: 'perfil', children: perfilRoutes }

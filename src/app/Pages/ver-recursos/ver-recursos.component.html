@@ -1,0 +1,19 @@
+<div class="ver-recursos-container">
+  <h2>Mis Recursos</h2>
+  <div class="recursos-grid">
+    <mat-card *ngFor="let recurso of recursos" class="recurso-card">
+      <img mat-card-image *ngIf="recurso.imagen" [src]="recurso.imagen" alt="{{ recurso.titulo }}" />
+      <mat-card-title>{{ recurso.titulo }}</mat-card-title>
+      <mat-card-content>
+        <p>{{ recurso.descripcion }}</p>
+        <p><strong>Tipo:</strong> {{ recurso.tipo }}</p>
+        <p><strong>Autor:</strong> {{ recurso.autor }}</p>
+        <p><strong>Fecha:</strong> {{ recurso.fechaCreacion }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary">Ver Detalles</button>
+        <button mat-button color="warn">Eliminar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
