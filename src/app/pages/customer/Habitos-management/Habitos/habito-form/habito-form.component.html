@@ -18,17 +18,20 @@
                 class="mt-5"
                 autocomplete="off"
                 >
-                <mat-spinner *ngIf="loading" diameter="50"></mat-spinner> <!-- Indicador de carga -->
+                
 
 <mat-form-field class="form-field w-100" appearance="outline">
   <mat-label>Tipo de Hábito</mat-label>
   <mat-select formControlName="tipoDeHabitoId">
-    <mat-option *ngFor="let tipoDeHabito of tipoDeHabitos" [value]="tipoDeHabito.id">
-      {{ tipoDeHabito.nombre }}
+   @for(tipoDeHabito of tipoDeHabitos; track tipoDeHabito.id) {
+    <mat-option [value]="tipoDeHabito.id">  {{ tipoDeHabito.nombre }}
     </mat-option>
+   }
+    
   </mat-select>
-  <mat-error *ngIf="form.get('tipoDeHabitoId')?.hasError('required')">
-    El tipo de hábito es obligatorio
+  <mat-error>
+    @if(form.get('tipoDeHabitoId')?.hasError('required')){
+    El tipo de hábito es obligatorio}
   </mat-error>
 </mat-form-field>
                 <mat-form-field class="form-field w-100" appearance="outline">

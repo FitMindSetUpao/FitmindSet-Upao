@@ -9,7 +9,7 @@ export const customerRoutes: Routes = [
     path: '',
     component: CustomerLayoutComponent,
     children: [
-    
+    {path: 'habitos', component: CustomerLayoutComponent}
     ]
   },
   {
