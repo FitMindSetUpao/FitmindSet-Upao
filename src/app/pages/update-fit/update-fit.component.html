@@ -25,9 +25,12 @@
     <!-- Lista para mostrar el historial de registros -->
     <ul class="metrics-list">
       <li *ngFor="let entry of metricEntries">
-        <div class="entry-header">Registro de usuario</div>
-        <div class="entry-date">Registrado el {{ entry.date }}</div>
-        <div class="entry-metrics">Peso: {{ entry.weight }} kg | Altura: {{ entry.height }} cm</div>
+        <div class="entry-header">Modificación de datos</div>
+        <div class="entry-date">Actualizado el {{ entry.date }}</div>
+        <div class="entry-metrics">
+            <p>Peso: {{ entry.weight }} kg</p> 
+            <p>Altura: {{ entry.height }} cm</p>
+        </div>
       </li>
     </ul>
   </div>

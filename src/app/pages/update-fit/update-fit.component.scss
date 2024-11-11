@@ -13,22 +13,22 @@
 h2 {
     text-align: center;
     font-size: 2.2rem;
-    color: #34495e;
+    color: #2e7d32; // Verde oscuro para el título principal
     margin-bottom: 25px;
     font-weight: 700;
     letter-spacing: 1px;
 }
 
 .original-metrics {
-    background-color: #f0f4f8;
-    border: 1px solid #d0e4f2;
+    background-color: #e8f5e9; // Verde claro para el fondo
+    border: 1px solid #a5d6a7; // Borde verde claro
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 25px;
     text-align: center;
 
     h3 {
-        color: #34495e;
+        color: #2e7d32; // Verde oscuro para el subtítulo
         font-weight: 700;
         margin-bottom: 12px;
     }
@@ -58,18 +58,18 @@ h2 {
     input {
         width: 100%;
         padding: 12px;
-        border: 1px solid #d6eaf8;
+        border: 1px solid #a5d6a7; // Borde verde claro
         border-radius: 8px;
         font-size: 1rem;
-        background-color: #f7fbfe;
+        background-color: #f1f8e9; // Verde suave de fondo en el input
         color: #34495e;
         transition: border-color 0.3s, background-color 0.3s;
 
         &:focus {
-            border-color: #3498db;
+            border-color: #2e7d32; // Verde oscuro al enfocarse
             background-color: #ffffff;
             outline: none;
-            box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.2); // Sombra verde suave
         }
     }
 
@@ -87,18 +87,18 @@ h2 {
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 4px 8px rgba(46, 125, 50, 0.2); // Sombra verde para el botón
 
-            background-color: #3498db;
+            background-color: #66bb6a; // Verde principal en el botón
             color: #fff;
 
             &:hover {
-                background-color: #2980b9;
+                background-color: #43a047; // Verde oscuro al hacer hover
                 transform: scale(1.05);
             }
 
             &:active {
-                background-color: #1e6a92;
+                background-color: #2e7d32; // Verde aún más oscuro al hacer clic
                 transform: scale(1);
             }
         }
@@ -111,7 +111,7 @@ h2 {
 
     li {
         background-color: #ffffff;
-        border: 1px solid #d0e4f2;
+        border: 1px solid #c8e6c9; // Borde verde claro
         border-radius: 8px;
         margin-bottom: 15px;
         padding: 20px;
@@ -123,7 +123,7 @@ h2 {
         .entry-header {
             font-weight: 700;
             font-size: 1.2rem;
-            color: #2c3e50;
+            color: #2e7d32; // Verde oscuro para los encabezados
             margin-bottom: 8px;
         }
 
