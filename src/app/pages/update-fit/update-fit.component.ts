@@ -1,9 +1,11 @@
+// update-fit.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
-import { UpdateFitService } from '../../core/services/update-fit.service';
+import { MetricsStorageService } from '../../core/services/metrics-storage.service';
+import { BaseMetricsService } from '../../core/services/base-metrics.service';
 
 @Component({
   selector: 'app-update-fit',
@@ -19,7 +21,10 @@ export class UpdateFitComponent implements OnInit {
   originalHeight: number | null = null;
   metricEntries: { weight: number; height: number; date: string }[] = [];
 
-  constructor(private updateFitService: UpdateFitService) {}
+  constructor(
+    private metricsStorageService: MetricsStorageService,
+    private baseMetricsService: BaseMetricsService
+  ) {}
 
   ngOnInit() {
     this.loadMetrics();
@@ -34,28 +39,31 @@ export class UpdateFitComponent implements OnInit {
         date: new Date().toLocaleDateString()
       };
       this.metricEntries.push(newEntry);
-      this.updateFitService.saveMetrics(this.metricEntries);
+      this.metricsStorageService.saveMetrics(this.metricEntries);
 
-      // Actualizar el peso y la altura base y reflejar los cambios en el recuadro
-      this.updateFitService.saveBaseMetrics(this.weight, this.height);
+      // Guardar la base actualizada y mostrar en el recuadro de datos originales
+      this.baseMetricsService.saveBaseMetrics(this.weight, this.height);
       this.originalWeight = this.weight;
       this.originalHeight = this.height;
 
-      // Limpiar los campos del formulario
       this.weight = null;
       this.height = null;
     }
   }
 
   loadMetrics() {
-    this.metricEntries = this.updateFitService.getMetrics();
+    this.metricEntries = this.metricsStorageService.getMetrics();
   }
 
   loadBaseMetrics() {
-    const baseMetrics = this.updateFitService.getBaseMetrics();
+    const baseMetrics = this.baseMetricsService.getBaseMetrics();
     this.originalWeight = baseMetrics.weight;
     this.originalHeight = baseMetrics.height;
     this.weight = baseMetrics.weight;
     this.height = baseMetrics.height;
+  }
+
+  hasUnsavedChanges(): boolean {
+    return !!this.weight || !!this.height;
   }
 }
