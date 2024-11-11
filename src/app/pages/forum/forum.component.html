@@ -1,0 +1,29 @@
+<app-navbar/>
+<div class="forum-container">
+    <h2>Comentarios del Foro</h2>
+   
+    <div class="comment-section">
+      <textarea
+        [(ngModel)]="newComment"
+        placeholder="Escribe un comentario..."
+        rows="4"
+      ></textarea>
+  
+  
+      <!-- Contenedor para los botones -->
+      <div class="button-container">
+        <button (click)="addComment()">Agregar Comentario</button>
+      </div>
+    </div>
+  
+  
+    <ul class="comment-list">
+      <li *ngFor="let comment of comments">
+        <div class="comment-header">Comentario de usuario</div>
+        <div class="comment-date">Publicado el {{ currentDate }}</div>
+        <div class="comment-text">{{ comment }}</div>
+        <button class="details-button">Ver Perfil</button>
+      </li>
+    </ul>
+  </div>
+<app-footer/>
