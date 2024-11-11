@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
@@ -45,8 +45,9 @@ export class RegisterResourceComponent {
     'Reducción de Estrés', 'Socialización', 'Desarrollo Personal',
     'Consumo Moderado de Alcohol'
   ];
-  selectedFile: File | null = null;
   mensajeConfirmacion: string | null = null;
+  selectedFile: File | null = null;
+  fileUploaded: boolean = false;
 
   constructor(private fb: FormBuilder, private resourceService: ResourceService) {
     this.resourceForm = this.fb.group({
@@ -58,9 +59,28 @@ export class RegisterResourceComponent {
     });
   }
 
+  onFileSelected(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      this.selectedFile = fileInput.files[0];
+      this.fileUploaded = true;
+      console.log("Archivo seleccionado:", this.selectedFile);
+    }
+  }
+
   onSubmit(): void {
     if (this.resourceForm.valid) {
-      this.resourceService.registrarRecurso(this.resourceForm.value).subscribe({
+      const formData = new FormData();
+      formData.append('nombreRecurso', this.resourceForm.get('nombreRecurso')?.value);
+      formData.append('descripcionRecurso', this.resourceForm.get('descripcionRecurso')?.value);
+      formData.append('precioRecurso', this.resourceForm.get('precioRecurso')?.value);
+      formData.append('tipoRecurso', this.resourceForm.get('tipoRecurso')?.value);
+      formData.append('tipoDeHabitId', this.resourceForm.get('tipoDeHabitId')?.value);
+      if (this.selectedFile) {
+        formData.append('file', this.selectedFile);
+      }
+
+      this.resourceService.registrarRecurso(formData).subscribe({
         next: (response) => {
           this.mensajeConfirmacion = 'Recurso registrado con éxito';
           console.log("Recurso registrado:", response);
@@ -74,9 +94,11 @@ export class RegisterResourceComponent {
     }
   }
 
-  onCancel() {
+  onCancel(): void {
     this.resourceForm.reset();
     this.selectedFile = null;
+    this.fileUploaded = false;
     this.mensajeConfirmacion = null;
+
   }
 }

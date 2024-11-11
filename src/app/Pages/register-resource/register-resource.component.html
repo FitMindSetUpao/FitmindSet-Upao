@@ -1,5 +1,5 @@
 <div class="content">
-  <app-layout-dashboard></app-layout-dashboard>
+  <app-layout-dashboard>
   <mat-card class="resource-card">
     <mat-card-header class="header-dark">
       <mat-card-title>
@@ -53,9 +53,9 @@
             </mat-error>
           </mat-form-field>
 
-          <!-- Tipo de Hábitat ID -->
+          <!-- Tipo de Hábito ID -->
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Tipo de Hábitat ID</mat-label>
+            <mat-label>Tipo de Hábito</mat-label>
             <mat-select formControlName="tipoDeHabitId">
               <mat-option value="" disabled>Seleccione un hábito</mat-option>
               <mat-option *ngFor="let tipo of tipoDeHabitId" [value]="tipo">{{ tipo }}</mat-option>
@@ -65,9 +65,20 @@
             </mat-error>
           </mat-form-field>
 
+          <div class="full-width">
+            <label for="fileInput">Subir Nueva Imagen o Archivo</label>
+            <input
+              type="file"
+              id="fileInput"
+              (change)="onFileSelected($event)"
+              accept=".jpg,.png,.pdf"
+              class="custom-file-input"
+            />
+          </div>
+
           <!-- Botones de envío y cancelar -->
           <div class="button-container">
-            <button mat-raised-button class="green-button" type="submit" [disabled]="resourceForm.invalid">Registrar Recurso</button>
+            <button mat-raised-button class="green-button" type="submit" [disabled]="resourceForm.invalid || !fileUploaded">Registrar Recurso</button>
             <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
           </div>
         </form>
@@ -79,4 +90,5 @@
       </div>
     </mat-card-content>
   </mat-card>
+  </app-layout-dashboard>
 </div>
