@@ -15,12 +15,15 @@ import { UpdateFitService } from '../../core/services/update-fit.service';
 export class UpdateFitComponent implements OnInit {
   weight: number | null = null;
   height: number | null = null;
+  originalWeight: number | null = null;
+  originalHeight: number | null = null;
   metricEntries: { weight: number; height: number; date: string }[] = [];
 
   constructor(private updateFitService: UpdateFitService) {}
 
   ngOnInit() {
     this.loadMetrics();
+    this.loadBaseMetrics();
   }
 
   updateMetrics() {
@@ -32,6 +35,13 @@ export class UpdateFitComponent implements OnInit {
       };
       this.metricEntries.push(newEntry);
       this.updateFitService.saveMetrics(this.metricEntries);
+
+      // Actualizar el peso y la altura base y reflejar los cambios en el recuadro
+      this.updateFitService.saveBaseMetrics(this.weight, this.height);
+      this.originalWeight = this.weight;
+      this.originalHeight = this.height;
+
+      // Limpiar los campos del formulario
       this.weight = null;
       this.height = null;
     }
@@ -39,5 +49,13 @@ export class UpdateFitComponent implements OnInit {
 
   loadMetrics() {
     this.metricEntries = this.updateFitService.getMetrics();
+  }
+
+  loadBaseMetrics() {
+    const baseMetrics = this.updateFitService.getBaseMetrics();
+    this.originalWeight = baseMetrics.weight;
+    this.originalHeight = baseMetrics.height;
+    this.weight = baseMetrics.weight;
+    this.height = baseMetrics.height;
   }
 }
