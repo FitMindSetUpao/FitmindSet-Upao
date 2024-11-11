@@ -18,6 +18,6 @@ export class SidebarComponent {
   }
 
   logout() {
-    // Implementar lógica de cierre de sesión
+
   }
 }

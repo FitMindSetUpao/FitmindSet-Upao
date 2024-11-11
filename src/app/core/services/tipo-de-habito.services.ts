@@ -3,16 +3,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TipoDeHabito } from '../../shared/models/tipo-de-habito.model';
-
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class TipoDeHabitoService {
-  private baseUrl = 'http://localhost:8080/api/v1/tipos-de-habito';
+  private baseUrl = `${environment.baseURL}/tipos-de-habito`;
 
   constructor(private http: HttpClient) {}
 
-  getTiposDeHabito(): Observable<TipoDeHabito[]> {
+  getAllTiposDeHabitos(): Observable<TipoDeHabito[]> {
     return this.http.get<TipoDeHabito[]>(this.baseUrl);
   }
+
 }

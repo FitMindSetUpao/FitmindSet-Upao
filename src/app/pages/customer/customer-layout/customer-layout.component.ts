@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
 import { MatIconModule } from '@angular/material/icon'; 
@@ -15,13 +14,11 @@ import { ModalPesoAlturaComponent } from '../modal-peso-altura/modal-peso-altura
   standalone: true,
   imports: [
     CommonModule,
-    NavbarComponent,
     FooterComponent,
-    RouterOutlet,
     RouterLink,
     MatIconModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
   ],
   templateUrl: './customer-layout.component.html',
   styleUrls: ['./customer-layout.component.scss']
@@ -59,4 +56,5 @@ export class CustomerLayoutComponent implements OnInit {
       height:'600px' // Puedes ajustar el tamaño del modal aquí
     });
   }
+  
 }

@@ -1,0 +1,72 @@
+<div class="book-form-container">
+    <h1>@if(habitoId){ Editar } @else { Nuevo } Recurso</h1>
+
+    @if(errors.length) {
+        <div class="alert alert-danger mt-5">
+            <ul>
+                @for (error of errors; track error ){
+                    <li>{{ error }}</li>
+                }
+            </ul>
+        </div>
+    } @if(form) {
+        <div class="row">
+            <div clas="col-md-8">
+                <form
+                [formGroup]="form"
+                (ngSubmit)="save()"
+                class="mt-5"
+                autocomplete="off"
+                >
+                <mat-spinner *ngIf="loading" diameter="50"></mat-spinner> <!-- Indicador de carga -->
+
+<mat-form-field class="form-field w-100" appearance="outline">
+  <mat-label>Tipo de Hábito</mat-label>
+  <mat-select formControlName="tipoDeHabitoId">
+    <mat-option *ngFor="let tipoDeHabito of tipoDeHabitos" [value]="tipoDeHabito.id">
+      {{ tipoDeHabito.nombre }}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="form.get('tipoDeHabitoId')?.hasError('required')">
+    El tipo de hábito es obligatorio
+  </mat-error>
+</mat-form-field>
+                <mat-form-field class="form-field w-100" appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <textarea
+                      matInput
+                      placeholder="Nombre"
+                      formControlName="nombre"
+                    ></textarea>
+                    <mat-error>
+                      @if(form.get('nombre')!.hasError('required')) { La descripción
+                      es obligatoria }
+                    </mat-error>
+                  </mat-form-field>
+                <mat-form-field class="form-field w-100" appearance="outline">
+                    <mat-label>Descripción</mat-label>
+                    <textarea
+                      matInput
+                      placeholder="Descripción"
+                      formControlName="descripcion"
+                    ></textarea>
+                    <mat-error>
+                      @if(form.get('descriction')!.hasError('required')) { La descripción
+                      es obligatoria }
+                    </mat-error>
+                  </mat-form-field>
+                  <div class="action-buttons text-end">
+                    <button mat-button type="button" routerLink="/customer/habitos/list">
+                      Cancelar
+                    </button>
+                    <button mat-raised-button color="primary" class="ms-2">
+                      @if(habitoId) { Actualizar } @else { Crear } Habito
+                    </button>
+                  </div>
+               
+
+            </form>
+            </div>
+        </div>
+    }
+</div>

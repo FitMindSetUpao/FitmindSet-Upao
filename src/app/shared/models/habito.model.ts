@@ -1,9 +1,5 @@
-import { Meta } from "./meta.model";
-
 export interface Habito{
-    id: number;
-    nombre: string;
+    tipoDeHabitoId?: number; 
+    nombreHabito: string;    
     descripcion: string;
-    categoria: string;
-    metas: Meta[];
 }

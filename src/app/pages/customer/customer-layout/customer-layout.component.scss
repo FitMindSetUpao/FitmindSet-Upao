@@ -224,3 +224,21 @@
   font-weight: 700;
   color: #388E3C;
 }
+@media (max-width: 500px) {
+  .register-container {
+    margin: 2rem;
+    padding: 1.5rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .form-control {
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      font-size: 0.9rem;
+    }
+  }
+}

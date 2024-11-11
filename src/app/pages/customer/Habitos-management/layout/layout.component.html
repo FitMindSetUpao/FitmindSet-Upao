@@ -1,0 +1,56 @@
+    <app-navbar></app-navbar>
+    <div class = "layout-dasboard">
+        <button
+        class="sidebar-toggle-btn"
+        [class.active]="isSidebarActive"
+        (click)="toggleSidebar()"
+        >
+        <span class="navbar-toggler-icon"
+        [ngClass]="{
+            'icon-white': !isSidebarActive,
+            'icon-black': isSidebarActive
+
+        }"
+     >
+    </span>
+        </button>
+
+        <div class="layout-sidebar" [class.collapsed]="isSidebarActive">
+            <nav>
+              <ul>
+                <li>
+                    <a routerLink="customer" routerLinkActive="active">
+                      <i class="fas fa-book"></i> Dashboard
+                    </a>
+                  </li>
+                <li>
+                  <a routerLink="/user/mi-perfil" routerLinkActive="active">
+                    <i class="fas fa-book"></i> Mi Perfil
+                  </a>
+                </li>
+        
+                <li>
+                  <a routerLink="list" routerLinkActive="active">
+                    <i class="fas fa-list-alt"></i> Mis Habitos
+                  </a>
+                </li>
+                <li>
+                    <a routerLink="/customer/metas/list" routerLinkActive="active">
+                      <i class="fas fa-list-alt"></i> Mis Metas
+                    </a>
+                  </li>
+                  <li>
+                    <a routerLink="/customer/actividad/list" routerLinkActive="active">
+                      <i class="fas fa-list-alt"></i> Mi Actividad
+                    </a>
+                  </li>
+        
+        
+              </ul>
+            </nav>
+          </div>
+          <div class="layout-content">
+            <router-outlet />
+          </div>
+    </div>
+    <app-footer />
