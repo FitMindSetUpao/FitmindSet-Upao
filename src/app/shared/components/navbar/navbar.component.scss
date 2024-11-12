@@ -1,17 +1,29 @@
-nav {
-  background-color: #343a40;
-  padding: 0.5rem;
-  ul {
-    list-style-type: none;
+.navbar {
+  background-color: #00a651;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+
+  .navbar-brand a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
+
+  .navbar-links {
+    list-style: none;
     display: flex;
     gap: 1rem;
-    li {
-      a {
-        color: #ffffff;
-        text-decoration: none;
-        &:hover {
-          text-decoration: underline;
-        }
+
+    li a {
+      color: white;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
       }
     }
   }
