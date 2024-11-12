@@ -1,0 +1,204 @@
+/* Estilos generales */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* Fondo blanco */
+}
+
+/* Contenedor del formulario de inicio de sesión */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+
+  /* Tarjeta de inicio de sesión */
+  .login-card {
+    width: 85%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(52, 189, 63, 0.1);
+
+    /* Imagen de login */
+    .login-image {
+      width: 45%;
+      background-color: #05ff0d; /* Color de fondo de la imagen */
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .image-overlay-text {
+        position: absolute;
+        color: #ffffff; /* Texto blanco */
+        text-align: center;
+        z-index: 1;
+
+        h2 {
+          font-size: 1.8rem;
+          margin-bottom: 5px;
+        }
+
+        p {
+          font-size: 1rem;
+          margin: 0;
+        }
+      }
+
+      /* Oscurecer imagen */
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+      }
+    }
+
+    /* Contenedor del formulario */
+    .login-form {
+      width: 55%;
+      padding: 40px 30px;
+      background-color: #ffffff; /* Fondo blanco para el formulario */
+
+      /* Encabezado del formulario */
+      h2 {
+        color: #4CAF50; /* Verde suave */
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2rem;
+      }
+
+      /* Campo de entrada */
+      .form-field {
+        width: 100%;
+        margin-bottom: 20px;
+
+        .custom-input {
+          border: 1px solid #525252; /* Borde gris claro */
+          border-radius: 20px;
+          padding: 10px;
+          width: 100%;
+          box-sizing: border-box;
+          margin-bottom: 15px;
+
+          &:focus {
+            outline: none;
+            border-color: #4CAF50; /* Verde suave al enfocar */
+            box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
+          }
+        }
+      }
+
+      /* Botón de envío */
+      .submit-button {
+        background-color: #4CAF50 !important; /* Verde suave */
+        color: #ffffff !important; /* Texto blanco */
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+        width: 100%;
+        font-weight: bold;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          background-color: #5ba873 !important; /* Verde más oscuro al pasar el mouse */
+        }
+      }
+    }
+  }
+
+  /* Enlace de registro */
+  p {
+    color: #7f8c8d; /* Gris */
+    text-align: center;
+
+    a {
+      color: #158467; /* Verde suave */
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* Footer Fijo */
+  app-footer {
+    background-color: #343a40; /* Color oscuro */
+    color: #ffffff; /* Texto blanco */
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+
+  /* Responsivo */
+  @media (max-width: 992px) {
+    .login-card {
+      flex-direction: column;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    .login-image {
+      width: 100%;
+      height: 200px;
+    }
+
+    .login-form {
+      width: 100%;
+      padding: 20px;
+    }
+
+    .g_id_signin {
+      width: 100%; /* Asegúrate de que el botón de Google ocupe todo el ancho */
+    }
+  }
+}
+
+.g_id_signin {
+  margin-top: 20px; /* Espacio superior para separarlo del botón de envío */
+  display: flex;
+  justify-content: center; /* Centrar el botón de Google */
+}
+
+/* Opcional: Estilo para el botón de Google si necesitas personalizarlo */
+.g_id_signin button {
+  background-color: #4285F4; /* Color de fondo de Google */
+  color: #ffffff; /* Color del texto */
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px; /* Espaciado */
+  font-size: 1rem; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  cursor: pointer; /* Cambiar el cursor al pasar el mouse */
+  transition: background-color 0.3s ease; /* Transición de color */
+}
+
+.g_id_signin button:hover {
+  background-color: #357ae8; /* Color al pasar el mouse */
+}
+.descripcion-login{
+  color:#ffffff !important;
+}
