@@ -1,0 +1,18 @@
+nav {
+  background-color: #343a40;
+  padding: 0.5rem;
+  ul {
+    list-style-type: none;
+    display: flex;
+    gap: 1rem;
+    li {
+      a {
+        color: #ffffff;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

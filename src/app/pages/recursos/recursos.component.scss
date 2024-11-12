@@ -1,0 +1,38 @@
+.resource-management {
+  h1 {
+    color: #00a651; // Título en verde
+  }
+
+  .filter-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+
+    input {
+      flex: 1;
+      padding: 5px;
+    }
+
+    button {
+      padding: 5px;
+      background-color: #e0e0e0;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 8px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+  }
+}
