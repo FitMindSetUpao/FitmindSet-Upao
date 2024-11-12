@@ -1,7 +1,20 @@
-<p>profile works!</p>
-<div class="user-profile">
-  <h2>User Profile</h2>
-  <p><strong>Name:</strong> John Doe</p>
-  <p><strong>Email:</strong> johndoe </p>
-  <!-- Display other user information as needed -->
+<div class="profile-update">
+  <h2>Actualizar Perfil</h2>
+  <form (ngSubmit)="onSubmit()">
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" [(ngModel)]="user.nombre" name="nombre" required />
+
+    <label for="apellido">Apellido:</label>
+    <input id="apellido" type="text" [(ngModel)]="user.apellido" name="apellido" required />
+
+    <label for="email">Email:</label>
+    <input id="email" type="email" [(ngModel)]="user.email" name="email" required />
+
+    <label for="telefono">Teléfono:</label>
+    <input id="telefono" type="text" [(ngModel)]="user.telefono" name="telefono" />
+
+    <!-- Añade más campos según sea necesario -->
+
+    <button type="submit">Guardar Cambios</button>
+  </form>
 </div>
