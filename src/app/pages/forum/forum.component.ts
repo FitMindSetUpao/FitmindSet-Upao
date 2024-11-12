@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { CommentService } from '../../core/services/comment.service';
+import { Comentario } from '../../shared/models/comentario.model';
 
 @Component({
   selector: 'app-forum',
@@ -13,26 +14,42 @@ import { CommentService } from '../../core/services/comment.service';
   styleUrls: ['./forum.component.scss']
 })
 export class ForumComponent implements OnInit {
-  comments: string[] = [];
+  comments: Comentario[] = [];
   newComment: string = '';
   currentDate = new Date().toLocaleDateString();
 
-  // Inyección del servicio
   constructor(private commentService: CommentService) {}
 
   ngOnInit() {
-    this.loadComments();
+    this.loadComments(1); // Reemplaza el "1" con el ID del grupo actual si está disponible
   }
 
   addComment() {
     if (this.newComment.trim()) {
-      this.comments.push(this.newComment);
-      this.commentService.saveComments(this.comments); // Guardar en Local Storage usando el servicio
-      this.newComment = '';
+      const newComment: Comentario = {
+        id: 0, // o null si el backend asigna el ID
+        contenido: this.newComment,
+        fechaPublicacion: new Date(),
+        grupoId: 1, // Reemplaza con el grupoId actual
+        customerId: 1, // Reemplaza con el customerId del usuario actual
+      };
+
+      this.commentService.crearComentario(newComment).subscribe({
+        next: (comentarioCreado) => {
+          this.comments.push(comentarioCreado);
+          this.newComment = '';
+        },
+        error: (err) => console.error('Error al crear comentario', err),
+      });
     }
   }
 
-  loadComments() {
-    this.comments = this.commentService.getComments(); // Cargar comentarios usando el servicio
+  loadComments(grupoId: number) {
+    this.commentService.obtenerComentariosPorGrupo(grupoId).subscribe({
+      next: (comentarios) => {
+        this.comments = comentarios;
+      },
+      error: (err) => console.error('Error al cargar comentarios', err),
+    });
   }
 }

@@ -1,17 +1,26 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Comentario } from '../../shared/models/comentario.model';
+import { environment } from '../../../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
-  private storageKey = 'comments';
+  private apiUrl = `${environment.baseURL}/comentarios`;
 
-  getComments(): string[] {
-    const savedComments = localStorage.getItem(this.storageKey);
-    return savedComments ? JSON.parse(savedComments) : [];
+  constructor(private http: HttpClient) {}
+
+  crearComentario(comentario: Comentario): Observable<Comentario> {
+    return this.http.post<Comentario>(`${this.apiUrl}/crear`, comentario);
   }
 
-  saveComments(comments: string[]): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(comments));
+  obtenerComentariosPorGrupo(grupoId: number): Observable<Comentario[]> {
+    return this.http.get<Comentario[]>(`${this.apiUrl}/grupo/${grupoId}`);
+  }
+
+  obtenerRespuestas(comentarioId: number): Observable<Comentario[]> {
+    return this.http.get<Comentario[]>(`${this.apiUrl}/respuesta/${comentarioId}`);
   }
 }

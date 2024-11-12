@@ -20,8 +20,8 @@
     <ul class="comment-list">
       <li *ngFor="let comment of comments">
         <div class="comment-header">Comentario de usuario</div>
-        <div class="comment-date">Publicado el {{ currentDate }}</div>
-        <div class="comment-text">{{ comment }}</div>
+        <div class="comment-date">Publicado el {{ comment.fechaPublicacion | date: 'short' }}</div>
+        <div class="comment-text">{{ comment.contenido }}</div>
         <button class="details-button">Ver Perfil</button>
       </li>
     </ul>
