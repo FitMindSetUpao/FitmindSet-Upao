@@ -1,11 +1,9 @@
-// src/app/notification-preferences/notification-preferences.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
-import { NotificationPreferencesService, Preference } from '../../core/services/notification-preferences.service';
-import { NotificationHttpService, NotificationPreferences } from '../../core/services/notification-http.service';
+import { NotificationPreferencesService, Preference } from '../../core/services/notification-preferences.component.service';
 
 @Component({
   selector: 'app-notification-preferences',
@@ -17,12 +15,11 @@ import { NotificationHttpService, NotificationPreferences } from '../../core/ser
 export class NotificationPreferencesComponent implements OnInit {
   desktopNotifications: boolean = false;
   preferences: Preference[] = [];
-  userEmail: string = 'usuario@example.com'; // Reemplazar con el email dinámico del usuario
+  email: string = '';  // Campo para capturar el email
+  frequency: string = '';  // Campo para capturar la frecuencia de notificación
+  message: string = '';  // Mensaje para la respuesta del backend
 
-  constructor(
-    private notificationPreferencesService: NotificationPreferencesService,
-    private notificationHttpService: NotificationHttpService
-  ) {}
+  constructor(private notificationPreferencesService: NotificationPreferencesService) {}
 
   ngOnInit() {
     this.loadPreferences();
@@ -34,24 +31,15 @@ export class NotificationPreferencesComponent implements OnInit {
   }
 
   savePreferences() {
-    // Guardar en el almacenamiento local
     this.notificationPreferencesService.setDesktopNotifications(this.desktopNotifications);
     this.notificationPreferencesService.setPreferences(this.preferences);
 
-    // Enviar preferencias habilitadas al backend
-    this.preferences.forEach(pref => {
-      if (pref.enabled) {
-        const notificationPreference: NotificationPreferences = {
-          email: this.userEmail,
-          preference: pref.label
-        };
-
-        this.notificationHttpService.setNotificationPreference(notificationPreference).subscribe({
-          next: (response) => console.log('Preferencia guardada en el backend:', response),
-          error: (error) => console.error('Error al guardar preferencia en el backend:', error)
-        });
-      }
-    });
+    // Llamada al backend con el email y la frecuencia seleccionada
+    this.notificationPreferencesService.sendPreferencesToBackend(this.email, this.frequency)
+      .subscribe({
+        next: (response) => this.message = 'Preferencias guardadas y notificación enviada.',
+        error: (error) => this.message = 'Hubo un error al guardar las preferencias.'
+      });
   }
 
   toggleDesktopNotifications() {
