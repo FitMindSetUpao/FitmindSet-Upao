@@ -1,0 +1,99 @@
+.navbar {
+  background-color: #70b578; // Verde oscuro
+  color: #ffffff;
+  padding: 1rem 2rem;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__brand {
+    color: #ffffff;
+    font-size: 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      color: #90ee90; // Verde claro
+    }
+  }
+
+  &__toggler {
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1.25rem;
+    display: none;
+
+    &-icon {
+      width: 25px;
+      height: 2px;
+      background-color: #ffffff;
+      display: block;
+      position: relative;
+
+      &:before,
+      &:after {
+        content: "";
+        width: 25px;
+        height: 2px;
+        background-color: #ffffff;
+        position: absolute;
+        left: 0;
+      }
+
+      &:before {
+        top: -8px;
+      }
+
+      &:after {
+        top: 8px;
+      }
+    }
+  }
+
+  &__menu {
+    display: flex;
+
+    @media (max-width: 768px) {
+      display: none; // Oculto en móviles
+      &.show {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background-color: #70b578;
+      }
+    }
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  &__link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #90ee90; // Verde claro
+    }
+  }
+}
