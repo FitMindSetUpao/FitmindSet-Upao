@@ -30,7 +30,7 @@ export class LoginComponent {
   private readonly AUTHOR_ROLE = 'AUTHOR';
   private readonly CUSTOMER_ROUTE = '/customer';
   private readonly AUTHOR_ROUTE = 'autor/recursos/list';
-  private readonly DEFAULT_ROUTE = '/auth/login';
+  private readonly DEFAULT_ROUTE = '/home';
 
   constructor(){
     this.loginForm = this.fb.group({
@@ -74,7 +74,7 @@ export class LoginComponent {
   }
 
   private showSnackBar(message:string): void{
-    this.snackBar.open('Login Successful', 'Close', {
+    this.snackBar.open(message, 'Close', {
       duration: 2000,
       verticalPosition: 'top'
     });

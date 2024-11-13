@@ -57,7 +57,7 @@ export class PasswordResetComponent {
         // Llama al método resetPassword pasando el token y la nueva contraseña
         this.authService.resetPassword(token, newPassword!).subscribe({
           next: () => {
-            this.snackBar.open('Contraseña cambiada con éxito', 'Cerrar', { duration: 3000 });
+            this.showSnackBar('Contraseña cambiada con éxito');
             this.router.navigate(['/auth/login']);
           },
           error: (err) => {
@@ -75,5 +75,10 @@ export class PasswordResetComponent {
   
   passwordsMatch(): boolean {
     return this.newPassword?.value === this.confirmPassword?.value; // Usa === para comparación estricta
+  }
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+    });
   }
 }

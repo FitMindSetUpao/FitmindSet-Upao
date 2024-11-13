@@ -47,27 +47,33 @@ export class HabitoListComponent implements OnInit {
   ngOnInit():void {
     this.loadHabitos();
   }
-  loadHabitos(pageIndex: number = 0, pageSize:number=5):void{
-    this.HabitoService.paginateHabitos(pageIndex,pageSize).subscribe({
-      next: (response: PageableResponse<HabitoResponse>)=>{
-      this.habitos = response.content;
-      this.filteredHabitos = response.content;
-      this.totalElements = response.totalElements;
-      this.pageSize = response.size;
-      this.pageIndex = response.number;
-      console.log(this.habitos);
+  loadHabitos(pageIndex: number = 0, pageSize: number = 5): void {
+    this.HabitoService.paginateHabitos(pageIndex, pageSize).subscribe({
+      next: (response: PageableResponse<HabitoResponse>) => {
+        console.log(response);  // Verifica la respuesta en la consola
+        this.habitos = response.content;
+        this.filteredHabitos = response.content;
+        this.totalElements = response.totalElements;
+        this.pageSize = response.size;
+        this.pageIndex = response.number;
       },
-      error:() => this.showSnackBar('Error al cargar la lista de Habitos'), 
+      error: () => this.showSnackBar('Error al cargar la lista de Habitos'),
     });
   }
-  applyFilter(event: Event):void {
+  
+  
+  
+  
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value
-    .trim()
-    .toLowerCase();
-    this.filteredHabitos = this.habitos.filter((habito)=>
-      habito.nombreHabito.toLowerCase().includes(filterValue)
+      .trim()
+      .toLowerCase();
+    this.filteredHabitos = this.habitos.filter((habito) =>
+      habito.nombre_habito.toLowerCase().includes(filterValue)
     );
+    console.log('Habitos filtrados: ', this.filteredHabitos);  // Verifica los datos filtrados
   }
+  
   onPageChange(event: PageEvent):void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
@@ -84,16 +90,17 @@ export class HabitoListComponent implements OnInit {
   }
     
   deleteHabito(habitoId: number):void {
-    if(confirm('¿Estás seguro de que desaeas eliminar este libro?')){
+    if(confirm('¿Estás seguro de que desaeas eliminar este Habito')){
       this.HabitoService.deleteHabito(habitoId).subscribe({
         next: () => {
-          this.showSnackBar('Libro eliminado exitosamente');
+          this.showSnackBar('Habito eliminado exitosamente');
           this.loadHabitos(this.pageIndex, this.pageSize);
         },
-        error:() => this.showSnackBar('Error al eliminar el libro'),
+        error:() => this.showSnackBar('Error al eliminar el habito'),
       });
     }
   }
+  
   
   private showSnackBar(message: string):void{
     this.snackbar.open(message, 'Cerrar',{

@@ -1,7 +1,7 @@
 @if(habitos){
     <h2>Lista de Habitos</h2>
     <div class="table-controls">
-        <button mat-raised-button color="primary" (click)="createNewHabito()">
+        <button mat-raised-button class="button-habito" (click)="createNewHabito()">
          Nuevo Habito
         </button>
         <mat-form-field class="filter-input" appearance="outline">
@@ -9,11 +9,12 @@
           <input matInput [(ngModel)]="filterText" (input)="applyFilter($event)" />
         </mat-form-field>
       </div>
-      <mat-table [dataSource]="filteredHabitos" class="mat-table">
+      <mat-table [dataSource]="filteredHabitos.length ? filteredHabitos : habitos" class="mat-table">
+
     
         <ng-container matColumnDef="nombre">
           <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
-          <mat-cell *matCellDef="let habito"> {{ habito.nombre }} </mat-cell>
+          <mat-cell *matCellDef="let habito"> {{ habito.nombreHabito }} </mat-cell>
         </ng-container>
       
         <ng-container matColumnDef="descripcion">
@@ -23,16 +24,16 @@
       
         <ng-container matColumnDef="tipoDeHabito">
           <mat-header-cell *matHeaderCellDef> Tipo de Habito </mat-header-cell>
-          <mat-cell *matCellDef="let habito"> {{habito.tipoDeHabito }} </mat-cell>
+          <mat-cell *matCellDef="let habito"> {{ habito.tipoDeHabitoId || 'No especificado' }} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
-          <mat-cell *matCellDef="let habitos">
+          <mat-cell *matCellDef="let habito">
             <div class="button-group">
-              <button mat-raised-button color="accent" (click)="editHabito(habitos.id)">
+              <button mat-raised-button color="accent" (click)="editHabito(habito.id)">
                 Editar
               </button>
-              <button mat-raised-button color="warn" (click)="deleteHabito(habitos.id)">
+              <button mat-raised-button color="warn" (click)="deleteHabito(habito.id)">
                 Eliminar
               </button>
             </div>
@@ -51,6 +52,6 @@
 >
 </mat-paginator>
 } @else {
-<p>No hay libros registrados</p>
+<p>No hay Habitos registrados</p>
 }
 

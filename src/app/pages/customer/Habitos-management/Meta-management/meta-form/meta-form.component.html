@@ -1,1 +1,74 @@
-<p>meta-form works!</p>
+<div class="meta-form-container">
+    <h1>{{ metaId ? 'Editar' : 'Crear' }} Meta</h1>
+  
+    <div *ngIf="errors.length" class="alert alert-danger mt-5">
+      <ul>
+        <li *ngFor="let error of errors">{{ error }}</li>
+      </ul>
+    </div>
+  
+    <form [formGroup]="form" (ngSubmit)="save()" class="mt-5" autocomplete="off">
+      <!-- Descripción -->
+      <mat-form-field appearance="outline" class="form-field w-100">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput placeholder="Descripción" formControlName="descripcion"></textarea>
+        <mat-error *ngIf="form.get('descripcion')?.hasError('required')">
+          La descripción es obligatoria
+        </mat-error>
+      </mat-form-field>
+  
+      <!-- Estado -->
+      <mat-form-field appearance="outline" class="form-field w-100">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="estado" required>
+          <mat-option value="INICIADO">INICIADO</mat-option>
+          <mat-option value="FINALIZADO">FINALIZADO</mat-option>
+          <mat-option value="EN_PROGRESO">EN PROGRESO</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('estado')?.hasError('required')">
+          El estado es obligatorio
+        </mat-error>
+      </mat-form-field>
+  
+      <!-- Fecha de Inicio -->
+      <mat-form-field appearance="outline" class="form-field w-100">
+        <mat-label>Fecha de Inicio</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="fechaInicio" required>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error *ngIf="form.get('fechaInicio')?.hasError('required')">
+          La fecha de inicio es obligatoria
+        </mat-error>
+      </mat-form-field>
+  
+      <!-- Fecha de Fin -->
+      <mat-form-field appearance="outline" class="form-field w-100">
+        <mat-label>Fecha de Fin</mat-label>
+        <input matInput [matDatepicker]="picker2" formControlName="fechaFin" required>
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        <mat-error *ngIf="form.get('fechaFin')?.hasError('required')">
+          La fecha de fin es obligatoria
+        </mat-error>
+      </mat-form-field>
+  
+      <!-- Tiempo Objetivo -->
+      <mat-form-field appearance="outline" class="form-field w-100">
+        <mat-label>Tiempo Objetivo (minutos)</mat-label>
+        <input matInput type="number" formControlName="tiempoObjetivo" required>
+        <mat-error *ngIf="form.get('tiempoObjetivo')?.hasError('required')">
+          El tiempo objetivo es obligatorio
+        </mat-error>
+      </mat-form-field>
+  
+      <div class="action-buttons text-end">
+        <button mat-button type="button" routerLink="/customer/metas/list">
+          Cancelar
+        </button>
+        <button mat-raised-button color="primary" class="ms-2 boton">
+          {{ metaId ? 'Actualizar' : 'Crear' }} Meta
+        </button>
+      </div>
+    </form>
+  </div>
+  
