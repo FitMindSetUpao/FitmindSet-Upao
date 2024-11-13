@@ -1,3 +1,4 @@
+// src/app/core/services/notification-preferences.service.ts
 import { Injectable } from '@angular/core';
 
 export interface Preference {
@@ -21,15 +22,13 @@ export class NotificationPreferencesService {
 
   getPreferences(): Preference[] {
     const savedPreferences = localStorage.getItem(this.PREFERENCES_KEY);
-    if (savedPreferences) {
-      return JSON.parse(savedPreferences);
-    } else {
-      return [
-        { label: 'Recordatorio para tomar agua', description: 'Recibe notificaciones para hidratarte cada hora.', enabled: false },
-        { label: 'Recordatorio para ejercitarte', description: 'Recibe notificaciones diarias para realizar ejercicio.', enabled: false },
-        { label: 'Recordatorio para caminar', description: 'Recibe notificaciones para dar un paseo y despejarte.', enabled: false }
-      ];
-    }
+    return savedPreferences
+      ? JSON.parse(savedPreferences)
+      : [
+          { label: 'Recordatorio para tomar agua', description: 'Recibe notificaciones para hidratarte cada hora.', enabled: false },
+          { label: 'Recordatorio para ejercitarte', description: 'Recibe notificaciones diarias para realizar ejercicio.', enabled: false },
+          { label: 'Recordatorio para caminar', description: 'Recibe notificaciones para dar un paseo y despejarte.', enabled: false }
+        ];
   }
 
   setPreferences(preferences: Preference[]): void {
