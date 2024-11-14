@@ -43,15 +43,12 @@ export const customerRoutes: Routes = [
     ]
   },
   {
-    path: 'foro',
-    component: ForoBusquedaComponent
+    path: 'foro', component: ForoBusquedaComponent
   },
   {
-    path: 'foro-cr',
-    component: ForoCrearComponent
+    path: 'foro/foro-co', component: ForoComentariosComponent
   },
   {
-    path: 'foro-co',
-    component: ForoComentariosComponent
+    path: 'foro/foro-cr', component: ForoCrearComponent
   }
 ];
