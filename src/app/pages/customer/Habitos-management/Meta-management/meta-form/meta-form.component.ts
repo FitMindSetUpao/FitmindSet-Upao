@@ -47,7 +47,8 @@ export class MetaFormComponent implements OnInit {
       estado: ['INICIADO', [Validators.required]],
       fechaInicio: ['', [Validators.required]],
       fechaFin: ['', [Validators.required]],
-      tiempoObjetivo: [0, [Validators.required]],
+      tiempoObjetivo: [0, [Validators.required, Validators.min(1)]],
+
     });
   
 
@@ -66,11 +67,8 @@ export class MetaFormComponent implements OnInit {
       return;
     }
   
-    this.metaService.obtenerMetasPorHabito(this.habitoId).subscribe(
-      (metas) => {
-        // Buscar la meta específica por su ID
-        const meta = metas.find(meta => meta.id === this.metaId);
-  
+    this.metaService.getMetaById(this.metaId.toString()).subscribe(
+      (meta) => {
         if (meta) {
           // Si la meta existe, actualizar el formulario
           this.form.patchValue({
@@ -87,58 +85,50 @@ export class MetaFormComponent implements OnInit {
       },
       (error) => {
         // Manejo de error en caso de que falle la petición
-        this.snackBar.open('Error al cargar las metas', 'Cerrar', { duration: 3000 });
-        console.error(error); // Puedes personalizar el manejo de errores si es necesario
+        this.snackBar.open('Error al cargar la meta', 'Cerrar', { duration: 3000 });
+        console.error(error);
       }
     );
   }
-  
-  
-
   guardarMeta(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-  
     if (!this.habitoId || this.habitoId === 0) {
       this.snackBar.open('Hábito no válido', 'Cerrar', { duration: 3000 });
       return;
     }
-  
     const metaDTO: MetaDTO = this.form.value;
     if (this.metaId) {
-      // Update meta
-      this.metaService
-        .actualizarMeta(this.metaId, metaDTO)
-        .subscribe(
-          (meta: MetaResponseDTO) => {
-            this.snackBar.open('Meta actualizada', 'Cerrar', { duration: 3000 });
-            this.router.navigate([`/habito/${this.habitoId!}/metas`]);
-          },
-          (error) => {
-            this.snackBar.open('Error al actualizar la meta', 'Cerrar', { duration: 3000 });
-          }
-        );
+      console.log("Actualizando meta con ID: ", this.metaId); 
+      this.metaService.actualizarMeta(this.metaId, metaDTO).subscribe(
+        (meta: MetaResponseDTO) => {
+          console.log('Meta actualizada:', meta);  // Asegúrate de que la respuesta sea correcta
+          this.snackBar.open('Meta actualizada', 'Cerrar', { duration: 3000 });
+          this.router.navigate([`/customer/habitos/metas/${this.habitoId!}`]);
+        },
+        (error) => {
+          this.snackBar.open('Error al actualizar la meta', 'Cerrar', { duration: 3000 });
+          console.error(error); 
+        }
+      );
+      
     } else {
-      // Create new meta
-      this.metaService
-        .crearMeta(this.habitoId!, metaDTO)  // Ensure habitoId is not 0
-        .subscribe(
-          (meta: MetaResponseDTO) => {
-            this.snackBar.open('Meta creada', 'Cerrar', { duration: 3000 });
-            this.router.navigate([`/customer/habitos/list`]);
-          },
-          (error) => {
-            this.snackBar.open('Error al crear la meta', 'Cerrar', { duration: 3000 });
-          }
-        );
+      console.log("Creando nueva meta...");  
+      this.metaService.crearMeta(this.habitoId!, metaDTO).subscribe(
+        (meta: MetaResponseDTO) => {
+          this.snackBar.open('Meta creada', 'Cerrar', { duration: 3000 });
+          this.router.navigate([`/customer/habitos/list`]);
+        },
+        (error) => {
+          this.snackBar.open('Error al crear la meta', 'Cerrar', { duration: 3000 });
+          console.error(error); 
+        }
+      );
     }
   }
   cancel() {
-    this.router.navigate(['/customer/habitos/list']);
+    this.router.navigate(['/customer/habitos/metas']);
   }
-  
-  
-  
 }

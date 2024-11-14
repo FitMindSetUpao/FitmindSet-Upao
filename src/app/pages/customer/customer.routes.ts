@@ -8,6 +8,7 @@ import { MetaListComponent } from './Habitos-management/Meta-management/meta-lis
 import { MetaFormComponent } from './Habitos-management/Meta-management/meta-form/meta-form.component'; 
 import { EstadisticaHabitoComponent } from './Habitos-management/Habitos-Report/estadistica-habito/estadistica-habito.component';
 import { ActivadListComponent } from './Habitos-management/actividad-management/activad-list/activad-list.component';
+import { MetaDetallesComponent } from './Habitos-management/Meta-management/meta-detalles/meta-detalles.component';
 
 export const customerRoutes: Routes = [
   {
@@ -28,13 +29,14 @@ export const customerRoutes: Routes = [
       { path: 'metas', component: MetaListComponent },  
       { path: 'metas/crear/:habitoId', component: MetaFormComponent },
       { path: 'habitos/metas', component: MetaFormComponent },
-
-
-      { path: 'metas/detalles/:id', component: MetaFormComponent },
+      { path: 'customer/habitos/metas/:habitoId', component: MetaDetallesComponent },
       { path: 'metas/edit/:id', component: MetaFormComponent }, 
       { path: 'reportes', component: EstadisticaHabitoComponent },  
       { path: 'actividad', component: ActivadListComponent },  
       { path: 'mi-perfil', component: UserProfileComponent },
+      { path: 'metas/:habitoId', component: MetaDetallesComponent },
+      {  path: 'metas/editar/:metaId',component: MetaFormComponent,
+      },
     ]
   },
 ];
