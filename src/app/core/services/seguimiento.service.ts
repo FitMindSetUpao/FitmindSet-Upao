@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { SeguimientoDTO } from '../models/seguimiento.model';
-import { ReporteDTO } from '../models/reporte.model';
+import { environment } from '../../../environments/environment';
+import { SeguimientoDTO } from '../../shared/models/reporte.model';
+import { ReporteDTO } from '../../shared/models/reporte.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SeguimientoService {
 
-  private apiUrl: string = `${environment.apiBaseUrl}/seguimientos`;
+  private apiUrl: string = `${environment.baseURL}/seguimientos`;
 
   constructor(private http: HttpClient) { }
 
@@ -44,7 +44,7 @@ export class SeguimientoService {
     const token = localStorage.getItem('auth_token'); // Obtener el token de autenticación de localStorage o sesión
     return {
       headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}` // O el tipo de autenticación que utilices
+        'Authorization': `Bearer ${token}` 
       })
     };
   }

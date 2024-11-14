@@ -52,6 +52,7 @@ export class MetaFormComponent implements OnInit {
     this.habitoId = Number(this.route.snapshot.paramMap.get('habitoId'));
     this.metaId = Number(this.route.snapshot.paramMap.get('metaId'));
     
+    
     if (this.metaId) {
       this.cargarMeta();
     }
@@ -63,10 +64,10 @@ export class MetaFormComponent implements OnInit {
       this.snackBar.open('ID de meta no válido', 'Cerrar', { duration: 3000 });
       return;
     }
-
+  
     this.metaService.getMetaById(this.metaId.toString()).subscribe(
       (meta) => {
-        console.log('Meta cargada:', meta);
+        console.log('Meta cargada:', meta);  // Verifica que los datos de la meta estén llegando correctamente
         if (meta) {
           this.form.patchValue({
             descripcion: meta.descripcion,
@@ -75,6 +76,7 @@ export class MetaFormComponent implements OnInit {
             fechaFin: meta.fechaFin,
             tiempoObjetivo: meta.tiempoObjetivo,
           });
+          console.log('Formulario después de patchValue:', this.form.value); // Verifica los valores en el formulario
         } else {
           this.snackBar.open('Meta no encontrada', 'Cerrar', { duration: 3000 });
         }
@@ -85,28 +87,34 @@ export class MetaFormComponent implements OnInit {
       }
     );
   }
+  
   guardarMeta(): void {
+    console.log('Meta ID:', this.metaId);  // Verifica si el ID de la meta está presente
+    
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       console.log('Formulario inválido');
       return;
     }
-    if (!this.habitoId) {
-      this.snackBar.open('Hábito no válido', 'Cerrar', { duration: 3000 });
-      return;
-    }
+  
     const metaDTO: MetaDTO = {
+      id: this.metaId,
       ...this.form.value,
-      habitoId: this.habitoId
-   };
-    console.log("MetaDTO a guardar:", metaDTO);
+      fechaInicio: new Date(this.form.value.fechaInicio).toISOString(),
+      fechaFin: new Date(this.form.value.fechaFin).toISOString(),
+      habitoId: this.habitoId || 0,  // Asigna un valor por defecto si habitoId es undefined
+    };
+  
+    console.log("MetaDTO a enviar:", metaDTO);  // Verifica el contenido del DTO
+  
+    // Verifica si metaId está definido antes de hacer la llamada al servicio
     if (this.metaId) {
       console.log("Actualizando meta con ID:", this.metaId);
       this.metaService.actualizarMeta(this.metaId, metaDTO).subscribe(
         (meta: MetaResponseDTO) => {
-          console.log("Meta actualizada:", meta);
+          console.log("Meta actualizada:", meta); 
           this.snackBar.open('Meta actualizada', 'Cerrar', { duration: 3000 });
-          this.router.navigate([`/customer/habitos/metas/${this.habitoId}`]);
+          this.router.navigate([`/customer/habitos/metas`]);
         },
         (error) => {
           console.error("Error al actualizar la meta:", error);
@@ -115,16 +123,23 @@ export class MetaFormComponent implements OnInit {
       );
     } else {
       console.log("Creando nueva meta...");
-      this.metaService.crearMeta(this.habitoId, metaDTO).subscribe(
-        (meta: MetaResponseDTO) => {
-          this.snackBar.open('Meta creada', 'Cerrar', { duration: 3000 });
-          this.router.navigate([`/customer/habitos/list`]);
-        },
-        (error) => {
-          console.error("Error al crear la meta:", error);
-          this.snackBar.open('Error al crear la meta', 'Cerrar', { duration: 3000 });
-        }
-      );
+  
+      // Aquí no deberías pasar metaId al crear una nueva meta
+      if (this.habitoId !== undefined) {
+        this.metaService.crearMeta(this.habitoId, metaDTO).subscribe(
+          (meta: MetaResponseDTO) => {
+            console.log("Nueva meta creada:", meta); 
+            this.snackBar.open('Meta creada', 'Cerrar', { duration: 3000 });
+            this.router.navigate([`/customer/habitos/list`]);
+          },
+          (error) => {
+            console.error("Error al crear la meta:", error);
+            this.snackBar.open('Error al crear la meta', 'Cerrar', { duration: 3000 });
+          }
+        );
+      } else {
+        console.error('Error: habitoId no está definido');
+      }
     }
   }
   cancel() {
