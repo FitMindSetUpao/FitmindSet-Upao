@@ -15,9 +15,10 @@ export class SeguimientoService {
   constructor(private http: HttpClient) { }
 
   // Registrar un seguimiento
-  registrarSeguimiento(seguimientoDTO: SeguimientoDTO): Observable<SeguimientoDTO> {
-    return this.http.post<SeguimientoDTO>(`${this.apiUrl}/registrar`, seguimientoDTO, this.getHeaders());
-  }
+  registrarSeguimiento(seguimientoDTO: SeguimientoDTO, metaId: number): Observable<SeguimientoDTO> {
+    return this.http.post<SeguimientoDTO>(`${this.apiUrl}/registrar/${metaId}`, seguimientoDTO);
+}
+
 
   // Actualizar un seguimiento
   actualizarSeguimiento(id: number, seguimientoDTO: SeguimientoDTO): Observable<SeguimientoDTO> {

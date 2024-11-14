@@ -17,7 +17,7 @@ export const customerRoutes: Routes = [
     component: CustomerLayoutComponent, 
     children: [
       { path: 'mi-perfil', component: UserProfileComponent },
-      { path: 'habitos', component: HabitoListComponent }, 
+      { path: 'habitos', component: HabitoListComponent },
     ]
   },
   {
@@ -36,8 +36,15 @@ export const customerRoutes: Routes = [
       { path: 'actividad', component: ActivadListComponent },  
       { path: 'mi-perfil', component: UserProfileComponent },
       { path: 'metas/:habitoId', component: MetaDetallesComponent },
-      {  path: 'metas/editar/:metaId',component: MetaFormComponent,},
-      { path: 'metas/actividad/:metaId,',component: ActividadFormComponent}
+      { path: 'metas/editar/:metaId', component: MetaFormComponent },
+      { path: 'habitos/actividad', component: ActivadListComponent },
+
+      // Corregido: Solo una ruta para ActividadFormComponent
+      {
+        path: 'metas/actividad/:metaId', 
+        component: ActividadFormComponent
+      }
+      
     ]
   },
 ];
