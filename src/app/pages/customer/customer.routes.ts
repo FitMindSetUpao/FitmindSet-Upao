@@ -8,6 +8,7 @@ import { MetaListComponent } from './Habitos-management/Meta-management/meta-lis
 import { MetaFormComponent } from './Habitos-management/Meta-management/meta-form/meta-form.component'; 
 import { EstadisticaHabitoComponent } from './Habitos-management/Habitos-Report/estadistica-habito/estadistica-habito.component';
 import { ActivadListComponent } from './Habitos-management/actividad-management/activad-list/activad-list.component';
+import { ForoBusquedaComponent } from './Comunidad/foro-busqueda/foro-busqueda.component';
 
 export const customerRoutes: Routes = [
   {
@@ -15,7 +16,7 @@ export const customerRoutes: Routes = [
     component: CustomerLayoutComponent, 
     children: [
       { path: 'mi-perfil', component: UserProfileComponent },
-      { path: 'habitos', component: HabitoListComponent }, 
+      { path: 'habitos', component: HabitoListComponent },
     ]
   },
   {
@@ -39,4 +40,8 @@ export const customerRoutes: Routes = [
       { path: 'mi-perfil', component: UserProfileComponent },
     ]
   },
+  {
+    path: 'foro',
+    component: ForoBusquedaComponent
+  }
 ];

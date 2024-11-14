@@ -224,7 +224,9 @@
         <p>No tienes pagos registrados aún.</p>
       </ng-template>
       
-      <h2>Foro de la Comunidad</h2>
+      <button mat-button color="primary" [routerLink]="['foro']">
+        Foro de la Comunidad
+      </button>
       <div *ngIf="foroComunidad && foroComunidad.length > 0; else noForo">
         <mat-card *ngFor="let tema of foroComunidad">
           <mat-card-header>
