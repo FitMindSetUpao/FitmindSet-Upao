@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../../../shared/components/navbar/navbar.component";
 import { FooterComponent } from '../../../../shared/components/footer/footer.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../../../core/services/auth.service'; // Asegúrate de importar AuthService correctamente
 
 @Component({
   selector: 'app-foro-comentarios',
@@ -21,22 +22,27 @@ import { ActivatedRoute } from '@angular/router';
 export class ForoComentariosComponent implements OnInit {
   isJoined: boolean = false;
   comments: Array<{ user: string, comment: string }> = [];
-  nombreUsuario: string = 'UsuarioDemo'; 
+  nombreUsuario: string | null = '';  // Cambia tipo a string | null
   foroActual: string = '';
-  foroDescripcion: string = '';  // Nueva propiedad para la descripción
+  foroDescripcion: string = '';
   esPropietario: boolean = false;
+
+  // Inyectamos el AuthService para obtener el nombre del usuario autenticado
+  private authService = inject(AuthService);
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.nombreUsuario = this.authService.getUser()?.nombre || 'UsuarioDemo';  // Actualizamos el nombre del usuario
+
+    // Recuperamos los datos del foro actual
     this.route.queryParams.subscribe(params => {
       this.foroActual = params['title'] || '';
     });
 
-    // Obtenemos los detalles del foro actual, incluyendo su descripción
     const foroData = JSON.parse(localStorage.getItem('forums') || '[]').find((f: any) => f.title === this.foroActual);
     if (foroData) {
-      this.foroDescripcion = foroData.description;  // Asignamos la descripción
+      this.foroDescripcion = foroData.description;
       this.esPropietario = foroData.creator === this.nombreUsuario;
     }
 
@@ -56,7 +62,8 @@ export class ForoComentariosComponent implements OnInit {
 
   addComment(comment: string) {
     if (comment) {
-      const newComment = { user: this.nombreUsuario, comment };
+      // Usamos el nombre del usuario autenticado en el comentario
+      const newComment = { user: this.nombreUsuario || 'Anonimo', comment };
       this.comments.push(newComment);
 
       // Guardar comentarios específicos del foro actual en localStorage
