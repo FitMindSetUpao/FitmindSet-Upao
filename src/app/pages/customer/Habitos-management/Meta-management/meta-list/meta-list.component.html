@@ -6,13 +6,11 @@
       <input matInput [(ngModel)]="filterText" (input)="applyFilter($event)" />
     </mat-form-field>
   </div>
-
   <mat-table [dataSource]="filteredHabitos" class="mat-table">
     <ng-container matColumnDef="nombre">
       <mat-header-cell *matHeaderCellDef> Habitos  </mat-header-cell>
       <mat-cell *matCellDef="let habito"> {{ habito.nombreHabito }} </mat-cell>
     </ng-container>
-
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
       <mat-cell *matCellDef="let habito">
@@ -26,11 +24,9 @@
         </div>
       </mat-cell>
     </ng-container>
-
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
-
   <mat-paginator
     [length]="totalElements"
     [pageSize]="pageSize"
@@ -39,5 +35,5 @@
     (page)="onPageChange($event)"
   ></mat-paginator>
 } @else {
-  <p>No hay Hábitos registrados</p>
+  <p>Cargando citas</p>
 }

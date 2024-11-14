@@ -1,6 +1,6 @@
 export interface Habito {
     id?: number;
-    nombre_habito: string;
+    nombreHabito: string;
     descripcion: string;
     tipoDeHabitoId: number;
   }

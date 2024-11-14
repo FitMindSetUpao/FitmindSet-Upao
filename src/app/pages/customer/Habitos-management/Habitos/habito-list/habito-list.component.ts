@@ -61,15 +61,12 @@ export class HabitoListComponent implements OnInit {
     });
   }
   
-  
-  
-  
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value
       .trim()
       .toLowerCase();
     this.filteredHabitos = this.habitos.filter((habito) =>
-      habito.nombre_habito.toLowerCase().includes(filterValue)
+      habito.nombreHabito.toLowerCase().includes(filterValue)
     );
     console.log('Habitos filtrados: ', this.filteredHabitos);  // Verifica los datos filtrados
   }
@@ -83,10 +80,15 @@ export class HabitoListComponent implements OnInit {
     this.router.navigate(['/customer/habitos/crear']);
   }
   editHabito(habitoId: number):void {
-    this.router.navigate(['/customer/habitos/edit', habitoId])
+    this.router.navigate(['/customer/habitos/edit', habitoId]);
   }
-  createNewMeta():void{
-    this.router.navigate(['/customer/metas/list'])
+  createMeta(habitoId: number) {
+    this.router.navigate(['/customer/habitos/metas/crear', habitoId]);
+
+    console.log(this.router.config);
+
+
+
   }
     
   deleteHabito(habitoId: number):void {
@@ -100,6 +102,7 @@ export class HabitoListComponent implements OnInit {
       });
     }
   }
+  
   
   
   private showSnackBar(message: string):void{

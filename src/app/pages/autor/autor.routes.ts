@@ -3,7 +3,6 @@ import { LayoutComponent } from "./layout/layout.component";
 import { RecursoListComponent } from "./recurso-management/recurso-list/recurso-list.component";
 import { RecursoFormComponent } from "./recurso-management/recurso-form/recurso-form.component";
 import { UserProfileComponent } from "../../shared/components/user-profile/user-profile.component";
-import { CustomerLayoutComponent } from "../customer/customer-layout/customer-layout.component";
 import { AuthLayoutComponent } from "../auth/auth-layout/auth-layout.component";
 export const autorRoutes: Routes = [
     {
