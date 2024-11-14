@@ -1,9 +1,13 @@
 <app-navbar />
-<p>foro-busqueda works!</p>
-<button mat-button color="primary" [routerLink]="['foro-cr']">
-    Crear
-  </button>
-  <button mat-button color="primary" [routerLink]="['foro-co']">
-    Comentario
-  </button>
+<section class="foro-busqueda">
+    <h1>Foros</h1>
+    <button (click)="createForum()" class="btn-create">Crear foro</button>
+    <div class="forums">
+      <div *ngFor="let forum of forums" class="forum-item">
+        <h2>{{ forum.title }}</h2>
+        <p>{{ forum.description }}</p>
+        <button (click)="viewForumDetails(forum.title)" class="btn-details">Ver detalles</button>
+      </div>
+    </div>
+  </section>
 <app-footer />

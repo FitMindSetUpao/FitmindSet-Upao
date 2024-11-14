@@ -18,5 +18,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './foro-comentarios.component.scss'
 })
 export class ForoComentariosComponent {
+  isJoined: boolean = false;
+  comments: string[] = [];
 
+  joinForum() {
+    this.isJoined = true;
+  }
+
+  addComment(comment: string) {
+    if (comment) {
+      this.comments.push(comment);
+    }
+  }
 }

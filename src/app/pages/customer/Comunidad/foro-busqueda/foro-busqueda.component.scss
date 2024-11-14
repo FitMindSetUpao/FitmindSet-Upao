@@ -1,0 +1,88 @@
+/* General styles */
+.foro-busqueda {
+    padding: 1rem;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+    color: #4CAF50; /* Verde para el título principal */
+  }
+  
+  /* Botones */
+  .btn-create {
+    background-color: #4CAF50; /* Verde para el botón de crear foro */
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+  
+  .btn-filter {
+    background-color: #E0F2F1; /* Verde claro para los filtros */
+    color: #4CAF50;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    border-radius: 3px;
+  }
+  
+  .btn-filter.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  /* Listado de foros */
+  .forums {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .forum-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+    background-color: #F5F5F5;
+  }
+  
+  .forum-title {
+    font-size: 1rem;
+    color: #4CAF50; /* Verde para el título del foro */
+    display: flex;
+    align-items: center;
+  }
+  
+  .forum-responses {
+    font-weight: bold;
+    margin-left: 1rem;
+    color: #333;
+  }
+  
+  .forum-category {
+    font-size: 0.9rem;
+    color: #81C784; /* Verde claro para categorías */
+  }
+  
+  .forum-time {
+    font-size: 0.8rem;
+    color: #9E9E9E;
+  }
+  
+  /* Botón para ver detalles (dentro del item de foro) */
+  .btn-details {
+    background-color: #A5D6A7; /* Verde pálido */
+    color: #2E7D32;
+    padding: 0.25rem 0.75rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  

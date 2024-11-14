@@ -1,0 +1,23 @@
+.btn-join, .btn-add-comment {
+    background-color: #4a90e2;
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .comments-section {
+    margin-top: 1rem;
+  
+    textarea {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  
+    ul {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+    }
+  }
+  
