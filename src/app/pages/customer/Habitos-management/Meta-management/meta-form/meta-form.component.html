@@ -1,16 +1,11 @@
 <div class="meta-form-container">
     <h1 class="form-title">{{ metaId ? 'Editar' : 'Crear' }} Meta</h1>
-  
-    <!-- Errores -->
     <div *ngIf="errors.length" class="alert alert-danger mt-5">
       <ul>
         <li *ngFor="let error of errors">{{ error }}</li>
       </ul>
     </div>
-  
     <form [formGroup]="form" (ngSubmit)="guardarMeta()" class="form" autocomplete="off">
-  
-      <!-- Descripción -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Descripción</mat-label>
         <textarea matInput placeholder="Descripción" formControlName="descripcion"></textarea>
@@ -18,8 +13,6 @@
           La descripción es obligatoria
         </mat-error>
       </mat-form-field>
-  
-      <!-- Estado -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Estado</mat-label>
         <mat-select formControlName="estado" required>
@@ -32,8 +25,6 @@
           El estado es obligatorio
         </mat-error>
       </mat-form-field>
-  
-      <!-- Fecha de Inicio -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Fecha de Inicio</mat-label>
         <input matInput [matDatepicker]="picker1" formControlName="fechaInicio" required>
@@ -43,8 +34,6 @@
           La fecha de inicio es obligatoria
         </mat-error>
       </mat-form-field>
-  
-      <!-- Fecha de Fin -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Fecha de Fin</mat-label>
         <input matInput [matDatepicker]="picker2" formControlName="fechaFin" required>
@@ -54,8 +43,6 @@
           La fecha de fin es obligatoria
         </mat-error>
       </mat-form-field>
-  
-      <!-- Tiempo Objetivo -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Tiempo Objetivo (minutos)</mat-label>
         <input matInput type="number" formControlName="tiempoObjetivo" required>
@@ -63,8 +50,6 @@
           El tiempo objetivo es obligatorio
         </mat-error>
       </mat-form-field>
-  
-      <!-- Botones de Acción -->
       <div class="action-buttons">
         <button mat-button type="button" (click)="cancel()">
           Cancelar

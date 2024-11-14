@@ -20,7 +20,7 @@
       <ng-container matColumnDef="metas">
         <mat-header-cell *matHeaderCellDef> Metas </mat-header-cell>
         <mat-cell *matCellDef="let habito">
-          <ng-container *ngFor="let meta of habito.nombreMeta">
+          <ng-container *ngFor="let meta of habito.metas">
             <p>{{ meta.nombreMeta }}</p>
           </ng-container>
         </mat-cell>

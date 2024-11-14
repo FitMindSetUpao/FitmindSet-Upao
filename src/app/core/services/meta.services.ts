@@ -18,8 +18,9 @@ export class MetaService {
     return this.http.post<MetaResponseDTO>(`${this.apiUrl}/crear/${habitoId}`, metaDTO);
   }
   actualizarMeta(metaId: number, metaDTO: MetaDTO): Observable<MetaResponseDTO> {
-    return this.http.put<MetaResponseDTO>(`${this.apiUrl}/actualizar/${metaId}`, metaDTO);
+    return this.http.put<MetaResponseDTO>(`${this.apiUrl}/metas/${metaId}`, metaDTO);
   }
+  
   eliminarMeta(metaId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/eliminar/${metaId}`);
   }
