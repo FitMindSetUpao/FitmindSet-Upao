@@ -22,6 +22,8 @@ export class ForoBusquedaComponent {
   forums = [
     { title: 'Foro 1', description: 'Descripción del foro 1' },
     { title: 'Foro 2', description: 'Descripción del foro 2' },
+    { title: 'Foro 3', description: 'Descripción del foro 3' },
+    { title: 'Foro 4', description: 'Descripción del foro 4' }
   ];
 
   constructor(private router: Router) {}

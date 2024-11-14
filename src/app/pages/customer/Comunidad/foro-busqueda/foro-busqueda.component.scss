@@ -1,88 +1,91 @@
-/* General styles */
 .foro-busqueda {
-    padding: 1rem;
-    font-family: Arial, sans-serif;
-    color: #333;
-  }
+    max-width: 1200px; // Aumenta el ancho máximo para ocupar más espacio horizontalmente
+    margin: 0 auto; // Centra el contenedor en la pantalla
+    padding: 2rem;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Sombra para darle un toque de profundidad y enfoque
   
-  h1 {
-    font-size: 1.5rem;
-    color: #4CAF50; /* Verde para el título principal */
-  }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
   
-  /* Botones */
-  .btn-create {
-    background-color: #4CAF50; /* Verde para el botón de crear foro */
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 1rem;
-  }
+      h1 {
+        font-size: 2rem;
+        margin: 0;
+        color: #333;
+      }
   
-  .btn-filter {
-    background-color: #E0F2F1; /* Verde claro para los filtros */
-    color: #4CAF50;
-    padding: 0.5rem 1rem;
-    border: none;
-    cursor: pointer;
-    margin-right: 0.5rem;
-    border-radius: 3px;
-  }
+      .btn-create {
+        background-color: #4caf50;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: background-color 0.3s;
   
-  .btn-filter.active {
-    background-color: #4CAF50;
-    color: white;
-  }
+        &:hover {
+          background-color: #388e3c;
+        }
+      }
+    }
   
-  /* Listado de foros */
-  .forums {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+    .forums {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
   
-  .forum-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem;
-    border: 1px solid #E0E0E0;
-    border-radius: 5px;
-    background-color: #F5F5F5;
-  }
+      .forum-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        background-color: white;
+        width: 100%; // Asegura que cada item ocupe el ancho completo del contenedor
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); // Sombra ligera para cada foro
   
-  .forum-title {
-    font-size: 1rem;
-    color: #4CAF50; /* Verde para el título del foro */
-    display: flex;
-    align-items: center;
-  }
+        .forum-info {
+          flex-grow: 1;
+          margin-right: 1.5rem; // Espacio mayor entre la información del foro y el botón
   
-  .forum-responses {
-    font-weight: bold;
-    margin-left: 1rem;
-    color: #333;
-  }
+          .forum-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #333;
+            margin: 0 0 0.5rem 0;
+          }
   
-  .forum-category {
-    font-size: 0.9rem;
-    color: #81C784; /* Verde claro para categorías */
-  }
+          .forum-description {
+            font-size: 1rem;
+            color: #666;
+            margin: 0;
+          }
+        }
   
-  .forum-time {
-    font-size: 0.8rem;
-    color: #9E9E9E;
-  }
+        .forum-actions {
+          .btn-details {
+            background-color: #4caf50;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s;
   
-  /* Botón para ver detalles (dentro del item de foro) */
-  .btn-details {
-    background-color: #A5D6A7; /* Verde pálido */
-    color: #2E7D32;
-    padding: 0.25rem 0.75rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 3px;
+            &:hover {
+              background-color: #388e3c;
+            }
+          }
+        }
+      }
+    }
   }
   
