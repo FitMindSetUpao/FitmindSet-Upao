@@ -3,7 +3,7 @@
 <section class="forum-detail">
   <div class="forum-header">
     <h1>Título del Foro: {{ foroActual }}</h1>
-    <p>Descripción completa del foro.</p>
+    <p>{{ foroDescripcion }}</p> <!-- Muestra la descripción del foro -->
 
     <!-- Botón Unirse/Salir del Foro -->
     <button *ngIf="!esPropietario" (click)="toggleJoin()" class="btn-join">
@@ -26,4 +26,5 @@
 </section>
 
 <app-footer></app-footer>
+
 

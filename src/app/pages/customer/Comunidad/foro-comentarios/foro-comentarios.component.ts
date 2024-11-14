@@ -23,6 +23,7 @@ export class ForoComentariosComponent implements OnInit {
   comments: Array<{ user: string, comment: string }> = [];
   nombreUsuario: string = 'UsuarioDemo'; 
   foroActual: string = '';
+  foroDescripcion: string = '';  // Nueva propiedad para la descripción
   esPropietario: boolean = false;
 
   constructor(private route: ActivatedRoute) {}
@@ -32,11 +33,18 @@ export class ForoComentariosComponent implements OnInit {
       this.foroActual = params['title'] || '';
     });
 
+    // Obtenemos los detalles del foro actual, incluyendo su descripción
     const foroData = JSON.parse(localStorage.getItem('forums') || '[]').find((f: any) => f.title === this.foroActual);
-    this.esPropietario = foroData?.creator === this.nombreUsuario;
+    if (foroData) {
+      this.foroDescripcion = foroData.description;  // Asignamos la descripción
+      this.esPropietario = foroData.creator === this.nombreUsuario;
+    }
 
+    // Verificamos si el usuario ya está unido al foro actual
     this.isJoined = JSON.parse(localStorage.getItem(`joined_${this.foroActual}`) || 'false');
-    this.comments = JSON.parse(localStorage.getItem('comments') || '[]');
+
+    // Cargar comentarios específicos del foro actual
+    this.comments = JSON.parse(localStorage.getItem(`comments_${this.foroActual}`) || '[]');
   }
 
   toggleJoin() {
@@ -50,7 +58,9 @@ export class ForoComentariosComponent implements OnInit {
     if (comment) {
       const newComment = { user: this.nombreUsuario, comment };
       this.comments.push(newComment);
-      localStorage.setItem('comments', JSON.stringify(this.comments));
+
+      // Guardar comentarios específicos del foro actual en localStorage
+      localStorage.setItem(`comments_${this.foroActual}`, JSON.stringify(this.comments));
     }
   }
 }

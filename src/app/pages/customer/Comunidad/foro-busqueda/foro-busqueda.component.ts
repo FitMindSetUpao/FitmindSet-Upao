@@ -26,22 +26,23 @@ export class ForoBusquedaComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Foros base
+    // Definimos los foros base
     const baseForums = [
       { title: 'Proteína', description: 'Crecen el músculo.', creator: '', status: 'Desconocido' },
       { title: 'Carbohidrato', description: 'Otorgan energía.', creator: '', status: 'Desconocido' },
       { title: 'Grasas Saludables', description: 'Mantienen la piel y cabello saludables.', creator: '', status: 'Desconocido' }
     ];
-    
-    const storedForums = JSON.parse(localStorage.getItem('forums') || '[]');
-    if (storedForums.length === 0) {
-      this.forums = baseForums;
-      localStorage.setItem('forums', JSON.stringify(this.forums));
-    } else {
-      this.forums = storedForums;
-    }
 
-    // Actualizar el estado de cada foro
+    // Obtenemos foros guardados en localStorage
+    const storedForums = JSON.parse(localStorage.getItem('forums') || '[]');
+
+    // Combinamos los foros base con los guardados y eliminamos duplicados basados en el título
+    const combinedForums = [...baseForums, ...storedForums];
+    this.forums = combinedForums.filter((forum, index, self) =>
+      index === self.findIndex((f) => f.title === forum.title)
+    );
+
+    // Actualizamos el estado de cada foro
     this.forums.forEach(forum => {
       if (forum.creator === this.usuarioActual) {
         forum.status = 'Propietario';
@@ -51,6 +52,9 @@ export class ForoBusquedaComponent implements OnInit {
         forum.status = 'Desconocido';
       }
     });
+
+    // Guardamos en localStorage para asegurar que los foros base estén siempre presentes
+    localStorage.setItem('forums', JSON.stringify(this.forums));
   }
 
   createForum() {
