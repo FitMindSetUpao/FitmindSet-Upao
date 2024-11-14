@@ -2,6 +2,10 @@
 
 <section class="foro-crear">
   <h1>Crear Foro</h1>
+
+  <!-- Mensaje de error cuando faltan datos -->
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
   <label for="title">Título del Foro</label>
   <input id="title" [(ngModel)]="forumTitle" placeholder="Título" />
 

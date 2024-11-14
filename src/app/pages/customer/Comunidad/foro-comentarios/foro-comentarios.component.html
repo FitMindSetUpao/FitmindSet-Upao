@@ -2,20 +2,28 @@
 
 <section class="forum-detail">
   <div class="forum-header">
-    <h1>Título del Foro</h1>
+    <h1>Título del Foro: {{ foroActual }}</h1>
     <p>Descripción completa del foro.</p>
-    <button *ngIf="!isJoined" (click)="joinForum()" class="btn-join">Unirse al foro</button>
+
+    <!-- Botón Unirse/Salir del Foro -->
+    <button *ngIf="!esPropietario" (click)="toggleJoin()" class="btn-join">
+      {{ isJoined ? 'Salir del foro' : 'Unirse al foro' }}
+    </button>
   </div>
 
+  <!-- Sección de Comentarios -->
   <div *ngIf="isJoined" class="comments-section">
     <h2>Comentarios</h2>
     <textarea #commentInput placeholder="Añadir un comentario..."></textarea>
     <button (click)="addComment(commentInput.value); commentInput.value = ''" class="btn-add-comment">Añadir comentario</button>
 
     <ul>
-      <li *ngFor="let comment of comments" class="comment-item">{{ comment }}</li>
+      <li *ngFor="let comment of comments" class="comment-item">
+        <strong>{{ comment.user }}:</strong> {{ comment.comment }}
+      </li>
     </ul>
   </div>
 </section>
 
 <app-footer></app-footer>
+

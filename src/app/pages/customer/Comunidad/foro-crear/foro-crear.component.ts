@@ -18,17 +18,38 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   templateUrl: './foro-crear.component.html',
-  styleUrl: './foro-crear.component.scss'
+  styleUrls: ['./foro-crear.component.scss']
 })
 export class ForoCrearComponent {
   forumTitle: string = '';
   forumDescription: string = '';
+  usuarioActual: string = 'UsuarioDemo';
+  errorMessage: string = '';
 
   constructor(private router: Router) {}
 
   createForum() {
-    // Aquí iría la lógica para guardar el foro
-    console.log('Foro creado:', this.forumTitle, this.forumDescription);
-    this.router.navigate(['/customer/comunidad']); // Vuelve a la lista de foros
+    if (!this.forumTitle || !this.forumDescription) {
+      this.errorMessage = 'Todos los campos son obligatorios';
+      return;
+    }
+
+    const newForum = {
+      title: this.forumTitle,
+      description: this.forumDescription,
+      creator: this.usuarioActual,
+      status: 'Propietario'
+    };
+
+    // Guardar en localStorage
+    const storedForums = JSON.parse(localStorage.getItem('forums') || '[]');
+    storedForums.push(newForum);
+    localStorage.setItem('forums', JSON.stringify(storedForums));
+
+    // Notificación de éxito
+    alert('El foro ha sido creado exitosamente.');
+
+    // Redirigir a la lista de foros
+    this.router.navigate(['/customer/foro/foro-busqueda']);
   }
 }

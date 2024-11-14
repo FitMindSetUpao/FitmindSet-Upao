@@ -11,6 +11,7 @@
       <div class="forum-info">
         <h2 class="forum-title">{{ forum.title }}</h2>
         <p class="forum-description">{{ forum.description }}</p>
+        <span class="forum-status">{{ forum.status }}</span> <!-- Muestra el estado del foro -->
       </div>
       <div class="forum-actions">
         <button (click)="viewForumDetails(forum.title)" class="btn-details">Ver detalles</button>
@@ -20,3 +21,4 @@
 </section>
 
 <app-footer></app-footer>
+

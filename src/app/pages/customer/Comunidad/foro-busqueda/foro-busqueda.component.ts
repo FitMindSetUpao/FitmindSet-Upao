@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from "../../../../shared/components/navbar/navbar.component";
 import { FooterComponent } from '../../../../shared/components/footer/footer.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
@@ -16,25 +16,48 @@ import { Router } from '@angular/router';
     CommonModule
   ],
   templateUrl: './foro-busqueda.component.html',
-  styleUrls: ['./foro-busqueda.component.scss'] // <-- Corrección aquí: 'styleUrls' en plural
+  styleUrls: ['./foro-busqueda.component.scss']
 })
-export class ForoBusquedaComponent {
-  forums = [
-    { title: 'Foro 1', description: 'Descripción del foro 1' },
-    { title: 'Foro 2', description: 'Descripción del foro 2' },
-    { title: 'Foro 3', description: 'Descripción del foro 3' },
-    { title: 'Foro 4', description: 'Descripción del foro 4' }
-  ];
+export class ForoBusquedaComponent implements OnInit {
+
+  forums: Array<{ title: string, description: string, creator: string, status: string }> = [];
+  usuarioActual: string = 'UsuarioDemo';
 
   constructor(private router: Router) {}
 
+  ngOnInit() {
+    // Foros base
+    const baseForums = [
+      { title: 'Proteína', description: 'Crecen el músculo.', creator: '', status: 'Desconocido' },
+      { title: 'Carbohidrato', description: 'Otorgan energía.', creator: '', status: 'Desconocido' },
+      { title: 'Grasas Saludables', description: 'Mantienen la piel y cabello saludables.', creator: '', status: 'Desconocido' }
+    ];
+    
+    const storedForums = JSON.parse(localStorage.getItem('forums') || '[]');
+    if (storedForums.length === 0) {
+      this.forums = baseForums;
+      localStorage.setItem('forums', JSON.stringify(this.forums));
+    } else {
+      this.forums = storedForums;
+    }
+
+    // Actualizar el estado de cada foro
+    this.forums.forEach(forum => {
+      if (forum.creator === this.usuarioActual) {
+        forum.status = 'Propietario';
+      } else if (JSON.parse(localStorage.getItem(`joined_${forum.title}`) || 'false')) {
+        forum.status = 'Unido';
+      } else {
+        forum.status = 'Desconocido';
+      }
+    });
+  }
+
   createForum() {
-    // Redirige a foro/foro-cr (ForoCrearComponent)
     this.router.navigate(['/customer/foro/foro-cr']);
   }
 
   viewForumDetails(forumTitle: string) {
-    // Redirige a foro/foro-co (ForoComentariosComponent) con un parámetro opcional si quieres pasar info
     this.router.navigate(['/customer/foro/foro-co'], {
       queryParams: { title: forumTitle }
     });
