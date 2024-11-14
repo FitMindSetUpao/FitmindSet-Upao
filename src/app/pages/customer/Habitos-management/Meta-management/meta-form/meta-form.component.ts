@@ -1,76 +1,144 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MetaService } from '../../../../../core/services/meta.services';
+import { FormBuilder, FormGroup, FormsModule, Validators,ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
-import { MetaService } from '../../../../../core/services/meta.services';
-import { Meta } from '../../../../../shared/models/meta.model';  // Asegúrate de tener este modelo
+import { MetaDTO } from '../../../../../shared/models/meta.model';
+import { MetaResponseDTO } from '../../../../../shared/models/meta-response.model';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+
 
 @Component({
   selector: 'app-meta-form',
+  standalone: true,
+  imports: [ 
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatNativeDateModule,
+    CommonModule,
+    MatInputModule,
+  ],
   templateUrl: './meta-form.component.html',
   styleUrls: ['./meta-form.component.scss'],
 })
 export class MetaFormComponent implements OnInit {
-  private metaService = inject(MetaService);
-  private fb = inject(FormBuilder);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private snackBar = inject(MatSnackBar);
 
+  habitoId?: number;
   metaId?: number;
-  errors: string[] = [];
-  form: FormGroup = this.fb.group({
-    descripcion: ['', [Validators.required]], 
-    estado: ['INICIADO', [Validators.required]], 
-    fechaInicio: ['', [Validators.required]],
-    fechaFin: ['', [Validators.required]],
-    tiempoObjetivo: ['', [Validators.required, Validators.min(1)]],
-  });
+  metas: any[] = []; 
+  errors: string[] = []; 
+
+    private fb = inject(FormBuilder);
+    private metaService = inject(MetaService);
+    private router = inject(Router);
+    private route = inject(ActivatedRoute);
+    private snackBar = inject(MatSnackBar);
+
+    form: FormGroup = this.fb.group({
+      descripcion: ['', Validators.required],
+      estado: ['INICIADO', [Validators.required]],
+      fechaInicio: ['', [Validators.required]],
+      fechaFin: ['', [Validators.required]],
+      tiempoObjetivo: [0, [Validators.required]],
+    });
+  
 
   ngOnInit(): void {
-    this.metaId = Number(this.route.snapshot.paramMap.get('id'));
-
+    this.habitoId = Number(this.route.snapshot.paramMap.get('habitoId'));
+    this.metaId = Number(this.route.snapshot.paramMap.get('metaId'));
     if (this.metaId) {
-      this.loadMetaForEdit();
+      this.cargarMeta();
     }
   }
 
-  private loadMetaForEdit(): void {
-    this.metaService.getMetaById(this.metaId!).subscribe({
-      next: (meta) => {
-        this.form.patchValue({
-          descripcion: meta.descripcion,
-          estado: meta.estado,
-          fechaInicio: meta.fechaInicio,
-          fechaFin: meta.fechaFin,
-          tiempoObjetivo: meta.tiempoObjetivo,
-        });
+  cargarMeta(): void {
+    // Verificar si habitoId y metaId están definidos
+    if (this.habitoId === undefined || this.metaId === undefined) {
+      this.snackBar.open('ID de hábito o meta no definidos', 'Cerrar', { duration: 3000 });
+      return;
+    }
+  
+    this.metaService.obtenerMetasPorHabito(this.habitoId).subscribe(
+      (metas) => {
+        // Buscar la meta específica por su ID
+        const meta = metas.find(meta => meta.id === this.metaId);
+  
+        if (meta) {
+          // Si la meta existe, actualizar el formulario
+          this.form.patchValue({
+            descripcion: meta.descripcion,
+            estado: meta.estado,
+            fechaInicio: meta.fechaInicio,
+            fechaFin: meta.fechaFin,
+            tiempoObjetivo: meta.tiempoObjetivo,
+          });
+        } else {
+          // Si no se encuentra la meta
+          this.snackBar.open('Meta no encontrada', 'Cerrar', { duration: 3000 });
+        }
       },
-      error: () => this.errors.push('Error al cargar la meta para edición'),
-    });
+      (error) => {
+        // Manejo de error en caso de que falle la petición
+        this.snackBar.open('Error al cargar las metas', 'Cerrar', { duration: 3000 });
+        console.error(error); // Puedes personalizar el manejo de errores si es necesario
+      }
+    );
   }
+  
+  
 
-  save(): void {
+  guardarMeta(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-
-    const formData: Meta = this.form.value;
-    const request: Observable<Meta> = this.metaId
-      ? this.metaService.updateMeta(this.metaId, formData)
-      : this.metaService.createMeta(formData);
-
-    request.subscribe({
-      next: () => {
-        this.snackBar.open('Meta guardada exitosamente', 'Cerrar', { duration: 3000 });
-        this.router.navigate(['/customer/metas/list']);
-      },
-      error: (error) => {
-        this.errors = error.error.errors || ['Error al guardar la meta'];
-        this.snackBar.open('Error al guardar la meta', 'Cerrar', { duration: 3000 });
-      },
-    });
+  
+    if (!this.habitoId || this.habitoId === 0) {
+      this.snackBar.open('Hábito no válido', 'Cerrar', { duration: 3000 });
+      return;
+    }
+  
+    const metaDTO: MetaDTO = this.form.value;
+    if (this.metaId) {
+      // Update meta
+      this.metaService
+        .actualizarMeta(this.metaId, metaDTO)
+        .subscribe(
+          (meta: MetaResponseDTO) => {
+            this.snackBar.open('Meta actualizada', 'Cerrar', { duration: 3000 });
+            this.router.navigate([`/habito/${this.habitoId!}/metas`]);
+          },
+          (error) => {
+            this.snackBar.open('Error al actualizar la meta', 'Cerrar', { duration: 3000 });
+          }
+        );
+    } else {
+      // Create new meta
+      this.metaService
+        .crearMeta(this.habitoId!, metaDTO)  // Ensure habitoId is not 0
+        .subscribe(
+          (meta: MetaResponseDTO) => {
+            this.snackBar.open('Meta creada', 'Cerrar', { duration: 3000 });
+            this.router.navigate([`/customer/habitos/list`]);
+          },
+          (error) => {
+            this.snackBar.open('Error al crear la meta', 'Cerrar', { duration: 3000 });
+          }
+        );
+    }
   }
+  cancel() {
+    this.router.navigate(['/customer/habitos/list']);
+  }
+  
+  
+  
 }

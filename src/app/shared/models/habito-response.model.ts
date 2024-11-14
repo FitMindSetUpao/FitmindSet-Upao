@@ -1,6 +1,6 @@
 export interface HabitoResponse{
     id: number;
-    nombre_habito: string;  // Asegúrate de que sea 'nombreHabito'
+    nombreHabito: string; 
     descripcion: string;
     tipoDeHabitoId: number;
     fechaCreacion:string

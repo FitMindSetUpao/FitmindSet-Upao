@@ -30,12 +30,17 @@
           <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
           <mat-cell *matCellDef="let habito">
             <div class="button-group">
+              <button mat-raised-button color="primary" (click)="createMeta(habito.id)">
+                Crear Meta
+            </button>
+            
               <button mat-raised-button color="accent" (click)="editHabito(habito.id)">
-                Editar
+                Editar Habito
               </button>
               <button mat-raised-button color="warn" (click)="deleteHabito(habito.id)">
-                Eliminar
+                Eliminar Habito
               </button>
+            
             </div>
           </mat-cell>
         </ng-container>

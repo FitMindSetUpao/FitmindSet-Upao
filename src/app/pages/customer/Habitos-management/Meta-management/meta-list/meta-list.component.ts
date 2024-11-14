@@ -11,6 +11,7 @@ import { HabitoResponse } from '../../../../../shared/models/habito-response.mod
 import { HabitoService } from '../../../../../core/services/habito.services';
 import { PageableResponse } from '../../../../../shared/models/pageable.response.model';
 
+
 @Component({
   selector: 'app-meta-list',
   standalone: true,
@@ -63,7 +64,7 @@ export class MetaListComponent implements OnInit {
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.filteredHabitos = this.habitos.filter(habito =>
-      habito.nombre_habito.toLowerCase().includes(filterValue)
+      habito.nombreHabito.toLowerCase().includes(filterValue)
     );
   }
 
@@ -78,9 +79,8 @@ export class MetaListComponent implements OnInit {
   }
 
   viewDetails(habitoId: number): void {
-    this.router.navigate(['/customer/habitos/detalle', habitoId]);
+    this.router.navigate(['/customer/habitos/metas/detalles', habitoId]);
   }
-
   private showSnackBar(message: string): void {
     this.snackbar.open(message, 'Cerrar', {
       duration: 3000,

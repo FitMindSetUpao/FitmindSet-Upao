@@ -16,6 +16,8 @@ import { HabitoResponse } from '../../../../../shared/models/habito-response.mod
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @Component({
@@ -31,6 +33,8 @@ import { FormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     CommonModule,
     FormsModule,
+    MatDatepickerModule,
+    
   ],
   templateUrl: './habito-form.component.html',
   styleUrls: ['./habito-form.component.scss'],
@@ -43,6 +47,7 @@ export class HabitoFormComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private snackBar = inject(MatSnackBar);
+  private cdr = inject(ChangeDetectorRef);
 
   tipoDeHabitos: TipoDeHabito[] = [];
   errors: string[] = [];
@@ -50,110 +55,130 @@ export class HabitoFormComponent implements OnInit {
   loading = false;
 
   form: FormGroup = this.fb.group({
-    tipoDeHabitoId: [null, [Validators.required]],
-    nombre_habito: ['', [Validators.required]], // Cambia `nombre` a `nombre_habito`
+    tipoDeHabitoId: ['', [Validators.required]],  // Aquí estamos usando 'id' del tipo de hábito
+    nombreHabito: ['', [Validators.required]],
     descripcion: ['', [Validators.required]],
   });
-  
 
   ngOnInit(): void {
-    this.habitoId = Number(this.route.snapshot.paramMap.get('tipoDeHabitos'));
-    this.loadTiposDeHabitos();
-    this.habitoId = Number(this.route.snapshot.paramMap.get('id'));
-  
-  if (this.habitoId) {
-    this.habitoService.getHabitosDetailsById(this.habitoId).subscribe((habitoData) => {
-   
-      this.form.patchValue({
-        tipoDeHabitoId: habitoData.tipoDeHabitoId,
-        nombre_habito: habitoData.nombre_habito,
-        descripcion: habitoData.descripcion
-      });
+    this.loadTiposDeHabitos(); // Cargar tipos de hábitos
+
+    if (!this.habitoId && this.tipoDeHabitos.length) {
+      this.form.get('tipoDeHabitoId')?.setValue(this.tipoDeHabitos[0].id);
+    }
+    
+
+    if (this.habitoId) {
+      this.loadHabitosForEdit();
+    }
+
+    this.form.get('tipoDeHabitoId')?.valueChanges.subscribe(value => {
+      console.log('Valor de tipoDeHabitoId:', value); 
     });
+    if (this.habitoId) {
+      this.loadHabitData(this.habitoId);
+    }
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+          this.habitoId = +id;
+          this.loadHabitData(this.habitoId);
+      }
+  });
+
+  this.loadTiposDeHabitos();
   }
-}
+  loadHabitData(id: number): void {
+    this.habitoService.getHabitosDetailsById(id).subscribe(
+      (habit) => {
+        this.form.patchValue({
+          tipoDeHabitoId: habit.tipoDeHabitoId,
+          nombreHabito: habit.nombreHabito,
+          descripcion: habit.descripcion
+        });
+      },
+      (error) => {
+        console.error("Error al cargar el hábito", error);
+      }
+    );
+  }
+
   private loadTiposDeHabitos(): void {
     this.tipoDeHabitoService.getAllTiposDeHabitos().subscribe({
-      next: (tipoDeHabitos) => {
-        // Asigna un ID numérico a cada tipo de hábito, si no viene del backend.
-        this.tipoDeHabitos = tipoDeHabitos.map((tipo, index) => ({
-          ...tipo,
-          id: index + 1, // Esto asigna un id único, empezando en 1.
-        }));
-  
-        console.log('Tipos de hábitos con IDs:', this.tipoDeHabitos);
-  
-        this.loading = false;
-  
-        // Si deseas seleccionar el primero automáticamente al cargar
-        if (!this.habitoId && this.tipoDeHabitos.length) {
-          this.form.get('tipoDeHabitoId')?.setValue(this.tipoDeHabitos[0].id);
-        }
-      },
-      error: () => {
-        this.errors.push('Error al cargar los tipos de hábitos');
-        this.loading = false;
-      }
+        next: (tipoDeHabitos) => {
+            if (!tipoDeHabitos || tipoDeHabitos.length === 0) {
+                this.errors.push('No se encontraron tipos de hábitos');
+                return;
+            }
+            this.tipoDeHabitos = tipoDeHabitos;
+            console.log('Tipos de hábitos cargados:', this.tipoDeHabitos);
+
+            // Solo asigna un valor por defecto si no estás en modo edición (sin `habitoId`)
+            if (!this.habitoId && this.tipoDeHabitos.length) {
+                this.form.get('tipoDeHabitoId')?.setValue(this.tipoDeHabitos[0].id);
+            }
+            this.cdr.detectChanges();
+        },
+        error: () => {
+            this.errors.push('Error al cargar los tipos de hábitos');
+        },
     });
-  }
+    setTimeout(() => {
+    if (!this.habitoId && this.tipoDeHabitos.length) {
+        this.form.get('tipoDeHabitoId')?.setValue(this.tipoDeHabitos[0].id);
+        console.log("Tipo de Hábito por defecto asignado:", this.tipoDeHabitos[0].id);
+    }
+}, 0);
+
+}
   private loadHabitosForEdit(): void {
-    if (!this.tipoDeHabitos.length) return;
-  
-    this.habitoService.getHabitosDetailsById(this.habitoId!).subscribe({
-      next: (habito: HabitoResponse) => {
+    if (!this.habitoId) return;
+
+    this.habitoService.getHabitosDetailsById(this.habitoId).subscribe({
+      next: (habitoData) => {
         this.form.patchValue({
-          nombre: habito.nombre_habito,
-          descripcion: habito.descripcion,
-          tipoDeHabitoId: habito.tipoDeHabitoId, 
+          tipoDeHabitoId: habitoData.tipoDeHabitoId,  // Asegúrate de que se asigna el ID correcto
+          nombreHabito: habitoData.nombreHabito,
+          descripcion: habitoData.descripcion,
         });
+        console.log('Datos de hábito para edición:', habitoData);
       },
       error: () => this.errors.push('Error al cargar los detalles del hábito.'),
     });
   }
-  
+
   save(): void {
     if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
+        this.form.markAllAsTouched();
+        return;
     }
-  
-    const nombre_habito = this.form.get('nombre')?.value;
-    if (!nombre_habito) {
-      this.snackBar.open('El nombre del hábito es obligatorio', 'Cerrar', { duration: 3000 });
-      return;
-    }
-  
-    const tipoDeHabitoId = Number(this.form.get('tipoDeHabitoId')?.value);
-    if (isNaN(tipoDeHabitoId)) {
-      this.snackBar.open('Tipo de hábito no válido', 'Cerrar', { duration: 3000 });
-      return;
-    }
-  
+
     const formData: Habito = {
-      ...this.form.value,
-      nombre_Habito: nombre_habito,  
-      tipoDeHabitoId: tipoDeHabitoId,
+        ...this.form.value,
+        tipoDeHabitoId: this.form.get('tipoDeHabitoId')?.value,
+        customerId: this.authService.getUser()?.customerId,
     };
-  
-    console.log("Datos enviados:", formData);
-  
+
+    console.log('Datos enviados:', formData);  // Ver los datos antes de enviarlos
+
     const request: Observable<HabitoResponse> = this.habitoId
-      ? this.habitoService.updateHabito(this.habitoId, formData)
-      : this.habitoService.createHabito(formData);
-  
+        ? this.habitoService.updateHabito(this.habitoId, formData)
+        : this.habitoService.createHabito(formData);
+
     request.subscribe({
-      next: () => {
-        this.snackBar.open('Hábito guardado exitosamente', 'Cerrar', {
-          duration: 3000,
-        });
-        this.router.navigate(['/customer/habitos/list']);
-      },
-      error: (error) => {
-        this.errors = error.error.errors || ['Error al guardar el hábito'];
-        this.snackBar.open('Error al guardar el hábito', 'Cerrar', {
-          duration: 3000,
-        });
-      },
+        next: () => {
+            this.snackBar.open('Hábito guardado exitosamente', 'Cerrar', { duration: 3000 });
+            this.router.navigate(['/customer/habitos/list']);
+        },
+        error: (error) => {
+            console.error('Error al guardar el hábito:', error);
+            this.errors = error.error.errors || ['Error al guardar el hábito'];
+            this.snackBar.open('Error al guardar el hábito', 'Cerrar', { duration: 3000 });
+        },
     });
-  }
+}
+cancel() {
+  this.router.navigate(['/customer/habitos/list']);
+}
+
 }
