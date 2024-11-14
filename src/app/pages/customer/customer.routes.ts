@@ -9,6 +9,8 @@ import { MetaFormComponent } from './Habitos-management/Meta-management/meta-for
 import { EstadisticaHabitoComponent } from './Habitos-management/Habitos-Report/estadistica-habito/estadistica-habito.component';
 import { ActivadListComponent } from './Habitos-management/actividad-management/activad-list/activad-list.component';
 import { ForoBusquedaComponent } from './Comunidad/foro-busqueda/foro-busqueda.component';
+import { ForoCrearComponent } from './Comunidad/foro-crear/foro-crear.component';
+import { ForoComentariosComponent } from './Comunidad/foro-comentarios/foro-comentarios.component';
 
 export const customerRoutes: Routes = [
   {
@@ -43,5 +45,13 @@ export const customerRoutes: Routes = [
   {
     path: 'foro',
     component: ForoBusquedaComponent
+  },
+  {
+    path: 'foro-cr',
+    component: ForoCrearComponent
+  },
+  {
+    path: 'foro-co',
+    component: ForoComentariosComponent
   }
 ];
