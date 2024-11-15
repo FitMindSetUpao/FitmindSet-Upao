@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { AuthLayoutComponent } from '../pages/Auth/auth-layout/auth-layout.component';
+import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
+
 
 import { RegisterComponent } from './register/register.component';
 import { PasswordRecoveryRequestComponent } from './recuperacion/password-recovery-request/password-recovery-request.component'; 
