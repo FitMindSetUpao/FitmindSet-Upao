@@ -22,6 +22,15 @@ export class TipoDeHabitoService {
       })
     );
   }
+  getAllTiposSuscripcion(): Observable<string[]> {
+    const tiposSuscripcionUrl = `${this.baseUrl}/tipos-suscripcion`;
+    return this.http.get<string[]>(tiposSuscripcionUrl).pipe(
+      catchError(error => {
+        console.error('Error al obtener los tipos de suscripción', error);
+        return of([]);
+      })
+    );
+  }
 
 
 }
