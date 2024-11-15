@@ -1,0 +1,166 @@
+
+.open-modal-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #2faf40;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #209125;
+    }
+  }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  
+    &.active {
+      display: flex;
+    }
+  }
+  .register-container {
+    max-width: 500px;
+    margin: 5rem auto;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1001; 
+  
+    h2 {
+      text-align: center;
+      color: #24ae37;
+      font-weight: bold;
+    }
+  
+    .form-group {
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+  
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: rgba(0, 0, 0, 0.7);
+    }
+  
+    .form-control {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+  
+      &:focus {
+        border-color: #35a324;
+        outline: none;
+      }
+    }
+  
+    .btn {
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #2faf40;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #209125;
+      }
+    }
+  
+    .bmi-result {
+      font-size: 1.2rem;
+      color: #333;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+  }
+
+  h2[mat-dialog-title] {
+    text-align: center; 
+    color: #2faf40; 
+    font-size: 1.8rem; 
+    font-weight: bold; 
+    margin-bottom: 1rem;
+  }
+  
+  mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+  }
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 0;
+  }
+
+  mat-form-field {
+    width: 100%; 
+    margin-bottom: 1rem;
+  
+    input {
+      font-size: 1rem;
+    }
+  }
+
+  .bmi-result {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+    text-align: center; 
+    margin-top: 0.5rem;
+  }
+  
+  button[mat-raised-button] {
+    background-color: #2faf40;
+    color: #fff;
+    margin: 0 0.5rem;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #209125;
+    }
+  }
+  @media (max-width: 500px) {
+    .register-container {
+      margin: 2rem;
+      padding: 1.5rem;
+  
+      h2 {
+        font-size: 1.5rem;
+      }
+  
+      .form-control {
+        font-size: 0.9rem;
+      }
+  
+      .btn {
+        font-size: 0.9rem;
+      }
+    }
+  }
+  

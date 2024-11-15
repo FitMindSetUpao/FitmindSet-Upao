@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>Registro de Peso y Altura</h2>
+<mat-dialog-content>
+  <form #formPesoAltura="ngForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Peso (kg)</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="peso"
+        name="peso"
+        required
+        #pesoControl="ngModel"
+        min="1"
+        (ngModelChange)="calcularIMC()"
+      />
+      <mat-error *ngIf="pesoControl.invalid && (pesoControl.dirty || pesoControl.touched)">
+        <ng-container *ngIf="pesoControl.errors?.['required']">Este campo es obligatorio</ng-container>
+        <ng-container *ngIf="pesoControl.errors?.['min']">El peso debe ser mayor que 0</ng-container>
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Altura (cm)</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="altura"
+        name="altura"
+        required
+        #alturaControl="ngModel"
+        min="1"
+        (ngModelChange)="calcularIMC()"
+      />
+      <mat-error *ngIf="alturaControl.invalid && (alturaControl.dirty || alturaControl.touched)">
+        <ng-container *ngIf="alturaControl.errors?.['required']">Este campo es obligatorio</ng-container>
+        <ng-container *ngIf="alturaControl.errors?.['min']">La altura debe ser mayor que 0</ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <label style="font-weight: bold; display: block; margin-top: 16px;">Resultado de tu IMC</label>
+    <mat-form-field appearance="fill" *ngIf="imc !== null">
+      <mat-label>Tu IMC es</mat-label>
+      <input matInput [value]="imc" readonly />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCerrar()">Cerrar</button>
+  <button mat-button color="primary" (click)="registrar(formPesoAltura)" [disabled]="!formPesoAltura.valid">Registrar</button>
+</mat-dialog-actions>

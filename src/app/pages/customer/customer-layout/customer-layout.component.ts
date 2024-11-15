@@ -1,6 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit,HostListener } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
 import { MatIconModule } from '@angular/material/icon'; 
@@ -8,20 +7,18 @@ import { AuthService } from '../../../core/services/auth.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalPesoAlturaComponent } from '../../modal-peso-altura/modal-peso-altura.component'; 
+import { ModalPesoAlturaComponent } from '../modal-peso-altura/modal-peso-altura.component'; 
 
 @Component({
   selector: 'app-customer-layout',
   standalone: true,
   imports: [
     CommonModule,
-    NavbarComponent,
     FooterComponent,
-    RouterOutlet,
     RouterLink,
     MatIconModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
   ],
   templateUrl: './customer-layout.component.html',
   styleUrls: ['./customer-layout.component.scss']
@@ -47,6 +44,15 @@ export class CustomerLayoutComponent implements OnInit {
   toggleSidebar(): void {
     this.isSidebarActive = !this.isSidebarActive;
   }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    const width = (event.target as Window).innerWidth;
+    this.checkSidebarState(width);
+  }
+
+  private checkSidebarState(width: number): void {
+    this.isSidebarActive = width <= 320;
+  }
 
   logout(): void {
     this.authService.logout();
@@ -55,7 +61,9 @@ export class CustomerLayoutComponent implements OnInit {
 
   modalPeso_Altura(): void {
     this.dialog.open(ModalPesoAlturaComponent, {
-      width: '400px' // Puedes ajustar el tamaño del modal aquí
+      width: '900px',
+      height:'600px' // Puedes ajustar el tamaño del modal aquí
     });
   }
+  
 }
