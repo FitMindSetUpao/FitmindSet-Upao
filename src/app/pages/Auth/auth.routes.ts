@@ -17,7 +17,7 @@ export const authRoutes: Routes = [
       { path: 'register', component: RegisterComponent },
       {path: 'password-recovery',component: PasswordRecoveryRequestComponent},
       {path: 'password-confirmation',component: PasswordRecoveryConfirmationComponent},
-      { path: 'reset-password', component: PasswordResetComponent}
+      { path: 'reset-password', component: PasswordResetComponent},
 
     ]
   }
