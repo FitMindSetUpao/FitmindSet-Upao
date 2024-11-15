@@ -1,3 +1,5 @@
+import { Seguimiento } from "./seguimiento.model";  // Ajusta la ruta según sea necesario
+
 export interface MetaDTO {
   id?:number;
   descripcion: string;
@@ -6,5 +8,7 @@ export interface MetaDTO {
   fechaFin: string;    // Formato ISO string
   tiempoObjetivo: number;
   habitoId: number;
+  customerId?: number; 
+  seguimientos?: Seguimiento[]; 
   }
   

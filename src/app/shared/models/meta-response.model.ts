@@ -1,4 +1,4 @@
-// meta-response.dto.ts
+import { MetaDTO } from "./meta.model";
 export interface MetaResponseDTO {
     id: number;
     descripcion: string;
@@ -7,5 +7,6 @@ export interface MetaResponseDTO {
     fechaFin: Date;   
     habitoId: number;
     tiempoObjetivo: number;
+    metas: MetaDTO[];
   }
   

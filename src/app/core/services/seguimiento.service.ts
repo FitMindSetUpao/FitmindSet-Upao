@@ -39,6 +39,11 @@ export class SeguimientoService {
   generarReportePorHabito(habitoId: number): Observable<ReporteDTO> {
     return this.http.get<ReporteDTO>(`${this.apiUrl}/habito/${habitoId}`, this.getHeaders());
   }
+  obtenerSeguimientosPorCustomer(customerId: number): Observable<SeguimientoDTO[]> {
+    return this.http.get<SeguimientoDTO[]>(`${this.apiUrl}/seguimientos/${customerId}`, this.getHeaders());
+  }
+  
+  
 
   // Método para obtener los headers con el token de autenticación (si es necesario)
   private getHeaders(): { headers: HttpHeaders } {

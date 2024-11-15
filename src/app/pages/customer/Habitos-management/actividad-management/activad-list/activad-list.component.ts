@@ -1,103 +1,86 @@
 import { Component, OnInit } from '@angular/core';
-import { HabitoService } from '../../../../../core/services/habito.services';
+import { SeguimientoService } from '../../../../../core/services/seguimiento.service';
+import { SeguimientoDTO } from '../../../../../shared/models/reporte.model';  // Asegúrate de que SeguimientoDTO sea la clase correcta
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
-import {MatTableModule} from '@angular/material/table';
-import { CommonModule } from '@angular/common'; 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { MatTableModule } from '@angular/material/table';
+import { CommonModule } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-activad-list',
+  selector: 'app-ac-list',
   standalone: true,
   imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatTableModule,
-    CommonModule ,
     MatPaginatorModule,
-    FormsModule,
-    ReactiveFormsModule,
+    MatTableModule,
+    CommonModule,
   ],
- templateUrl: './activad-list.component.html',
+  templateUrl: './activad-list.component.html',
   styleUrls: ['./activad-list.component.scss'],
 })
 export class ActivadListComponent implements OnInit {
-  habitos: any[] = []; // Array de hábitos con metas asociadas
-  filteredHabitos: any[] = []; // Array de hábitos filtrados
-  filterText: string = ''; // Texto de filtro para la búsqueda
-
-  // Configuración de paginación
+  seguimientos: SeguimientoDTO[] = [];  // Lista de seguimientos
+  filteredSeguimientos: SeguimientoDTO[] = [];  // Seguimientos filtrados
+  filterText: string = '';  // Filtro por observaciones
   totalElements: number = 0;
   pageSize: number = 5;
   pageIndex: number = 0;
+  customerId!: number; // Asegúrate de que este ID sea proporcionado correctamente
 
-  // Columnas a mostrar en la tabla
-  displayedColumns: string[] = ['nombre', 'metas', 'actions'];
-
-  constructor(private habitoService: HabitoService) {}
+  constructor(
+    private seguimientoService: SeguimientoService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-    this.loadHabitos();
+    // Recuperar el customerId de algún lugar (localStorage, sesión, etc.)
+    this.customerId = parseInt(localStorage.getItem('customerId') || '0', 10);
+
+    if (this.customerId) {
+      this.loadSeguimientos();
+    } else {
+      this.snackBar.open('Customer ID no encontrado', 'Cerrar', { duration: 3000 });
+    }
   }
 
-  // Cargar los hábitos y sus metas desde el servicio
-  loadHabitos(): void {
-    this.habitoService.getHabitosDetails().subscribe(
-      (data: any) => {
-        this.habitos = data;
-        this.applyFilter(); // Aplicar filtro inicial
-        this.totalElements = this.habitos.length;
+  loadSeguimientos(): void {
+    // Cargar los seguimientos con el customerId
+    this.seguimientoService.obtenerSeguimientosPorCustomer(this.customerId).subscribe(
+      (data) => {
+        this.seguimientos = data;
+        this.filteredSeguimientos = [...this.seguimientos];  // Inicializa la lista filtrada
+        this.totalElements = this.seguimientos.length;
+        this.applyFilter();  // Aplicar el filtro si es necesario
       },
       (error) => {
-        console.error('Error al cargar hábitos:', error);
+        console.error('Error al cargar los seguimientos:', error);
+        this.snackBar.open('Hubo un error al cargar los seguimientos', 'Cerrar', { duration: 3000 });
       }
     );
   }
 
-  // Filtrar los hábitos por el texto de búsqueda
   applyFilter(): void {
     if (this.filterText) {
-      this.filteredHabitos = this.habitos.filter(habito =>
-        habito.nombreHabito.toLowerCase().includes(this.filterText.toLowerCase())
+      // Filtrar por observaciones
+      this.filteredSeguimientos = this.seguimientos.filter(seguimiento =>
+        seguimiento.fecha.toLowerCase().includes(this.filterText.toLowerCase())
       );
     } else {
-      this.filteredHabitos = [...this.habitos];
+      // Si no hay filtro, mostrar todos los seguimientos
+      this.filteredSeguimientos = [...this.seguimientos];
     }
-    this.updatePaginator();
+    this.updatePaginator();  // Actualizar la paginación después de aplicar el filtro
   }
 
-  // Actualizar la paginación al filtrar
   updatePaginator(): void {
-    this.totalElements = this.filteredHabitos.length;
+    this.totalElements = this.filteredSeguimientos.length;
     const startIndex = this.pageIndex * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.filteredHabitos = this.filteredHabitos.slice(startIndex, endIndex);
+    this.filteredSeguimientos = this.filteredSeguimientos.slice(startIndex, endIndex);
   }
 
-  // Cambiar de página en la paginación
   onPageChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.updatePaginator();
-  }
-
-  // Método para el botón de registrar actividad
-  registerActivity(habitoId: number): void {
-    console.log('Registrar actividad para el hábito:', habitoId);
-    // Aquí puedes abrir un modal o redirigir al formulario para registrar actividad física
-  }
-
-  // Método para el botón de ver detalles de las metas
-  viewMetaDetails(habitoId: number): void {
-    console.log('Ver detalles de las metas para el hábito:', habitoId);
-    // Aquí puedes abrir un modal o cargar detalles en una nueva vista
+    this.updatePaginator();  // Actualiza los elementos de la página
   }
 }

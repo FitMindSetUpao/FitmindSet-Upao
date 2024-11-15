@@ -1,0 +1,19 @@
+/* Estilo para las metas dentro de la tabla */
+.meta-item {
+    font-size: 1rem;
+    color: #2c3e50;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #ecf0f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo de la tabla cuando no tiene metas */
+  .mat-table .no-metas {
+    color: #e74c3c;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+  }
+  
