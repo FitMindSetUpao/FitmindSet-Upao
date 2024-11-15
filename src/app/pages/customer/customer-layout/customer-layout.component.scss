@@ -13,6 +13,7 @@
 
   mat-icon {
     font-size: 24px;
+    color: #fff;
   }
 }
 
@@ -21,7 +22,7 @@
   color: #fff;
   width: 270px;
   transition: width 0.3s;
-  padding-top: 60px;
+  padding: 50px 10px; // Espaciado superior e inferior aumentado
 
   &.collapsed {
     width: 60px;
@@ -34,9 +35,9 @@
 
     li {
       display: flex;
-      flex-direction: column; /* Para que el submenú aparezca en una nueva línea */
+      flex-direction: column;
       align-items: start;
-      padding: 15px;
+      padding: 40px 15px; // Espaciado aumentado
       position: relative;
 
       a {
@@ -44,12 +45,12 @@
         align-items: center;
         color: #fff;
         text-decoration: none;
-        font-size: 18px;
+        font-size: 22px;
         font-family: "Poppins", sans-serif;
 
         mat-icon {
           font-size: 24px;
-          margin-right: 10px;
+          margin-right: 15px; // Espacio aumentado entre icono y texto
         }
 
         .nav-label {
@@ -63,7 +64,6 @@
         background-color: #388E3C;
       }
 
-      /* Submenú desplegable */
       .submenu {
         display: none;
         list-style: none;
@@ -73,14 +73,14 @@
         background-color: #388E3C;
         border-radius: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        padding: 5px 0;
+        padding: 10px 0; // Espacio superior e inferior aumentado
         width: 100%;
 
         li {
           a {
             display: flex;
             align-items: center;
-            padding: 8px 15px;
+            padding: 10px 20px;
             color: #fff;
             text-decoration: none;
             font-size: 16px;
@@ -92,13 +92,12 @@
 
             mat-icon {
               font-size: 20px;
-              margin-right: 8px;
+              margin-right: 10px;
             }
           }
         }
       }
 
-      /* Mostrar el submenú al pasar el cursor */
       &:hover .submenu {
         display: block;
       }
@@ -108,14 +107,14 @@
 
 .layout-content {
   flex: 1;
-  padding: 20px;
+  padding: 30px; // Espacio aumentado
   background-color: #f4f4f4;
   overflow-y: auto;
 
   .card-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 24px; // Espaciado entre tarjetas aumentado
 
     mat-grid-list {
       width: 100%;
@@ -124,6 +123,7 @@
     .dashboard-card {
       width: 100%;
       height: 100%;
+
       mat-card-header {
         display: flex;
         align-items: center;
@@ -131,12 +131,23 @@
         background-color: #f5f5f5;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
-        padding: 16px;
+        padding: 20px;
         mat-icon {
-          margin-right: 10px;
+          margin-right: 15px;
         }
       }
     }
+  }
+}
+
+.forum-actions {
+  .btn-details {
+    background-color: #4caf50; // Verde para el botón "Ver detalles"
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
   }
 }
 
@@ -146,29 +157,29 @@
   background-color: #ffffff;
 
   mat-card-title {
-    font-size: 1.25rem;
-    font-weight: 300;
-    margin-bottom: 50px;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 30px; // Ajuste de espacio
     font-family: "Poppins", sans-serif;
   }
 
   mat-card-content {
-    padding: 16px;
-    font-size: 0.9rem;
+    padding: 20px; // Espacio aumentado
+    font-size: 0.95rem;
     color: #555;
   }
 
   mat-card-actions {
     display: flex;
     justify-content: flex-end;
-    padding: 8px 16px;
+    padding: 12px 20px;
   }
 
   button {
     background-color: #4CAF50;
     color: white;
     font-size: 1rem;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border-radius: 20px;
     transition: background-color 0.2s;
 
@@ -179,66 +190,138 @@
 }
 
 .descripcion {
-  font-size: 19px;
+  font-size: 20px;
   font-family: "Poppins", sans-serif;
+  margin: 10px 0; // Ajuste de espacio
 }
 
 .sidebar-right {
-  margin-left: 16px;
-  width: 300px;
+  margin-left: 20px;
+  width: 320px;
 }
 
 .sidebar-right h2 {
   font-size: 18px;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .sidebar-right mat-card {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .custom-card-header {
   display: flex;
   align-items: center;
   background-color: #f5f5f5;
-  padding: 16px;
+  padding: 20px; // Ajuste de espacio
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
 
 .header-icon {
-  margin-right: 10px;
+  margin-right: 15px; // Espacio aumentado entre icono y texto
   font-size: 24px;
 }
 
 .header-title {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
 .titulo-usuario {
-  font-size: 56px;
+  font-size: 60px;
   font-family: "Poppins", sans-serif;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   font-weight: 700;
   color: #388E3C;
 }
+
 @media (max-width: 500px) {
   .register-container {
-    margin: 2rem;
-    padding: 1.5rem;
+    margin: 1.5rem;
+    padding: 1rem;
 
     h2 {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
 
     .form-control {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     .btn {
+      font-size: 0.85rem;
+    }
+  }
+
+  .layout-sidebar {
+    width: 100%;
+    padding: 10px; // Ajuste de espacio para dispositivos pequeños
+  }
+
+  .layout-content {
+    padding: 10px; // Ajuste de espacio para dispositivos pequeños
+  }
+
+  .sidebar-right {
+    width: 100%;
+    margin-left: 0;
+    padding: 10px;
+
+}
+}
+@media (min-width: 768px) {
+  .layout-dashboard {
+    flex-direction: row;
+  }
+
+  .layout-sidebar {
+    width: 220px;
+  }
+
+  .sidebar-right {
+    width: 300px;
+    margin-left: 16px;
+  }
+
+  .dashboard-card {
+    width: calc(50% - 16px); // Dos columnas en pantallas medianas
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout-sidebar {
+    width: 270px;
+  }
+
+  .sidebar-right {
+    width: 350px;
+  }
+
+  .dashboard-card {
+    width: calc(33.33% - 16px); // Tres columnas en pantallas grandes
+  }
+}
+
+
+@media (max-width: 320px) {
+  .layout-sidebar,
+  .layout-content {
+    padding: 5px;
+  }
+
+  .sidebar-toggle-btn mat-icon {
+    font-size: 18px;
+  }
+
+  .card-container .dashboard-card {
+    mat-card-title {
       font-size: 0.9rem;
+    }
+
+    mat-card-content {
+      font-size: 0.75rem;
     }
   }
 }
