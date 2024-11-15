@@ -6,7 +6,7 @@ export const routes: Routes = [
  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
  { 
     path: 'auth', 
-    loadChildren: () => import('./pages/Auth/auth.routes').then(a => a.authRoutes), 
+    loadChildren: () => import('./pages/auth/auth.routes').then(a => a.authRoutes), 
     canActivate: [authInverseGuard], 
   },
 
