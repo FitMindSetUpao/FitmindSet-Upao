@@ -100,12 +100,12 @@ export class MetaFormComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-  
+
     if (!this.habitoId || this.habitoId === 0) {
       this.snackBar.open('Hábito no válido', 'Cerrar', { duration: 3000 });
       return;
     }
-  
+
     const metaDTO: MetaDTO = this.form.value;
     if (this.metaId) {
       // Update meta
@@ -114,7 +114,7 @@ export class MetaFormComponent implements OnInit {
         .subscribe(
           (meta: MetaResponseDTO) => {
             this.snackBar.open('Meta actualizada', 'Cerrar', { duration: 3000 });
-            this.router.navigate([`/habito/${this.habitoId!}/metas`]);
+            this.router.navigate([`/habito/${this.habitoId!}/metas`]); // Asegúrate que esta ruta sea la correcta
           },
           (error) => {
             this.snackBar.open('Error al actualizar la meta', 'Cerrar', { duration: 3000 });
@@ -127,7 +127,7 @@ export class MetaFormComponent implements OnInit {
         .subscribe(
           (meta: MetaResponseDTO) => {
             this.snackBar.open('Meta creada', 'Cerrar', { duration: 3000 });
-            this.router.navigate([`habitos/metas`]);
+            this.router.navigate([`/habito/${this.habitoId!}/metas`]); // Asegúrate de que esta ruta esté bien estructurada
           },
           (error) => {
             this.snackBar.open('Error al crear la meta', 'Cerrar', { duration: 3000 });
@@ -135,7 +135,11 @@ export class MetaFormComponent implements OnInit {
         );
     }
   }
-  
+
+cancel() {
+    this.router.navigate(['/habito/${this.habitoId!}/metas']);  // Asegúrate de que la ruta sea coherente
+}
+
   
   
 }
