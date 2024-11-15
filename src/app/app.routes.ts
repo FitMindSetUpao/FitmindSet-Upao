@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { authInverseGuard } from './core/guards/auth-inverse.guard';
-import { AuthLayoutComponent } from "../auth/auth-layout/auth-layout.component";
-
 
 export const routes: Routes = [
  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -10,7 +8,7 @@ export const routes: Routes = [
   path: 'auth', 
   loadChildren: () => import('./pages/auth/auth.routes').then(a => a.authRoutes), 
   canActivate: [authInverseGuard] 
-}
+},
 
   { 
     path: 'customer', 
