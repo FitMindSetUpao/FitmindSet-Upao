@@ -26,6 +26,12 @@ export class LoginComponent {
   private snackBar= inject(MatSnackBar);
   private authService = inject(AuthService);
 
+  private readonly CUSTOMER_ROLE = 'CUSTOMER';
+  private readonly AUTHOR_ROLE = 'AUTHOR';
+  private readonly CUSTOMER_ROUTE = '/customer';
+  private readonly AUTHOR_ROUTE = 'autor/recursos/list';
+  private readonly DEFAULT_ROUTE = '/home';
+
   constructor(){
     this.loginForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]],
@@ -47,7 +53,7 @@ export class LoginComponent {
     this.authService.login(credentials).subscribe({
       next: () => {
         this.showSnackBar('Inicio de sesión exitoso');
-        this.router.navigate(['/customer']);
+        this.redirectUserBasedOnRole();
       },
       error: () => {
         this.showSnackBar('Error en el inicio de sesión. Por favor, intenta de nuevo.');
@@ -55,9 +61,20 @@ export class LoginComponent {
     });
 
   }
+  private redirectUserBasedOnRole(): void {
+    const userRole = this.authService.getUserRole();
+
+    if (userRole === this.CUSTOMER_ROLE) {
+      this.router.navigate([this.CUSTOMER_ROUTE]);
+    } else if (userRole === this.AUTHOR_ROLE) {
+      this.router.navigate([this.AUTHOR_ROUTE]);
+    } else {
+      this.router.navigate([this.DEFAULT_ROUTE]);
+    }
+  }
 
   private showSnackBar(message:string): void{
-    this.snackBar.open('Login Successful', 'Close', {
+    this.snackBar.open(message, 'Close', {
       duration: 2000,
       verticalPosition: 'top'
     });

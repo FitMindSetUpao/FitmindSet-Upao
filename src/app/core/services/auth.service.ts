@@ -7,6 +7,7 @@ import { AuthResponse } from '../../shared/models/auth-response.model';
 import { Observable, tap } from 'rxjs';
 import { RegisterRequest } from '../../shared/models/register-request.model';
 import { RegisterResponse } from '../../shared/models/register-response.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class AuthService {
   private baseURL = `${environment.baseURL}/auth`;
   private http = inject(HttpClient);
   private storageService = inject(StorageService);
+  private router = inject(Router);
 
   constructor() { }
 
@@ -30,7 +32,6 @@ export class AuthService {
     return this.http.post<RegisterResponse>(`${this.baseURL}/register/customer`, registerRequest)
       .pipe(
         tap(response => {
-          // Almacenar el nombre del usuario en el almacenamiento local
           this.storageService.setUserName(registerRequest.nombre);
         })
       );
@@ -38,7 +39,8 @@ export class AuthService {
 
   logout(): void {
     this.storageService.clearAuthData();
-    this.storageService.clearUserName(); // Limpiar el nombre al cerrar sesión
+    this.storageService.clearUserName(); 
+    this.router.navigate(['/auth/login']);
   }
   sendRecoveryEmail(correo: string): Observable<any> {
     return this.http.post(`${this.baseURL}/forgot-password`, { correo });
@@ -63,7 +65,7 @@ export class AuthService {
     return this.storageService.getUserName(); 
   }
   loginWithGoogle(googleToken: string): Observable<any> {
-    return this.http.post('/api/auth/google-login', { token: googleToken });
+    return this.http.post('login/oauth2/code/google', { token: googleToken });
   }
   resetPassword(token: string, newPassword: string): Observable<any> {
     const url = `${this.baseURL}/reset-password`;

@@ -1,7 +1,9 @@
 export interface Seguimiento {
-    metaId: number;
-    tiempoInvertido: number;
-    observaciones: string;
-    estado: string;
-  }
-  
+  id: number;
+  fecha: string;  // Formato ISO string
+  porcentajeCumplido: number;
+  tiempoInvertido: number;
+  estado: string;  // Podría ser un enum si es necesario
+  metaId: number;
+  observaciones: string;
+}

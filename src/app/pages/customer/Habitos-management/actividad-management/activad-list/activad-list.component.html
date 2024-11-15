@@ -1,1 +1,38 @@
-<p>activad-list works!</p>
+<mat-table [dataSource]="filteredSeguimientos" class="mat-table">
+  <!-- Columna de Seguimientos -->
+  <ng-container matColumnDef="descripcion">
+    <mat-header-cell *matHeaderCellDef> Descripción del Seguimiento </mat-header-cell>
+    <mat-cell *matCellDef="let seguimiento"> {{ seguimiento.descripcion }} </mat-cell>
+  </ng-container>
+
+  <!-- Columna de Actividades -->
+  <ng-container matColumnDef="actividades">
+    <mat-header-cell *matHeaderCellDef> Actividades </mat-header-cell>
+    <mat-cell *matCellDef="let seguimiento">
+      <div *ngIf="seguimiento.actividades && seguimiento.actividades.length > 0; else noActividades">
+        <p>Actividades:</p>
+        <ul>
+          <li *ngFor="let actividad of seguimiento.actividades">
+            {{ actividad.descripcion }} - {{ actividad.fecha }}
+          </li>
+        </ul>
+      </div>
+      <ng-template #noActividades>
+        <p>No hay actividades registradas.</p>
+      </ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Filas de la tabla -->
+  <mat-header-row *matHeaderRowDef="['descripcion', 'actividades']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['descripcion', 'actividades']"></mat-row>
+</mat-table>
+
+<!-- Paginación -->
+<mat-paginator
+  [length]="totalElements"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
+  [pageSizeOptions]="[5, 10, 20]"
+  (page)="onPageChange($event)">
+</mat-paginator>

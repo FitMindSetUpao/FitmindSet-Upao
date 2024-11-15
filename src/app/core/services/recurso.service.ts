@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { RecursoResponse } from '../../shared/models/recurso-response.model';
 import { PageableResponse } from '../../shared/models/pageable.response.model';
 import { Recurso } from '../../shared/models/recurso.model';
+import { tipoDeRecursoResponse } from '../../shared/models/tipoDeRecurso.model';
 @Injectable({
     providedIn: 'root'
   })
@@ -29,6 +30,5 @@ export class RecursoService{
   getRecursoDetailsById(id: number): Observable<RecursoResponse> {
     return this.http.get<RecursoResponse>(`${this.baseUrl}/${id}`);
   }
-
 
 }

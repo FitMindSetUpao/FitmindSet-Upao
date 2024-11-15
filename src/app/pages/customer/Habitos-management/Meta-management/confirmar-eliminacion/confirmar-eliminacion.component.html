@@ -1,0 +1,9 @@
+<h1 mat-dialog-title class="modal-title">¿Estás seguro de que deseas borrar esta meta?</h1>
+<div mat-dialog-content class="modal-content">
+  <p class="modal-description">Esta acción no se puede deshacer.</p>
+</div>
+<div mat-dialog-actions class="modal-actions">
+  <button mat-button class="cancel-button" (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="warn" class="confirm-button" (click)="confirmar()">Eliminar</button>
+  <button mat-raised-button color ="warn" class="confirm-button" (click)="cancelar()"></button>
+</div>

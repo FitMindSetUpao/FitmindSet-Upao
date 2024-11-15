@@ -1,136 +1,137 @@
 h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .table-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  
-    .filter-input {
-      width: 250px;
-      margin-left: 20px;
-    }
-  }
-  
-  .mat-table {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.table-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  .filter-input {
     width: 100%;
-    margin: auto;
-    box-shadow: none; // Elimina la sombra de la tabla
-  
-    .mat-header-cell, .mat-cell {
-      text-align: left;
-      padding: 10px;
-    }
-  
-    .mat-header-cell {
-      font-weight: bold;
-      color: #333;
-    }
-  }
-  
-  .mat-paginator {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .button-group {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  
-  button.mat-raised-button {
-    min-width: 100px;
-    font-weight: bold;
-    padding: 8px 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.3s;
-  
-    &[color="warn"] {
-      background-color: #d32f2f;
-      color: #ffffff;
-  
-      &:hover {
-        background-color: #c62828;
-        transform: scale(1.05);
-      }
-    }
-  
-    &[color="accent"] {
-      background-color: #1abc9c;
-      color: #ffffff;
-  
-      &:hover {
-        background-color: #158467;
-        transform: scale(1.05);
-      }
-    }
-  }
-  
-  .book-cover-img {
-    width: 50px;
-    height: 75px;
-    object-fit: cover;
-    border-radius: 4px;
-  }
-  
-  // Media query para adaptabilidad
-  @media (max-width: 768px) {
-    .table-controls {
-      flex-direction: column;
-      align-items: flex-start;
-  
-      .filter-input,
-      button.mat-raised-button {
-        width: 100%;
-        margin-bottom: 10px;
-      }
-    }
-  
-    .button-group {
-      flex-direction: column;
-      gap: 5px;
-    }
-  
-    .mat-header-cell, .mat-cell {
-      padding: 8px;
-    }
-  
-    .book-cover-img {
-      width: 40px;
-      height: 60px;
-    }
-  }
-  
-  // Media query para pantallas pequeñas
-  @media (max-width: 480px) {
-    h2 {
-      font-size: 1.5em;
-    }
-  
-    .filter-input {
+    max-width: 250px;
+    margin-left: 20px;
+
+    mat-form-field {
       width: 100%;
+    }
+  }
+}
+
+.mat-table {
+  width: 100%;
+  margin: auto;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); // Sombra ligera para darle profundidad
+  border-radius: 8px;
+  overflow: hidden;
+
+  .mat-header-cell, .mat-cell {
+    text-align: left;
+    padding: 12px 16px;
+  }
+
+  .mat-header-cell {
+    font-weight: 700;
+    color: #555;
+    background-color: #f5f5f5;
+  }
+
+  .mat-row:nth-child(even) {
+    background-color: #fafafa; // Alternancia de colores para filas pares
+  }
+}
+
+.mat-paginator {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  button.mat-raised-button {
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 6px 12px;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  button[color="warn"] {
+    background-color: #e53935;
+    color: #fff;
+    &:hover {
+      background-color: #d32f2f;
+      transform: scale(1.05);
+    }
+  }
+  button[color="accent"] {
+    background-color: #26a69a;
+    color: #fff;
+    &:hover {
+      background-color: #1e88e5;
+      transform: scale(1.05);
+    }
+  }
+}
+
+// Ajustes de adaptabilidad para pantallas pequeñas y móviles
+@media (max-width: 768px) {
+  .table-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+
+    .filter-input {
+      max-width: 100%;
       margin-left: 0;
     }
-  
-    .mat-paginator {
-      flex-direction: column;
-    }
-  
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mat-header-cell, .mat-cell {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .mat-table {
     .mat-header-cell, .mat-cell {
-      font-size: 0.9em;
       padding: 6px;
-    }
-  
-    button.mat-raised-button {
-      padding: 6px 12px;
-      font-size: 0.9em;
+      font-size: 0.85rem;
     }
   }
-  
+
+  .mat-paginator {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+.button-habito{
+  border-radius: 50px;
+  padding: 10px 20px;
+  border: none;
+  background:#388e3c ;
+  color: #fff;
+}
