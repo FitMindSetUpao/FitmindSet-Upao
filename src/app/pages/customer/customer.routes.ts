@@ -22,20 +22,21 @@ export const customerRoutes: Routes = [
     ]
   },
   {
-    path: 'habitos', 
-    component: LayoutComponent,
-    children: [
-      { path: '', component: HabitoListComponent }, // Ruta predeterminada para listar hábitos
-      { path: 'crear', component: HabitoFormComponent },
-      { path: 'edit/:id', component: HabitoFormComponent },
-      { path: 'metas', component: MetaListComponent },
-      { path: 'metas/crear/:habitoId', component: MetaFormComponent },
-      { path: 'metas/detalles/:id', component: MetaFormComponent },
-      { path: 'metas/edit/:id', component: MetaFormComponent },
-      { path: 'reportes', component: EstadisticaHabitoComponent },
-      { path: 'actividad', component: ActivadListComponent },
-    ]
-  },
+  path: 'habitos',
+  component: LayoutComponent,  // Asegúrate de que LayoutComponent tenga una vista que contenga esta ruta
+  children: [
+    { path: '', component: HabitoListComponent },  // Ruta predeterminada para listar hábitos
+    { path: 'crear', component: HabitoFormComponent },
+    { path: 'edit/:id', component: HabitoFormComponent },
+    { path: 'metas', component: MetaListComponent },
+    { path: 'metas/crear/:habitoId', component: MetaFormComponent },
+    { path: 'metas/detalles/:id', component: MetaFormComponent },
+    { path: 'metas/edit/:id', component: MetaFormComponent },
+    { path: 'reportes', component: EstadisticaHabitoComponent },
+    { path: 'actividad', component: ActivadListComponent }
+  ]
+},
+
   {
     path: 'foro',
     children: [
