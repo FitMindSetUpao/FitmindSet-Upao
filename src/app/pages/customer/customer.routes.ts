@@ -10,6 +10,9 @@ import { EstadisticaHabitoComponent } from './Habitos-management/Habitos-Report/
 import { ActivadListComponent } from './Habitos-management/actividad-management/activad-list/activad-list.component';
 import { MetaDetallesComponent } from './Habitos-management/Meta-management/meta-detalles/meta-detalles.component';
 import { ActividadFormComponent } from './Habitos-management/actividad-management/actividad-form/actividad-form.component';
+import { ForoBusquedaComponent } from './Comunidad/foro-busqueda/foro-busqueda.component';
+import { ForoComentariosComponent } from './Comunidad/foro-comentarios/foro-comentarios.component';
+import { ForoCrearComponent } from './Comunidad/foro-crear/foro-crear.component';
 
 export const customerRoutes: Routes = [
   {
@@ -47,7 +50,6 @@ export const customerRoutes: Routes = [
       
     ]
   },
-
   {
     path: 'foro',
     children: [
