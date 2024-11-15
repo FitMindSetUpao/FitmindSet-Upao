@@ -34,8 +34,10 @@
 
     li {
       display: flex;
-      align-items: center;
+      flex-direction: column; /* Para que el submenú aparezca en una nueva línea */
+      align-items: start;
       padding: 15px;
+      position: relative;
 
       a {
         display: flex;
@@ -59,6 +61,46 @@
       &:hover,
       &.active {
         background-color: #388E3C;
+      }
+
+      /* Submenú desplegable */
+      .submenu {
+        display: none;
+        list-style: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #388E3C;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 5px 0;
+        width: 100%;
+
+        li {
+          a {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-family: "Poppins", sans-serif;
+
+            &:hover {
+              background-color: #2e7d32;
+            }
+
+            mat-icon {
+              font-size: 20px;
+              margin-right: 8px;
+            }
+          }
+        }
+      }
+
+      /* Mostrar el submenú al pasar el cursor */
+      &:hover .submenu {
+        display: block;
       }
     }
   }
@@ -85,13 +127,13 @@
       mat-card-header {
         display: flex;
         align-items: center;
-        justify-content: flex-start; /* Mantener el orden natural */
+        justify-content: flex-start;
         background-color: #f5f5f5;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
         padding: 16px;
         mat-icon {
-          margin-right: 10px; /* Espacio entre el icono y el título */
+          margin-right: 10px;
         }
       }
     }
@@ -107,7 +149,7 @@
     font-size: 1.25rem;
     font-weight: 300;
     margin-bottom: 50px;
-    font-family: "Poppins",sans-serif;
+    font-family: "Poppins", sans-serif;
   }
 
   mat-card-content {
@@ -135,9 +177,10 @@
     }
   }
 }
-.descripcion{
+
+.descripcion {
   font-size: 19px;
-  font-family: "Poppins",sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .sidebar-right {
@@ -154,6 +197,7 @@
 .sidebar-right mat-card {
   margin-bottom: 10px;
 }
+
 .custom-card-header {
   display: flex;
   align-items: center;
@@ -164,7 +208,7 @@
 }
 
 .header-icon {
-  margin-right: 10px; /* Espacio entre el icono y el título */
+  margin-right: 10px;
   font-size: 24px;
 }
 
@@ -172,11 +216,29 @@
   font-size: 1.25rem;
   font-weight: bold;
 }
-.titulo-usuario{
+
+.titulo-usuario {
   font-size: 56px;
-  font-family: "Poppins",sans-serif;
+  font-family: "Poppins", sans-serif;
   margin-bottom: 50px;
   font-weight: 700;
   color: #388E3C;
 }
+@media (max-width: 500px) {
+  .register-container {
+    margin: 2rem;
+    padding: 1.5rem;
 
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .form-control {
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      font-size: 0.9rem;
+    }
+  }
+}

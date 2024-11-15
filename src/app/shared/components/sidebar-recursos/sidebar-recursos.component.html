@@ -1,0 +1,51 @@
+<div class="layout-dashboard">
+  <!-- Botón de Toggle para el Sidebar -->
+  <button class="sidebar-toggle-btn" [class.active]="isSidebarActive" (click)="toggleSidebar()">
+    <mat-icon *ngIf="!isSidebarActive">menu</mat-icon>
+    <mat-icon *ngIf="isSidebarActive">close</mat-icon>
+  </button>
+
+  <!-- Sidebar con opciones específicas -->
+  <div class="layout-sidebar" [class.collapsed]="isSidebarActive">
+    <nav>
+      <ul>
+        <li>
+          <a routerLink="/customer" routerLinkActive="active">
+            <mat-icon>account_circle</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Perfil</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/customer/habitos" routerLinkActive="active">
+            <mat-icon>fitness_center</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Mis Hábitos</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/customer/metas" routerLinkActive="active">
+            <mat-icon>notifications</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Mis Metas</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/customer/actividad" routerLinkActive="active">
+            <mat-icon>fitness_center</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Mi Actividad</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/customer/reportes" routerLinkActive="active">
+            <mat-icon>bar_chart</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Reportes</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Cerrar Sesión</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

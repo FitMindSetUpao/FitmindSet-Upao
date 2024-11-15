@@ -5,4 +5,6 @@ export interface AuthResponse{
     rol:string;
     correo:string;
     edad:number;
+    customerId:number;
+    autorId:number;
 }

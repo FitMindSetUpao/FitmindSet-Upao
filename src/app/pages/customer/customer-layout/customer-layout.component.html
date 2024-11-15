@@ -31,6 +31,12 @@
             </a>
           </li>
           <li>
+            <a routerLink="habitos" routerLinkActive="active">
+              <mat-icon>fitness_center</mat-icon>
+              <span class="nav-label" *ngIf="!isSidebarActive">Mis Habitos</span>
+            </a>
+          </li>
+          <li>
             <a routerLink="/reportes" routerLinkActive="active">
               <mat-icon>bar_chart</mat-icon>
               <span class="nav-label" *ngIf="!isSidebarActive">Reportes</span>
@@ -59,12 +65,10 @@
       
     </div>
     
-     <!-- Contenido Principal -->
      <div class="layout-content">
       <h1 class="titulo-usuario">Bienvenido, {{ nombreUsuario }}!</h1> 
       <div class="card-container">
         <mat-grid-list cols="2" rowHeight="200px" gutterSize="16px">
-          <!-- Card Perfil -->
           <mat-grid-tile>
             <mat-card class="dashboard-card">
               <div class="custom-card-header">
@@ -89,14 +93,14 @@
             <mat-card class="dashboard-card">
               <div class="custom-card-header">
                 <mat-icon class="header-icon">fitness_center</mat-icon>
-                <span class="header-title">Metas de Salud</span>
+                <span class="header-title">Mis Habitos</span>
               </div>
               <mat-card-content>
-                <p class="descripcion">Establece y sigue tus metas de salud y bienestar.</p>
+                <p class="descripcion">Establece y sigue tus metas de salud y bienestar en base a tus habitos creados.</p>
               </mat-card-content>
               <mat-card-actions>
                 <div fxLayout="row" fxLayoutAlign="start center">
-                  <button mat-button color="primary" [routerLink]="['/metas/crear']">
+                  <button mat-button color="primary" [routerLink]="['/user/mi-perfil']">
                     Ver más detalles
                   </button>
                 </div>
@@ -237,7 +241,5 @@
       </ng-template>
     </div>
   </div>
-      
-  <!-- Footer -->
   <app-footer></app-footer>
   
