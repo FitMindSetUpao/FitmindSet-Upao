@@ -225,5 +225,21 @@
     <ng-template #noPagos>
       <p>No se han registrado pagos aún.</p>
     </ng-template>
+     <h2>Foro de la Comunidad</h2>
+      <div *ngIf="foroComunidad && foroComunidad.length > 0; else noForo">
+        <mat-card *ngFor="let tema of foroComunidad">
+          <mat-card-header>
+            <mat-icon>chat</mat-icon>
+            <mat-card-title>{{ tema.titulo }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-actions>
+            <button mat-button color="primary">Participar</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <ng-template #noForo>
+        <p>No tienes temas en el foro de la comunidad en este momento.</p>
+      </ng-template>
+    </div>
   </div>
-</div>
+
