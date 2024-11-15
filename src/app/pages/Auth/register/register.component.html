@@ -1,0 +1,76 @@
+<section class="register-container">
+    <div class="register-card">
+      <div class="register-image">
+        <div class="register-overlay">
+          <h3 class="register-text">Bienvenido a FitMindSet</h3>
+          <p class="register-description">Únete a nuestra comunidad y comienza tu aventura literaria hoy.</p>
+        </div>
+      </div>
+      <div class="register-form">
+        <h2>Crear Cuenta - Lector</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  
+          <mat-form-field class="form-field">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" placeholder="Ingrese su nombre" required>
+            @if(controlHasError('nombre', 'required')){
+                <mat-error>Este campo es obligatorio</mat-error>
+              }
+          </mat-form-field>
+  
+          <mat-form-field class="form-field">
+            <mat-label>Apellidos</mat-label>
+            <input matInput formControlName="apellidos" placeholder="Ingrese sus apellidos" required>
+            @if(controlHasError('apellidos', 'required')){
+                <mat-error>Este campo es obligatorio</mat-error>
+              }
+          </mat-form-field>
+  
+          <mat-form-field class="form-field">
+            <mat-label>Correo</mat-label>
+            <input matInput formControlName="correo" type="email" placeholder="Ingrese su correo" required>
+             @if(controlHasError('correo', 'required')){
+            <mat-error>Este campo es obligatorio</mat-error>
+             }
+             @if(controlHasError('correo', 'email')){
+                <mat-error>Introduzca un correo electrónico válido</mat-error>
+              }
+          </mat-form-field>
+  
+          <mat-form-field class="form-field">
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="contrasena" type="password" placeholder="Ingrese su contraseña" required>
+            @if(controlHasError('contrasena', 'required')){
+                <mat-error>Este campo es obligatorio</mat-error>
+              }
+          </mat-form-field>
+  
+          <mat-form-field class="form-field">
+            <mat-label>Edad</mat-label>
+            <input matInput formControlName="edad" type="number" placeholder="Ingrese su edad" required>
+            @if(controlHasError('edad', 'required')){
+                <mat-error>Este campo es obligatorio</mat-error>
+              }
+          </mat-form-field>
+  
+          <mat-form-field class="form-field">
+            <mat-label>Género</mat-label>
+            <mat-select formControlName="genero" required>
+              <mat-option value="Masculino">Masculino</mat-option>
+              <mat-option value="Femenino">Femenino</mat-option>
+              <mat-option value="Otro">Otro</mat-option>
+            </mat-select>
+            @if(controlHasError('genero', 'required')){
+                <mat-error>Este campo es obligatorio</mat-error>
+              }
+          </mat-form-field>
+  
+          <button mat-raised-button color="primary" class="submit-button" type="submit" [disabled]="registerForm.invalid">
+            Registrarse
+          </button>
+        </form>
+        <p>¿Ya tienes cuenta? <a routerLink="/auth/login">Inicia sesión aquí</a></p>
+      </div>
+    </div>
+  </section>
+  
