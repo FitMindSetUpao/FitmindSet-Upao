@@ -1,6 +1,6 @@
 [build]
   command = "npm run build"
-  publish = "dist/proyecto_frontend"
+  publish = "dist/proyecto_frontend/browser"
 
 [build.environment]
   NODE_VERSION = "16" # Usa la versión de Node que prefieras o la que estás usando localmente
