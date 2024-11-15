@@ -20,7 +20,6 @@ import { MediaService } from '../../../../core/services/media.service';
 import { tipoDeRecursoResponse } from '../../../../shared/models/tipoDeRecurso.model';
 import { RecursoResponse } from '../../../../shared/models/recurso-response.model';
 import { Recurso } from '../../../../shared/models/recurso.model';
-import { TipoDeHabito } from '../../../../shared/models/tipo-de-habito.model';
 
 @Component({
   selector: 'app-recurso-form',
@@ -48,8 +47,7 @@ export class RecursoFormComponent {
   private snackBar = inject(MatSnackBar);
 
   tiporecursos: tipoDeRecursoResponse[] = [];
-  tipoDeHabitos: TipoDeHabito[] = [];
-
+  tipoDeHabitos: tipoDeRecursoResponse[] = [];
   recursoid?: number;
   errors: string[]=[];
 
@@ -61,25 +59,22 @@ export class RecursoFormComponent {
   coverPath:['', Validators.required],
   filePath: ['', Validators.required],
   tiporecurso: ['', Validators.required],
-   tipoDeHabitosId: ['', Validators.required],
+   tipoDeHabitos: ['', Validators.required],
 
   });
   ngOnInit(): void {
     this.recursoid = Number(this.route.snapshot.paramMap.get('id'));
     this.loadtipoDeHabito();
   }
-  private loadtipoDeHabito(): void {
+  private loadtipoDeHabito():void {
     this.tipoDeHabitoService.getAllTiposDeHabitos().subscribe({
       next: (tipoDeHabitos) => {
-        this.tipoDeHabitos = tipoDeHabitos.map(habito => ({
-          ...habito,
-          id: habito.id
-        }));
+        this.tipoDeHabitos = tipoDeHabitos;
         if (this.recursoid) this.loadRecursosForActualizar();
-      },
-      error: () => this.errors.push('Error al cargar los tipos de hábitos.'),
+         },
+         error: () => this.errors.push('Error al cargar los tipos de habitos.'),
     });
-  }  
+  }
   private loadRecursosForActualizar(): void {
     this.recursoService.getRecursoDetailsById(this.recursoid!).subscribe({
       next: (recurso: RecursoResponse ) => {

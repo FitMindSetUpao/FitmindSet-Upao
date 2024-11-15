@@ -14,7 +14,6 @@ body, html {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    color: #000000;
   
     /* Tarjeta de registro */
     .register-card {
@@ -24,25 +23,24 @@ body, html {
       flex-direction: row;
       border-radius: 12px;
       overflow: hidden;
-      
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px; // Dejar espacio para el footer
   
       /* Imagen de registro */
       .register-image {
         width: 45%;
-        background-color: #4CAF50;
+        background-color: #000000;
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #000000;
   
         .register-overlay {
           position: absolute;
-          color: #000000;
+          color: #ffffff;
           text-align: center;
           padding: 20px;
-         
+          background-color: rgba(0, 0, 0, 0.6);
           border-radius: 8px;
   
           .register-text {
@@ -54,7 +52,6 @@ body, html {
           .register-description {
             font-size: 1rem;
             font-weight: 300;
-            color: #000000;
           }
         }
       }

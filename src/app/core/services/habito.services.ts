@@ -13,7 +13,7 @@ export class HabitoService {
   private http = inject(HttpClient);
 
  getHabitosDetails(): Observable<HabitoResponse[]>{
-  return this.http.get<HabitoResponse[]>(`${this.baseUrl}/reporte`);
+  return this.http.get<HabitoResponse[]>(`${this.baseUrl}`);
  }
  paginateHabitos(page: number, size: number): Observable<PageableResponse<HabitoResponse>>{
   const params = new HttpParams().set('page', page.toString()).set('size',size.toString());
@@ -22,7 +22,7 @@ export class HabitoService {
   
  }
  createHabito(habito: Habito): Observable<HabitoResponse>{
-  return this.http.post<HabitoResponse>(`${this.baseUrl}/crear`, habito);
+  return this.http.post<HabitoResponse>(`${this.baseUrl}`, habito);
  }
  getHabitosDetailsById(id: number):Observable<HabitoResponse> {
   return this.http.get<HabitoResponse>(`${this.baseUrl}/${id}`);
@@ -33,6 +33,5 @@ export class HabitoService {
  deleteHabito(id: number): Observable<void>{
   return this.http.delete<void>(`${this.baseUrl}/${id}`);
  }
- 
  
 }

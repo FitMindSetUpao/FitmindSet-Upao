@@ -1,4 +1,4 @@
-import { Component, inject, OnInit,HostListener } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
@@ -43,15 +43,6 @@ export class CustomerLayoutComponent implements OnInit {
 
   toggleSidebar(): void {
     this.isSidebarActive = !this.isSidebarActive;
-  }
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
-    const width = (event.target as Window).innerWidth;
-    this.checkSidebarState(width);
-  }
-
-  private checkSidebarState(width: number): void {
-    this.isSidebarActive = width <= 320;
   }
 
   logout(): void {

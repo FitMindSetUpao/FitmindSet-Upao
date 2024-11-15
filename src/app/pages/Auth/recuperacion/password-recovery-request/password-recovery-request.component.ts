@@ -1,3 +1,4 @@
+
 import { Component, inject, Signal} from '@angular/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -32,9 +33,11 @@ export class PasswordRecoveryRequestComponent {
   sendEmail() {
     if (this.emailControl.valid) {
       this.authService.sendRecoveryEmail(this.emailControl.value!).subscribe({
-        next: (response) => {
-          this.showSnackBar('Correo de recuperación enviado');
-            this.router.navigate(['/password-confirmation']);
+        next: () => {
+          this.snackBar.open('Correo de recuperación enviado', 'Cerrar', { duration: 3000 });
+          setTimeout(() => {
+            this.router.navigate(['/auth/password-confirmation']);
+          }, 3000);
         },
         error: (err) => {
           console.error('Error al enviar el correo:', err);
@@ -42,10 +45,5 @@ export class PasswordRecoveryRequestComponent {
         }
       });
     }
-  }
-  private showSnackBar(message: string): void {
-    this.snackBar.open(message, 'Cerrar', {
-      duration: 3000,
-    });
   }
 }

@@ -1,7 +1,7 @@
 export interface HabitoResponse{
-    id: number;
-    nombreHabito: string; 
-    descripcion: string;
-    tipoDeHabitoId: number;
-    fechaCreacion:string
+    id?:number,
+    nombreHabito:string,
+    descripcion:string,
+    tipoDeHabitoNombre:string,
+    fechaCreacion:String
 }

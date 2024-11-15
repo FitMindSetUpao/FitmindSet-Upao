@@ -1,7 +1,5 @@
-export interface Habito {
-    id?: number;
-    nombreHabito: string;
+export interface Habito{
+    tipoDeHabitoId?: number; 
+    nombreHabito: string;    
     descripcion: string;
-    tipoDeHabitoId: number;
-  }
-  
+}
