@@ -1,5 +1,5 @@
 export interface TipoDeHabito {
-    id: number;
+  id: number;
     nombre: string;
     descripcion: string;
   }

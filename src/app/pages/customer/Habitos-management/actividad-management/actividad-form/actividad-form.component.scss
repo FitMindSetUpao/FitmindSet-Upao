@@ -1,0 +1,184 @@
+// Variables para colores y tamaños
+$primary-color: #3498db;
+$secondary-color: #ecf0f1;
+$error-color: #e74c3c;
+$background-color: #fafafa;
+$text-color: #34495e;
+$border-color: #dfe6e9;
+$hover-color: #2980b9;
+
+$font-size-base: 1rem;
+$font-size-title: 2.2rem;
+$font-size-error: 0.875rem;
+
+// Contenedor principal del formulario
+.seguimiento-form-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    padding: 20px;
+  }
+}
+
+// Título del formulario
+.form-title {
+  text-align: center;
+  font-size: $font-size-title;
+  color: $text-color;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+// Estilos para los mensajes de error
+.alert {
+  width: 100%;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: $font-size-base;
+  font-weight: 500;
+  text-align: center;
+}
+
+// Formulario y campos
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  // Estilo general de campos de formulario
+  mat-form-field {
+    width: 100%;
+    font-size: $font-size-base;
+    margin-bottom: 20px;
+
+    mat-label {
+      font-size: 1.1rem;
+      color: $text-color;
+      font-weight: 500;
+    }
+
+    mat-select, mat-input, textarea {
+      background-color: $background-color;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: $font-size-base;
+      color: $text-color;
+      border: 1px solid $border-color;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
+
+      // Efecto de enfoque
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 6px rgba($primary-color, 0.4);
+      }
+
+      // Mejoramos el aspecto del textarea
+      &.mat-input-element {
+        resize: vertical;
+        min-height: 120px;
+        max-height: 250px;
+      }
+    }
+  }
+
+  // Estilos para el texto de error
+  mat-error {
+    font-size: $font-size-error;
+    color: $error-color;
+    margin-top: 5px;
+  }
+
+  // Estilos para los botones
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      font-size: $font-size-base;
+      padding: 12px 25px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      min-width: 150px;
+
+      // Estilo para el botón de cancelar
+      button[type="button"] {
+        background-color: $secondary-color;
+        color: $text-color;
+        border: none;
+
+        &:hover {
+          background-color: lighten($secondary-color, 10%);
+        }
+      }
+
+      // Estilo para el botón de submit
+      button[type="submit"] {
+        background-color: $primary-color;
+        color: #ffffff;
+        border: none;
+
+        &:hover {
+          background-color: $hover-color;
+        }
+
+        &.submit-button {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+// Mejoras en los campos de input de tipo number
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+// Agregar un estilo a los campos de fecha si los tuvieses en el formulario
+input[type="date"] {
+  background-color: $background-color;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid $border-color;
+  font-size: $font-size-base;
+
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 6px rgba($primary-color, 0.4);
+  }
+}
+
+// Iconos en los botones (si decides usar algunos en el futuro)
+.mat-icon-button {
+  padding: 10px;
+  background-color: $primary-color;
+  color: white;
+  border-radius: 50%;
+  &:hover {
+    background-color: lighten($primary-color, 10%);
+  }
+}
