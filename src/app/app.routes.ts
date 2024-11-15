@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { authInverseGuard } from './core/guards/auth-inverse.guard';
+import { AuthLayoutComponent } from "../auth/auth-layout/auth-layout.component";
+
 
 export const routes: Routes = [
  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
