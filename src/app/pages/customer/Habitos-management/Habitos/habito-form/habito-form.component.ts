@@ -55,7 +55,7 @@ export class HabitoFormComponent implements OnInit {
   loading = false;
 
   form: FormGroup = this.fb.group({
-    tipoDeHabitoId: ['', [Validators.required]],  // Aquí estamos usando 'id' del tipo de hábito
+    tipoDeHabitoId: ['', [Validators.required]], 
     nombreHabito: ['', [Validators.required]],
     descripcion: ['', [Validators.required]],
   });
