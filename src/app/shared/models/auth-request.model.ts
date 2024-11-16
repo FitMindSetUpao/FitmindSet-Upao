@@ -1,2 +1,6 @@
-export interface AuthRequest {
-}
+
+export interface AuthRequest{
+    correo:string;
+    contrasena:string;
+  }
+  
