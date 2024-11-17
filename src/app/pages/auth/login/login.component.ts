@@ -8,12 +8,13 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../core/services/auth.service';
 import { AuthRequest } from '../../../shared/models/auth-request.model';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, MatInputModule, MatCardModule,
-    MatSnackBarModule,MatButtonModule, RouterLink, CommonModule],
+    MatSnackBarModule,MatButtonModule, RouterLink, CommonModule,MatProgressSpinnerModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
