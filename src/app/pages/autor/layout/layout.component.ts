@@ -21,5 +21,10 @@ export class LayoutComponent {
   toggleSidebar(){
     this.isSidebarActive = !this.isSidebarActive;
   }
+  
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']); 
+  }
 
 }
