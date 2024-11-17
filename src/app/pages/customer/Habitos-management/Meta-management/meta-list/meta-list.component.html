@@ -7,23 +7,30 @@
     </mat-form-field>
   </div>
   <mat-table [dataSource]="filteredHabitos" class="mat-table">
+    <!-- Columna de Nombre del Hábito -->
     <ng-container matColumnDef="nombre">
-      <mat-header-cell *matHeaderCellDef> Habitos  </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Hábitos </mat-header-cell>
       <mat-cell *matCellDef="let habito"> {{ habito.nombreHabito }} </mat-cell>
     </ng-container>
+
+    <!-- Columna de Descripción del Hábito -->
+    <ng-container matColumnDef="descripcion">
+      <mat-header-cell *matHeaderCellDef> Descripción </mat-header-cell>
+      <mat-cell *matCellDef="let habito"> {{ habito.descripcion }} </mat-cell>
+    </ng-container>
+
+    <!-- Columna de Acciones -->
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
       <mat-cell *matCellDef="let habito">
         <div class="button-group">
-          <button mat-raised-button class="crear-boton" (click)="createNewMeta(habito.id)">
-            Crear Meta
-          </button>
-          <button mat-raised-button class=" detalles-boton" (click)="viewDetails(habito.id)">
+          <button mat-raised-button class="detalles-boton" (click)="viewDetails(habito.id)">
             Ver Metas
           </button>
         </div>
       </mat-cell>
     </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
@@ -35,5 +42,5 @@
     (page)="onPageChange($event)"
   ></mat-paginator>
 } @else {
-  <p>Cargando citas</p>
+  <p>Cargando Metas</p>
 }
