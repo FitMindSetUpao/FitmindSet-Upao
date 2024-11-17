@@ -236,9 +236,10 @@
           </mat-card-actions>
         </mat-card>
       </div>
-      <ng-template #noForo>
-        <p>No tienes temas en el foro de la comunidad en este momento.</p>
-      </ng-template>
+       <div class="forum-actions">
+      <button mat-button color="primary" [routerLink]="['foro']" class="btn-details">
+        Foros de la Comunidad
+      </button></div>
     </div>
   </div>
   <app-footer></app-footer>
