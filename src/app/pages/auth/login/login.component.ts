@@ -43,13 +43,15 @@ export class LoginComponent {
     return this.loginForm.controls[control].hasError(error);
   }
 
-  onSubmit(){
-    if(this.loginForm.invalid){
+ isLoading = false;
+  onSubmit() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched(); // Marca todos los campos como "tocados" para que se muestren los errores
       return;
-    };
-
+    }
+  
     const credentials: AuthRequest = this.loginForm.value;
-
+  
     this.authService.login(credentials).subscribe({
       next: () => {
         this.showSnackBar('Inicio de sesión exitoso');
@@ -59,7 +61,6 @@ export class LoginComponent {
         this.showSnackBar('Error en el inicio de sesión. Por favor, intenta de nuevo.');
       },
     });
-
   }
   private redirectUserBasedOnRole(): void {
     const userRole = this.authService.getUserRole();
