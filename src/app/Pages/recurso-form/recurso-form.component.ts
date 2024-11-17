@@ -10,11 +10,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common'; // Importa el CommonModule
 
 @Component({
   selector: 'app-recurso-form',
   standalone: true,
   imports: [
+    CommonModule, // Asegúrate de incluirlo aquí
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -28,47 +30,39 @@ import { MatSelectModule } from '@angular/material/select';
 export class RecursoFormComponent implements OnInit {
   form!: FormGroup;
   recursoid?: number;
-  archivoSeleccionado: string = '';
-  tiposRecurso: string[] = ['Documento', 'Video', 'Audio'];
+  tiposRecurso = ['Documento', 'Video', 'Audio'];
 
   constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
-    this.recursoid = 1; // Simulación de ID
+    this.recursoid = undefined; // Simulación de ID
     this.crearFormulario();
     if (this.recursoid) {
-      this.cargarDatosRecurso(); // Simulación de datos de recurso
+      this.cargarDatosFicticios(); // Simula la carga de datos para edición
     }
   }
 
   crearFormulario(): void {
     this.form = this.fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(250)]],
+      nombre: [
+        '',
+        [Validators.required, Validators.minLength(6), Validators.maxLength(100)],
+      ],
       descripcion: ['', [Validators.required]],
-      precio: [0, [Validators.required, Validators.min(0)]],
-      tipoDeRecurso: ['', Validators.required],
+      tipoRecurso: ['', Validators.required],
     });
   }
 
-  cargarDatosRecurso(): void {
+  cargarDatosFicticios(): void {
     const recursoFicticio = {
       nombre: 'Recurso de Prueba',
-      descripcion: 'Este es un recurso de prueba para actualizar',
-      precio: 100.5,
-      tipoDeRecurso: 'Documento',
+      descripcion: 'Descripción del recurso de prueba',
+      tipoRecurso: 'Documento',
     };
-
     this.form.patchValue(recursoFicticio);
   }
 
-  onFileSelect(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input?.files?.[0]) {
-      this.archivoSeleccionado = input.files[0].name;
-    }
-  }
-
-  save(): void {
+  guardarRecurso(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -77,6 +71,6 @@ export class RecursoFormComponent implements OnInit {
     const datosFormulario = this.form.value;
     console.log('Datos enviados:', datosFormulario);
 
-    this.router.navigate(['/autor/recursos/list']);
+    this.router.navigate(['/recursos/list']);
   }
 }

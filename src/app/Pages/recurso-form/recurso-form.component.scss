@@ -1,0 +1,23 @@
+.recurso-form-container {
+  max-width: 600px;
+  margin: 20px auto;
+
+  h1 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .form-field {
+    margin-bottom: 20px;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+
+    button {
+      min-width: 100px;
+    }
+  }
+}

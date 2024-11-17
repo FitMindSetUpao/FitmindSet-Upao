@@ -1,0 +1,38 @@
+<div class="recurso-form-container">
+  <h1>{{ recursoid ? 'Actualizar' : 'Nuevo' }} Recurso</h1>
+
+  <form [formGroup]="form" (ngSubmit)="guardarRecurso()" autocomplete="off">
+    <!-- Campo de Nombre -->
+    <mat-form-field class="form-field w-100" appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" placeholder="Ingrese el nombre del recurso" />
+      <mat-error *ngIf="form.get('nombre')?.hasError('required')">El nombre es obligatorio</mat-error>
+      <mat-error *ngIf="form.get('nombre')?.hasError('minlength')">Mínimo 6 caracteres</mat-error>
+      <mat-error *ngIf="form.get('nombre')?.hasError('maxlength')">Máximo 100 caracteres</mat-error>
+    </mat-form-field>
+
+    <!-- Campo de Descripción -->
+    <mat-form-field class="form-field w-100" appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="descripcion" placeholder="Ingrese una descripción"></textarea>
+      <mat-error *ngIf="form.get('descripcion')?.hasError('required')">La descripción es obligatoria</mat-error>
+    </mat-form-field>
+
+    <!-- Tipo de Recurso -->
+    <mat-form-field class="form-field w-100" appearance="outline">
+      <mat-label>Tipo de Recurso</mat-label>
+      <mat-select formControlName="tipoRecurso">
+        <mat-option *ngFor="let tipo of tiposRecurso" [value]="tipo">{{ tipo }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('tipoRecurso')?.hasError('required')">Seleccione un tipo de recurso</mat-error>
+    </mat-form-field>
+
+    <!-- Botones de acción -->
+    <div class="action-buttons">
+      <button mat-button type="button" routerLink="/recursos/list">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit">
+        {{ recursoid ? 'Actualizar' : 'Crear' }}
+      </button>
+    </div>
+  </form>
+</div>

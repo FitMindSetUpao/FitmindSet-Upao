@@ -4,9 +4,7 @@
   </div>
 
   <div class="controls">
-    <button mat-raised-button color="primary" routerLink="/recursos/new">
-      Nuevo Recurso
-    </button>
+    <button mat-raised-button color="primary" (click)="crearRecurso()">Nuevo Recurso</button>
     <mat-form-field class="search-bar" appearance="outline">
       <mat-label>Buscar por Nombre</mat-label>
       <input matInput (keyup)="aplicarFiltro($event)" placeholder="Ingrese el nombre del recurso" />
