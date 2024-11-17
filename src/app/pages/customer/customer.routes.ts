@@ -33,7 +33,7 @@ export const customerRoutes: Routes = [
       { path: 'metas', component: MetaListComponent },  
       { path: 'metas/crear/:habitoId', component: MetaFormComponent },
       { path: 'habitos/metas', component: MetaFormComponent },
-      { path: 'habitos/metas/:habitoId', component: MetaFormComponent },
+      { path: 'customer/habitos/metas/:habitoId', component: MetaFormComponent },
       { path: 'metas/edit/:id', component: MetaFormComponent }, 
       { path: 'reportes', component: EstadisticaHabitoComponent },  
       { path: 'actividad', component: ActivadListComponent },  
