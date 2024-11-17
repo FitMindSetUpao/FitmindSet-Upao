@@ -3,6 +3,7 @@ import { FooterComponent } from '../../../shared/components/footer/footer.compon
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon'; 
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -19,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class LayoutComponent {
   isSidebarActive = false;
+    private authService = inject(AuthService);
 
   toggleSidebar(){
     this.isSidebarActive = !this.isSidebarActive;
