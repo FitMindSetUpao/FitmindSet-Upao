@@ -34,6 +34,7 @@ export class MetaListComponent implements OnInit {
   
   displayedColumns: String[] = [
     'nombre',
+    'descripcion',
     'actions',
   ];
   totalElements = 0;
@@ -79,7 +80,7 @@ export class MetaListComponent implements OnInit {
   }
 
   viewDetails(habitoId: number): void {
-    this.router.navigate(['/customer/habitos/metas/detalles', habitoId]);
+    this.router.navigate(['/customer/habitos/metas', habitoId]);
   }
   private showSnackBar(message: string): void {
     this.snackbar.open(message, 'Cerrar', {
