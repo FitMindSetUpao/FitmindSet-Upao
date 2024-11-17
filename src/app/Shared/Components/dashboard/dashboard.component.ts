@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../../Core/Services/dashboard.service';
-import { AuthService } from '../../Core/Services/auth.service'; // Importar AuthService
-import { DashboardItem } from '../../Shared/Components/Models/dashboard.model';
+import { DashboardService } from '../../../Core/Services/dashboard.service';
+import { AuthService } from '../../../Core/Services/auth.service'; // Importar AuthService
+import { DashboardItem } from '../Models/dashboard.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';

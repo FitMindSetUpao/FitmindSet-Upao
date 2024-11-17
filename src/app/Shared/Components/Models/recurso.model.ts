@@ -1,9 +1,13 @@
 export interface Recurso {
-  id: number;
-  titulo: string;
-  descripcion: string;
-  tipo: string;
-  autor: string;
-  fechaCreacion: string;
-  imagen?: string;
+  recursoid:number;
+  nombreRecurso:string;
+  descripcionRecurso:string;
+  precioRecurso:number;
+  tipoRecurso:string;
+  autorNombre:string;
+  coverPath: string;
+  filePath: string;
+  createdAt: string;
+  updatedAt: string;
+  tipoDeHabito:string;
 }

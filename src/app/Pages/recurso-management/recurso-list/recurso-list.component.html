@@ -1,0 +1,51 @@
+<div class="recurso-container">
+  <div class="header">
+    <h2>Lista de Recursos</h2>
+  </div>
+
+  <div class="controls">
+    <button mat-raised-button color="primary" routerLink="/recursos/new">
+      Nuevo Recurso
+    </button>
+    <mat-form-field class="search-bar" appearance="outline">
+      <mat-label>Buscar por Nombre</mat-label>
+      <input matInput (keyup)="aplicarFiltro($event)" placeholder="Ingrese el nombre del recurso" />
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Nombre Column -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let recurso"> {{ recurso.nombreRecurso }} </td>
+    </ng-container>
+
+    <!-- Descripcion Column -->
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef> Descripción </th>
+      <td mat-cell *matCellDef="let recurso"> {{ recurso.descripcionRecurso }} </td>
+    </ng-container>
+
+    <!-- Tipo de Recurso Column -->
+    <ng-container matColumnDef="tipo">
+      <th mat-header-cell *matHeaderCellDef> Tipo de Recurso </th>
+      <td mat-cell *matCellDef="let recurso"> {{ recurso.tipoRecurso }} </td>
+    </ng-container>
+
+    <!-- Acciones Column -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let recurso">
+        <div class="action-buttons">
+          <button mat-stroked-button color="primary" (click)="actualizarRecurso(recurso)">Actualizar</button>
+          <button mat-stroked-button class="warn" (click)="eliminarRecurso(recurso)">Eliminar</button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="totalRecursos" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

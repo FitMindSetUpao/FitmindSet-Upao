@@ -1,0 +1,69 @@
+<div class="recurso-form-container">
+  <h1>{{ recursoid ? 'Actualizar' : 'Nuevo' }} Recurso</h1>
+
+  <form [formGroup]="form" (ngSubmit)="save()" autocomplete="off">
+    <!-- Nombre -->
+    <mat-form-field class="form-field w-100" appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" placeholder="Nombre" formControlName="nombre" />
+      <mat-error *ngIf="form.get('nombre')?.hasError('required')">
+        Este nombre es obligatorio.
+      </mat-error>
+      <mat-error *ngIf="form.get('nombre')?.hasError('minlength')">
+        El nombre debe tener al menos 6 caracteres.
+      </mat-error>
+      <mat-error *ngIf="form.get('nombre')?.hasError('maxlength')">
+        El nombre debe tener 250 caracteres como máximo.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Descripción -->
+    <mat-form-field class="form-field w-100" appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput placeholder="Descripción" formControlName="descripcion"></textarea>
+      <mat-error *ngIf="form.get('descripcion')?.hasError('required')">
+        La descripción es obligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Precio -->
+    <mat-form-field class="form-field w-100" appearance="outline">
+      <mat-label>Precio</mat-label>
+      <input matInput type="number" step="0.01" placeholder="Precio" formControlName="precio" />
+      <mat-error *ngIf="form.get('precio')?.hasError('required')">
+        El precio es obligatorio.
+      </mat-error>
+      <mat-error *ngIf="form.get('precio')?.hasError('min')">
+        El precio debe ser mayor o igual a 0.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Tipo de Recurso -->
+    <mat-form-field class="form-field w-100" appearance="outline">
+      <mat-label>Tipo de Recurso</mat-label>
+      <mat-select formControlName="tipoDeRecurso">
+        <mat-option *ngFor="let tipo of tiposRecurso" [value]="tipo">
+          {{ tipo }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('tipoDeRecurso')?.hasError('required')">
+        El tipo de recurso es obligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Archivo -->
+    <div class="file-upload w-100">
+      <label>Archivo</label>
+      <input type="file" class="form-control" (change)="onFileSelect($event)" />
+      <div class="small text-muted">Archivo actual: {{ archivoSeleccionado }}</div>
+    </div>
+
+    <!-- Botones -->
+    <div class="action-buttons text-end">
+      <button mat-button type="button" routerLink="/autor/recursos/list">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit">
+        {{ recursoid ? 'Actualizar' : 'Crear' }} Recurso
+      </button>
+    </div>
+  </form>
+</div>

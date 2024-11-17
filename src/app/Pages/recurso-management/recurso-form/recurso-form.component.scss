@@ -1,0 +1,34 @@
+.recurso-form-container {
+  max-width: 600px;
+  margin: 0 auto;
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  .form-field {
+    margin-bottom: 20px;
+  }
+
+  .file-upload {
+    margin-bottom: 20px;
+
+    label {
+      font-weight: bold;
+    }
+
+    .text-muted {
+      margin-top: 5px;
+      font-size: 0.9rem;
+      color: gray;
+    }
+  }
+
+  .action-buttons {
+    margin-top: 20px;
+
+    button {
+      margin-left: 10px;
+    }
+  }
+}

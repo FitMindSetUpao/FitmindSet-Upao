@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Recurso } from '../../Shared/Components/Models/recurso.model';
 import { environment } from '../../Environments/environment';
+import {RecursoPageResponse} from '../../Shared/Components/Models/recurso-page-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,9 @@ export class RecursoService {
 
   constructor(private http: HttpClient) {}
 
-  getRecursos(): Observable<Recurso[]> {
-    return this.http.get<Recurso[]>(this.apiUrl);
+  getRecursos(pageIndex: number, pageSize: number): Observable<RecursoPageResponse> {
+    return this.http.get<RecursoPageResponse>(
+      `${this.apiUrl}?page=${pageIndex}&size=${pageSize}`
+    );
   }
 }
