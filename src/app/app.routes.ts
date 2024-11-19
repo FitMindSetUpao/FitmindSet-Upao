@@ -16,7 +16,7 @@ export const routes: Routes = [
     canActivate: [authGuard] 
   },
   {
-    path: 'autor',
+    path: 'author',
     loadChildren:() =>import('./pages/autor/autor.routes').then(m => m.autorRoutes),
     canActivate:[authGuard]
   }

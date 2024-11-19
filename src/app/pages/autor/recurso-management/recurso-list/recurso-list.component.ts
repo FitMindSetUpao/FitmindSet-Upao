@@ -85,12 +85,17 @@ export class RecursoListComponent implements OnInit {
   }
 
   createNewRecurso(): void {
-    this.router.navigate(['/autor/recursos/crear']);
+    this.router.navigate(['/author/recursos/crear']);
   }
 
   actualizarRecurso(recursoid: number): void {
-    this.router.navigate(['/autor/recursos/edit', recursoid]);
+    if (recursoid) {
+      this.router.navigate(['/autor/recursos/edit', recursoid]);
+    } else {
+      console.error('Invalid recursoid:', recursoid);
+    }
   }
+  
 
   private showSnackBar(message: string): void {
     this.snackBar.open(message, 'Cerrar', {

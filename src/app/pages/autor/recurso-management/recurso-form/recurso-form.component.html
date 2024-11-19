@@ -43,7 +43,7 @@
 
         <!-- Selector de tipo de recurso -->
  <!-- Selector de tipo de recurso -->
-<mat-form-field class="form-field w-100" appearance="outline">
+ <mat-form-field class="form-field w-100" appearance="outline">
   <mat-label>Tipo de Recurso</mat-label>
   <mat-select formControlName="tiporecurso">
     <mat-option *ngFor="let tiporecurso of tiporecursos" [value]="tiporecurso.id">
@@ -54,8 +54,7 @@
 </mat-form-field>
 
 
-        <!-- Selector de tipo de hábito -->
-        <mat-form-field class="form-field w-100" appearance="outline">
+     <mat-form-field class="form-field w-100" appearance="outline">
           <mat-label>Tipo de Hábito</mat-label>
           <mat-select formControlName="tipoDeHabitosId">
             <mat-option *ngFor="let tipoDeHabito of tipoDeHabitos" [value]="tipoDeHabito.id">
@@ -67,19 +66,26 @@
         <mat-form-field class="form-field w-100" appearance="outline">
           <mat-label>Plan de Suscripción</mat-label>
           <mat-select formControlName="plan_id">
-            <mat-option *ngFor="let plan of planes" [value]="plan.id">
-              {{ plan.nombre }}
+            <mat-option *ngFor="let plan of tiposSuscripcion" [value]="plan">
+              {{ plan }}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="form.get('plan_id')?.hasError('required')">El plan es obligatorio</mat-error>
         </mat-form-field>
+        
+        
 
         <!-- Carga de archivo de portada -->
         <div class="file-upload w-100">
           <label>Portada</label>
-          <input type="file" class="form-control" accept=".png,.jpg,.jpeg" (change)="uploadFile($event, 'coverPath')" />
+          <input
+            type="file"
+            class="form-control"
+            accept=".png,.jpg,.jpeg"
+            (change)="uploadFile($event, 'coverPath')"
+          />
           <div class="small text-muted">
-            Ruta actual: {{ form.get('coverPath')?.value }}
+            Ruta actual: {{ form.get("coverPath")!.value }}
           </div>
         </div>
 
@@ -95,18 +101,28 @@
         <!-- Botones de acción -->
         <div class="action-buttons text-end">
           <button mat-button type="button" routerLink="/autor/recursos/list">Cancelar</button>
-          <button mat-raised-button color="primary" class="ms-2" [disabled]="form.invalid">
+          <button mat-raised-button color="primary" class="ms-2" [disabled]="form.valid">
             {{ recursoid ? 'Actualizar' : 'Crear' }} recurso
           </button>
         </div>
       </form>
     </div>
+    <!-- Mostrar el estado del formulario para depuración -->
+
+
 
     <!-- Vista previa de la portada -->
     <div class="col-md-4 text-center preview">
+      @if(form.get('coverPath')?.value) {
       <h3>Portada</h3>
-      <img *ngIf="form.get('coverPath')?.value" [src]="form.get('coverPath')?.value | apiImg" alt="Portada" class="img-thumbnail" />
-      <p *ngIf="!form.get('coverPath')?.value">Sin portada</p>
+      <img
+        [src]="form.get('coverPath')?.value | apiImg"
+        alt="Portada"
+        class="img-thumbnail"
+      />
+      } @else {
+      <p>Sin portada</p>
+      }
     </div>
   </div>
 </div>

@@ -1,19 +1,368 @@
-/* Estilo para las metas dentro de la tabla */
-.meta-item {
-    font-size: 1rem;
-    color: #2c3e50;
-    margin: 5px 0;
-    padding: 5px;
-    border-radius: 4px;
+// Variables
+$primary-color: #3498db;
+$secondary-color: #f39c12;
+$background-color: #f9f9f9;
+$card-background: #ffffff;
+$shadow-light: 0 2px 6px rgba(0, 0, 0, 0.1);
+$hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+// Estilos generales de la sección de hábitos
+.habitos-container {
+  margin: 20px auto;
+  max-width: 1200px;
+  padding: 16px;
+  background-color: $background-color;
+  border-radius: 8px;
+  box-shadow: $shadow-light;
+}
+
+.habitos-title {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+// Filtro de búsqueda
+.filter-controls {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  .filter-input {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+// Contenedor de tarjetas de hábitos
+.habit-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: flex-start;
+  margin-bottom: 24px;
+}
+
+// Estilo de cada tarjeta de hábito
+.habit-card {
+  width: 100%;
+  max-width: 320px;
+  background-color: $card-background;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: $shadow-light;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $hover-shadow;
+  }
+
+  .habit-card-header {
     background-color: #ecf0f1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Estilo de la tabla cuando no tiene metas */
-  .mat-table .no-metas {
-    color: #e74c3c;
-    font-weight: bold;
     padding: 10px;
-    text-align: center;
+    border-radius: 6px;
   }
-  
+
+  mat-card-title {
+    font-size: 1.25rem;
+    color: #2c3e50;
+    font-weight: bold;
+  }
+
+  mat-card-content {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #34495e;
+
+    h3 {
+      font-size: 1.1rem;
+      color: #2980b9;
+    }
+
+    mat-list-item p {
+      margin: 4px 0;
+      font-size: 0.95rem;
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+
+    button {
+      width: 48%;
+    }
+  }
+}
+
+// Estilo de la paginación
+.mat-paginator {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+// Mensaje cuando no hay datos
+.no-data-message {
+  text-align: center;
+  color: #e74c3c;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f2dede;
+  border-radius: 8px;
+  box-shadow: $shadow-light;
+}
+/* Estilos generales de la sección de hábitos */
+.habitos-container {
+  margin: 20px auto;
+  max-width: 1200px;
+  padding: 16px;
+  background-color: $background-color;
+  border-radius: 8px;
+  box-shadow: $shadow-light;
+}
+
+.habitos-title {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Filtro de búsqueda */
+.filter-controls {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  .filter-input {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+/* Contenedor de tarjetas de hábitos */
+.habit-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: flex-start;
+  margin-bottom: 24px;
+}
+
+/* Estilo de cada tarjeta de hábito */
+.habit-card {
+  width: 100%;
+  max-width: 320px;
+  background-color: $card-background;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: $shadow-light;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $hover-shadow;
+  }
+
+  .habit-card-header {
+    background-color: #ecf0f1;
+    padding: 10px;
+    border-radius: 6px;
+  }
+
+  mat-card-title {
+    font-size: 1.25rem;
+    color: #2c3e50;
+    font-weight: bold;
+  }
+
+  mat-card-content {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #34495e;
+
+    h3 {
+      font-size: 1.1rem;
+      color: #2980b9;
+    }
+
+    mat-list-item p {
+      margin: 4px 0;
+      font-size: 0.95rem;
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+
+    button {
+      width: 48%;
+    }
+  }
+}
+
+/* Detalles de hábito cuando se hace clic */
+.habit-details {
+  width: 100%;
+  max-width: 960px;
+  margin-top: 20px;
+  padding: 16px;
+  background-color: #ecf0f1;
+  border-radius: 8px;
+  box-shadow: $shadow-light;
+}
+
+.detail-card {
+  background-color: $card-background;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: $shadow-light;
+}
+
+.mat-card-header {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.mat-card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.mat-paginator {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+/* Mejoras en la tipografía */
+body {
+  font-family: 'Roboto', sans-serif; /* Fuente moderna y legible */
+  line-height: 1.6; /* Mejor interlineado para mayor legibilidad */
+  color: #333; /* Color de texto más suave para el cuerpo */
+}
+
+h2, h3, .mat-card-title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700; /* Títulos con peso más fuerte */
+  color: #2c3e50; /* Color más oscuro para los títulos */
+}
+
+h2 {
+  font-size: 2rem; /* Títulos grandes */
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.5rem; /* Tamaño ligeramente más pequeño que h2 */
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+p, .meta-description, .seguimiento-card mat-card-title {
+  font-size: 1rem; /* Ajuste en el tamaño de los párrafos y descripciones */
+  color: #555; /* Color más suave para los textos generales */
+}
+
+button.mat-raised-button {
+  font-size: 1rem; /* Mejor tamaño de fuente para los botones */
+  font-weight: 600; /* Peso de fuente más destacado para los botones */
+}
+
+.no-data-message {
+  text-align: center;
+  color: #c0392b; /* Rojo más suave */
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fbe3e4; /* Fondo rojo suave */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agregado box-shadow más suave */
+}
+
+.activity-container {
+  max-width: 2000px; /* Aumento del ancho máximo del contenedor */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.search-habito {
+  margin-bottom: 20px;
+}
+
+.metas-container, .seguimiento-container {
+  margin-top: 30px;
+}
+
+.meta-cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(7, 1fr); /* 6 columnas */
+  grid-auto-rows: minmax(200px, auto);
+  width: 100%; 
+}
+
+.meta-card, .seguimiento-card {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 15px;
+  height: 100%;
+}
+
+.no-metas, .no-seguimientos {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #757575;
+}
+
+.seguimiento-cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.meta-card, .seguimiento-card {
+  display: flex;
+  flex-direction: column; /* Asegura que el contenido de la tarjeta se distribuya en columna */
+  justify-content: space-between; /* Coloca los botones en la parte inferior */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 15px;
+  height: 100%; /* Asegura que las tarjetas tengan la misma altura */
+}
+
+.mat-card-content {
+  flex-grow: 1; /* Permite que el contenido principal crezca y empuje los botones hacia abajo */
+}
+
+.mat-card-actions {
+  margin-top: auto; /* Asegura que los botones siempre estén al final de la tarjeta */
+  display: flex;
+  justify-content: flex-start; /* Alinea los botones a la izquierda */
+}
+
+button.mat-raised-button {
+  margin-right: 10px; /* Espacio entre los botones */
+}
+button.button-right {
+  background-color: #3498db; /* Color de fondo para los botones a la derecha */
+  color: #fff; /* Color del texto */
+  border: none;
+  margin-left: auto; /* Coloca los botones a la derecha */
+}
+
+button.button-right:hover {
+  background-color: #2980b9; /* Cambio de color al pasar el mouse */
+}

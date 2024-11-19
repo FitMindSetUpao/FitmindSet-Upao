@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  profile!: UserProfile;
+  profile: UserProfile = {} as UserProfile;
   private userProfileService = inject(UserProfileService);
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -25,10 +25,12 @@ export class UserProfileComponent implements OnInit {
   }
   loadUserProfile(): void {
     const authData = this.authService.getUser();
-    const usercorreo = authData?.correo;
+    const usercorreo = authData?.rol;
+    console.log('User correo:', usercorreo);  // Verifica si el correo es correcto
     if (usercorreo) {
       this.userProfileService.getUserProfile(usercorreo).subscribe({
         next: (profile) => {
+          console.log('Perfil cargado:', profile);  // Verifica si profile tiene correo
           this.profile = profile;
           this.showSnackBar('Perfil cargado con éxito');
         },
@@ -41,6 +43,8 @@ export class UserProfileComponent implements OnInit {
       this.router.navigate(['/auth/login']);
     }
   }
+  
+  
   navigateToUpdateProfile(): void {
     this.router.navigate(['/mi-perfil/actualizar']);
   }

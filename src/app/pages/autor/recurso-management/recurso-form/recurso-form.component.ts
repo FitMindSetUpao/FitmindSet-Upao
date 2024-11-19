@@ -23,6 +23,7 @@ import { Recurso } from '../../../../shared/models/recurso.model';
 import { TipoDeHabito } from '../../../../shared/models/tipo-de-habito.model';
 import { CommonModule } from '@angular/common'; 
 import { planService } from '../../../../core/services/planes.service';
+import { TiposSuscripcion } from '../../../../shared/models/tiposSuscripcion.model';
 
 @Component({
   selector: 'app-recurso-form',
@@ -100,14 +101,17 @@ export class RecursoFormComponent implements OnInit {
   }
   loadTiposSuscripcion() {
     this.tipoDeHabitoService.getAllTiposSuscripcion().subscribe(
-      (data) => {
-        this.tiposSuscripcion = data;
+      (data: TiposSuscripcion[]) => {
+        // Extraemos solo los nombres para usar en el formulario
+        this.tiposSuscripcion = data.map(tipo => tipo.nombre);
       },
       (error) => {
         console.error('Error loading tipos de suscripción:', error);
       }
     );
   }
+  
+  
   private loadRecursosForActualizar(): void {
     this.recursoService.getRecursoDetailsById(this.recursoid!).subscribe({
       next: (recurso: RecursoResponse) => {
@@ -124,30 +128,29 @@ export class RecursoFormComponent implements OnInit {
     });
   }
   
-
   uploadFile(event: Event, control: string): void {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append('file', file); // Solo se agrega el archivo, sin recursoId
-  
-      this.mediaService.upload(formData).subscribe({
-        next: (response) => {
-          if (response && response.path) {
-            this.form.controls[control].setValue(response.path); // Asignamos el path recibido al control
-          } else {
-            this.errors.push('Respuesta inesperada del servidor.');
-          }
-        },
-        error: (err) => {
-          console.error('Error de carga de archivo:', err);
-          this.errors.push('Error al cargar el archivo. Verifica los detalles en la consola.');
-        },
-      });
-    } else {
-      this.errors.push('No se seleccionó ningún archivo.');
+    if (!file) {
+      this.showSnackBar('No se seleccionó ningún archivo.');
+      return;
     }
+  
+    const formData = new FormData();
+    formData.append('file', file);
+  
+    this.mediaService.upload(formData).subscribe({
+      next: (response) => {
+        this.form.controls[control].setValue(response.path);
+        this.showSnackBar('Archivo cargado exitosamente.');
+      },
+      error: () => this.showSnackBar('Error al cargar el archivo.'),
+    });
   }
+  private showSnackBar(message: string, action: string = 'Cerrar') {
+    this.snackBar.open(message, action, { duration: 3000 });
+  }
+  
+  
   
   save(): void {
     if (this.form.invalid) {
@@ -169,7 +172,7 @@ export class RecursoFormComponent implements OnInit {
         this.snackBar.open('Recurso guardado exitosamente', 'Cerrar', {
           duration: 3000,
         });
-        this.router.navigate(['/autor/recursos/list']);
+        this.router.navigate(['/author/recursos/list']);
       },
       error: (error) => {
         this.errors = error.error.errors || ['Error al guardar el Recurso'];

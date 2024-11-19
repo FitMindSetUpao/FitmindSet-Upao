@@ -143,6 +143,8 @@ export class MetaFormComponent implements OnInit {
     }
   }
   cancel() {
-    this.router.navigate(['/customer/habitos/metas']);
+    console.log(this.habitoId); // Verificar el valor de habitoId
+    this.router.navigate(['/customer/habitos/metas/list']);
   }
+  
 }

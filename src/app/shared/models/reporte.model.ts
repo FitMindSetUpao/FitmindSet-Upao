@@ -1,8 +1,4 @@
-export interface SeguimientoDTO {
-    tiempoInvertido: number;
-    porcentajeCumplido: number;
-    fecha: string;
-  }
+
   
   export interface ReporteDTO {
     metaId: number;
@@ -10,6 +6,5 @@ export interface SeguimientoDTO {
     totalSeguimientos: number;
     totalTiempoInvertido: number;
     porcentajeCumplido: number;
-    seguimientos: SeguimientoDTO[];
   }
   

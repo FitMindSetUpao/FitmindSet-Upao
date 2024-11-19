@@ -1,4 +1,4 @@
-import { Seguimiento } from "./seguimiento.model";  // Ajusta la ruta según sea necesario
+import { SeguimientoDTO } from "./seguimiento.model";  // Ajusta la ruta según sea necesario
 
 export interface MetaDTO {
   id?:number;
@@ -9,6 +9,6 @@ export interface MetaDTO {
   tiempoObjetivo: number;
   habitoId: number;
   customerId?: number; 
-  seguimientos?: Seguimiento[]; 
+  seguimientos?: SeguimientoDTO[]; 
   }
   

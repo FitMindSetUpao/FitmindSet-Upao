@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { SeguimientoDTO } from '../../shared/models/reporte.model';
+import { SeguimientoDTO } from '../../shared/models/seguimiento.model';
 import { ReporteDTO } from '../../shared/models/reporte.model';
 
 @Injectable({
@@ -40,8 +40,12 @@ export class SeguimientoService {
     return this.http.get<ReporteDTO>(`${this.apiUrl}/habito/${habitoId}`, this.getHeaders());
   }
   obtenerSeguimientosPorCustomer(customerId: number): Observable<SeguimientoDTO[]> {
-    return this.http.get<SeguimientoDTO[]>(`${this.apiUrl}/seguimientos/${customerId}`, this.getHeaders());
+    return this.http.get<SeguimientoDTO[]>(`${this.apiUrl}/customer/${customerId}`);
   }
+  generarReporte(metaId: number): Observable<SeguimientoDTO[]> {
+    return this.http.get<SeguimientoDTO[]>(`${this.apiUrl}/reportes/${metaId}`, this.getHeaders());
+  }
+  
   
   
 
