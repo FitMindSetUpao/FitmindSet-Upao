@@ -40,7 +40,7 @@ export class SeguimientoService {
     return this.http.get<ReporteDTO>(`${this.apiUrl}/habito/${habitoId}`, this.getHeaders());
   }
   obtenerSeguimientosPorCustomer(customerId: number): Observable<SeguimientoDTO[]> {
-    return this.http.get<SeguimientoDTO[]>(`${this.apiUrl}/seguimientos/${customerId}`, this.getHeaders());
+    return this.http.get<SeguimientoDTO[]>(`${this.apiUrl}/customer/${customerId}`);
   }
   
   
