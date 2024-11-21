@@ -21,14 +21,12 @@
       <li *ngFor="let comment of comments; let i = index" class="comment-item">
         <strong>{{ comment.user }}:</strong> {{ comment.comment }}
 
-        <!-- Respuestas a los comentarios -->
         <ul *ngIf="comment.replies && comment.replies.length > 0">
           <li *ngFor="let reply of comment.replies" class="reply-item">
             <strong>{{ reply.user }}:</strong> {{ reply.comment }}
           </li>
         </ul>
 
-        <!-- Formulario para responder al comentario -->
         <div *ngIf="isJoined" class="reply-section">
           <textarea #replyInput placeholder="Responder..."></textarea>
           <button 

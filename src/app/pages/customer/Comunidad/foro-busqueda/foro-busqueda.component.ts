@@ -26,24 +26,19 @@ export class ForoBusquedaComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    // Obtener el usuario autenticado
     this.usuarioActual = this.authService.getUser()?.nombre || 'UsuarioDemo';
 
-    // Foros base
-    const baseForums = [
-      { title: 'Proteína', description: 'Crecen el músculo.', creator: '', status: 'Desconocido' },
-      { title: 'Carbohidrato', description: 'Otorgan energía.', creator: '', status: 'Desconocido' },
-      { title: 'Grasas Saludables', description: 'Mantienen la piel y cabello saludables.', creator: '', status: 'Desconocido' }
-    ];
+    // Recuperar foros globales y personalizados
+    const globalForums = JSON.parse(localStorage.getItem('forums_global') || '[]');
+    const userForums = JSON.parse(localStorage.getItem(`forums_${this.usuarioActual}`) || '[]');
 
-    // Recuperar foros personalizados del usuario actual
-    const storedForums = JSON.parse(localStorage.getItem(`forums_${this.usuarioActual}`) || '[]');
-    const combinedForums = [...baseForums, ...storedForums];
+    // Combinar foros sin duplicados
+    const combinedForums = [...globalForums, ...userForums];
     this.forums = combinedForums.filter((forum, index, self) =>
       index === self.findIndex((f) => f.title === forum.title)
     );
 
-    // Asignar estado del foro por usuario
+    // Determinar estado para cada foro
     this.forums.forEach(forum => {
       if (forum.creator === this.usuarioActual) {
         forum.status = 'Propietario';
@@ -53,9 +48,6 @@ export class ForoBusquedaComponent implements OnInit {
         forum.status = 'Desconocido';
       }
     });
-
-    // Guardar en localStorage para persistencia
-    localStorage.setItem(`forums_${this.usuarioActual}`, JSON.stringify(this.forums));
   }
 
   createForum() {
@@ -66,5 +58,27 @@ export class ForoBusquedaComponent implements OnInit {
     this.router.navigate(['/customer/foro/foro-co'], {
       queryParams: { title: forumTitle }
     });
+  }
+
+  deleteForum(forumTitle: string) {
+    // Confirmación para eliminar
+    if (!confirm(`¿Estás seguro de que deseas eliminar el foro "${forumTitle}"?`)) {
+      return;
+    }
+
+    // Eliminar de la lista específica del usuario
+    const userForums = JSON.parse(localStorage.getItem(`forums_${this.usuarioActual}`) || '[]');
+    const updatedUserForums = userForums.filter((forum: any) => forum.title !== forumTitle);
+    localStorage.setItem(`forums_${this.usuarioActual}`, JSON.stringify(updatedUserForums));
+
+    // Eliminar de la lista global
+    const globalForums = JSON.parse(localStorage.getItem('forums_global') || '[]');
+    const updatedGlobalForums = globalForums.filter((forum: any) => forum.title !== forumTitle);
+    localStorage.setItem('forums_global', JSON.stringify(updatedGlobalForums));
+
+    // Actualizar la vista
+    this.ngOnInit();
+
+    alert(`El foro "${forumTitle}" ha sido eliminado.`);
   }
 }

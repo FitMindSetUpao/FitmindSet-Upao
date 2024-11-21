@@ -46,15 +46,16 @@ export class ForoCrearComponent {
       status: 'Propietario'
     };
 
-    // Guardar foro para el usuario actual
-    const storedForums = JSON.parse(localStorage.getItem(`forums_${this.usuarioActual}`) || '[]');
-    storedForums.push(newForum);
-    localStorage.setItem(`forums_${this.usuarioActual}`, JSON.stringify(storedForums));
+    const userForums = JSON.parse(localStorage.getItem(`forums_${this.usuarioActual}`) || '[]');
+    userForums.push(newForum);
+    localStorage.setItem(`forums_${this.usuarioActual}`, JSON.stringify(userForums));
 
-    // Unir automáticamente al creador al foro
+    const globalForums = JSON.parse(localStorage.getItem('forums_global') || '[]');
+    globalForums.push(newForum);
+    localStorage.setItem('forums_global', JSON.stringify(globalForums));
+
     localStorage.setItem(`joined_${this.usuarioActual}_${this.forumTitle}`, JSON.stringify(true));
 
-    // Notificación y redirección
     alert('El foro ha sido creado exitosamente.');
     this.router.navigate(['/customer/foro/foro-busqueda']);
   }

@@ -36,25 +36,19 @@ export class ForoComentariosComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    // Usuario autenticado
     this.usuarioActual = this.authService.getUser()?.nombre || 'UsuarioDemo';
 
-    // Recuperar foro actual desde los parámetros de la ruta
     this.route.queryParams.subscribe(params => {
       this.foroActual = params['title'] || '';
     });
 
-    // Datos del foro actual
-    const foroData = JSON.parse(localStorage.getItem(`forums_${this.usuarioActual}`) || '[]').find((f: any) => f.title === this.foroActual);
+    const foroData = JSON.parse(localStorage.getItem('forums_global') || '[]').find((f: any) => f.title === this.foroActual);
     if (foroData) {
       this.foroDescripcion = foroData.description;
       this.esPropietario = foroData.creator === this.usuarioActual;
     }
 
-    // Estado de unión al foro
     this.isJoined = JSON.parse(localStorage.getItem(`joined_${this.usuarioActual}_${this.foroActual}`) || 'false');
-
-    // Cargar comentarios
     this.comments = JSON.parse(localStorage.getItem(`comments_${this.foroActual}`) || '[]');
   }
 
