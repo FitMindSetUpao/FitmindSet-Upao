@@ -36,26 +36,41 @@ export class ForoComentariosComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
+    // Obtener el usuario actual
     this.usuarioActual = this.authService.getUser()?.nombre || 'UsuarioDemo';
 
+    // Recuperar título del foro desde los parámetros de la ruta
     this.route.queryParams.subscribe(params => {
       this.foroActual = params['title'] || '';
     });
 
+    // Buscar el foro en la lista global
     const foroData = JSON.parse(localStorage.getItem('forums_global') || '[]').find((f: any) => f.title === this.foroActual);
     if (foroData) {
       this.foroDescripcion = foroData.description;
       this.esPropietario = foroData.creator === this.usuarioActual;
     }
 
+    // Comprobar si el usuario está unido al foro
     this.isJoined = JSON.parse(localStorage.getItem(`joined_${this.usuarioActual}_${this.foroActual}`) || 'false');
-    this.comments = JSON.parse(localStorage.getItem(`comments_${this.foroActual}`) || '[]');
+
+    // Cargar comentarios (solo si el usuario está unido)
+    if (this.isJoined) {
+      this.comments = JSON.parse(localStorage.getItem(`comments_${this.foroActual}`) || '[]');
+    }
   }
 
   toggleJoin() {
     if (!this.esPropietario) {
       this.isJoined = !this.isJoined;
       localStorage.setItem(`joined_${this.usuarioActual}_${this.foroActual}`, JSON.stringify(this.isJoined));
+
+      // Recargar comentarios si el usuario se une
+      if (this.isJoined) {
+        this.comments = JSON.parse(localStorage.getItem(`comments_${this.foroActual}`) || '[]');
+      } else {
+        this.comments = [];
+      }
     }
   }
 
