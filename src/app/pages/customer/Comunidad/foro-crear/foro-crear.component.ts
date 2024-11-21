@@ -5,6 +5,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-foro-crear',
@@ -23,10 +24,14 @@ import { FormsModule } from '@angular/forms';
 export class ForoCrearComponent {
   forumTitle: string = '';
   forumDescription: string = '';
-  usuarioActual: string = 'UsuarioDemo';
+  usuarioActual: string = '';
   errorMessage: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
+
+  ngOnInit() {
+    this.usuarioActual = this.authService.getUser()?.nombre || 'UsuarioDemo';
+  }
 
   createForum() {
     if (!this.forumTitle || !this.forumDescription) {
@@ -41,15 +46,16 @@ export class ForoCrearComponent {
       status: 'Propietario'
     };
 
-    // Guardar en localStorage
-    const storedForums = JSON.parse(localStorage.getItem('forums') || '[]');
+    // Guardar foro para el usuario actual
+    const storedForums = JSON.parse(localStorage.getItem(`forums_${this.usuarioActual}`) || '[]');
     storedForums.push(newForum);
-    localStorage.setItem('forums', JSON.stringify(storedForums));
+    localStorage.setItem(`forums_${this.usuarioActual}`, JSON.stringify(storedForums));
 
-    // Notificación de éxito
+    // Unir automáticamente al creador al foro
+    localStorage.setItem(`joined_${this.usuarioActual}_${this.forumTitle}`, JSON.stringify(true));
+
+    // Notificación y redirección
     alert('El foro ha sido creado exitosamente.');
-
-    // Redirigir a la lista de foros
     this.router.navigate(['/customer/foro/foro-busqueda']);
   }
 }
