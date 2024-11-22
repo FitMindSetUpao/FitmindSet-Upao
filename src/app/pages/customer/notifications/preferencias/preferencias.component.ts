@@ -27,11 +27,10 @@ interface Preference {
   templateUrl: './preferencias.component.html',
   styleUrls: ['./preferencias.component.scss'],
 })
-
 export class PreferenciasComponent implements OnInit {
   desktopNotifications: boolean = false;
   preferences: Preference[] = [
-    { label: '¡Toma agua!', description: 'Recibe notificaciones para hidratarte cada hora.', enabled: false },
+    { label: '¡Toma agua!', description: 'Recibe notificaciones para hidratarte cada dos horas.', enabled: false },
     { label: '¡Ejercítate!', description: 'Recibe notificaciones diarias para realizar ejercicio.', enabled: false },
     { label: '¡Sal a caminar!', description: 'Recibe notificaciones diarias para dar un paseo y despejarte.', enabled: false },
   ];
@@ -61,7 +60,7 @@ export class PreferenciasComponent implements OnInit {
   savePreferences() {
     this.showValidationError = false;
 
-    if (this.desktopNotifications && this.preferences.every(pref => !pref.enabled)) {
+    if (this.desktopNotifications && this.preferences.every((pref) => !pref.enabled)) {
       this.showValidationError = true;
       return;
     }
@@ -71,11 +70,12 @@ export class PreferenciasComponent implements OnInit {
     localStorage.setItem(`preferences_${this.usuarioActual}`, JSON.stringify(this.preferences));
 
     // Generar notificaciones basadas en las preferencias activadas
-    const activatedPreferences = this.preferences.filter(pref => pref.enabled);
+    const activatedPreferences = this.preferences.filter((pref) => pref.enabled);
     if (activatedPreferences.length > 0) {
-      const notifications = activatedPreferences.map(pref => ({
-        message: pref.label,
-        time: new Date()
+      const notifications = activatedPreferences.map((pref) => ({
+        message: this.getCustomMessage(pref.label), // Mensajes personalizados
+        time: new Date(),
+        interval: this.getNotificationInterval(pref.label), // Intervalo de notificaciones
       }));
       const storedNotifications = JSON.parse(localStorage.getItem(`notifications_${this.usuarioActual}`) || '[]');
       const updatedNotifications = [...storedNotifications, ...notifications];
@@ -87,9 +87,34 @@ export class PreferenciasComponent implements OnInit {
     this.router.navigate(['/customer/noti']);
   }
 
+  getCustomMessage(label: string): string {
+    switch (label) {
+      case '¡Toma agua!':
+        return '¡Toma agua!';
+      case '¡Ejercítate!':
+        return '¡Ejercítate!';
+      case '¡Sal a caminar!':
+        return '¡Sal a caminar!';
+      default:
+        return label;
+    }
+  }
+
+  getNotificationInterval(label: string): number {
+    switch (label) {
+      case '¡Toma agua!':
+        return 2 * 60 * 60 * 1000; // Cada 2 horas
+      case '¡Ejercítate!':
+      case '¡Sal a caminar!':
+        return 24 * 60 * 60 * 1000; // Cada 24 horas
+      default:
+        return 0;
+    }
+  }
+
   toggleDesktopNotifications() {
     if (!this.desktopNotifications) {
-      this.preferences.forEach(pref => (pref.enabled = false));
+      this.preferences.forEach((pref) => (pref.enabled = false));
     }
   }
 }
