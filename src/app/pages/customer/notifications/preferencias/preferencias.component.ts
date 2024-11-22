@@ -7,11 +7,13 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../../../../shared/components/navbar/navbar.component';
 import { FooterComponent } from '../../../../shared/components/footer/footer.component';
 
+
 interface Preference {
   label: string;
   description: string;
   enabled: boolean;
 }
+
 
 @Component({
   selector: 'app-preferencias',
@@ -37,37 +39,46 @@ export class PreferenciasComponent implements OnInit {
   usuarioActual: string = '';
   showValidationError: boolean = false;
 
+
   constructor(private authService: AuthService, private router: Router) {}
+
 
   ngOnInit() {
     this.usuarioActual = this.authService.getUser()?.nombre || 'UsuarioDemo';
     this.loadPreferences();
   }
 
+
   loadPreferences() {
     const desktopNotif = localStorage.getItem(`desktopNotifications_${this.usuarioActual}`);
     const savedPreferences = localStorage.getItem(`preferences_${this.usuarioActual}`);
 
+
     if (desktopNotif) {
       this.desktopNotifications = JSON.parse(desktopNotif);
     }
+
 
     if (savedPreferences) {
       this.preferences = JSON.parse(savedPreferences);
     }
   }
 
+
   savePreferences() {
     this.showValidationError = false;
+
 
     if (this.desktopNotifications && this.preferences.every((pref) => !pref.enabled)) {
       this.showValidationError = true;
       return;
     }
 
+
     // Guardar en localStorage
     localStorage.setItem(`desktopNotifications_${this.usuarioActual}`, JSON.stringify(this.desktopNotifications));
     localStorage.setItem(`preferences_${this.usuarioActual}`, JSON.stringify(this.preferences));
+
 
     // Generar notificaciones basadas en las preferencias activadas
     const activatedPreferences = this.preferences.filter((pref) => pref.enabled);
@@ -82,10 +93,12 @@ export class PreferenciasComponent implements OnInit {
       localStorage.setItem(`notifications_${this.usuarioActual}`, JSON.stringify(updatedNotifications));
     }
 
+
     // Mensaje y redirección
     alert('Preferencias guardadas correctamente.');
     this.router.navigate(['/customer/noti']);
   }
+
 
   getCustomMessage(label: string): string {
     switch (label) {
@@ -100,6 +113,7 @@ export class PreferenciasComponent implements OnInit {
     }
   }
 
+
   getNotificationInterval(label: string): number {
     switch (label) {
       case '¡Toma agua!':
@@ -111,6 +125,7 @@ export class PreferenciasComponent implements OnInit {
         return 0;
     }
   }
+
 
   toggleDesktopNotifications() {
     if (!this.desktopNotifications) {

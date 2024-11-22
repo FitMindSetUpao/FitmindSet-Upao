@@ -1,11 +1,14 @@
 <app-navbar></app-navbar>
 
+
 <div class="container">
   <h2>Preferencias de Notificaciones</h2>
+
 
   <div class="error-message" *ngIf="showValidationError">
     Debes habilitar al menos una preferencia si las notificaciones están activadas.
   </div>
+
 
   <div class="toggle-section">
     <label class="toggle-switch" for="desktop-notifications">
@@ -20,6 +23,7 @@
     <span class="toggle-label">Activar notificaciones en este navegador</span>
     <p>Recibe notificaciones en tu ordenador para tus recordatorios personalizados.</p>
   </div>
+
 
   <div class="preferences-list">
     <div
@@ -41,8 +45,9 @@
     </div>
   </div>
 
+
   <button (click)="savePreferences()">Guardar Preferencias</button>
 </div>
 
-<app-footer></app-footer>
 
+<app-footer></app-footer>
