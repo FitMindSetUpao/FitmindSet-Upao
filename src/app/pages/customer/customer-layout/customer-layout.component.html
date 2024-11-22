@@ -131,17 +131,24 @@
           <mat-grid-tile>
             <mat-card class="dashboard-card">
               <div class="custom-card-header">
-                <mat-icon class="header-icon">notifications</mat-icon>
+                <mat-icon class="header-icon notification-icon">
+                  notifications
+                </mat-icon>
                 <span class="header-title">Notificaciones</span>
               </div>
               <mat-card-content>
                 <p class="descripcion">Revisa las notificaciones recientes sobre tu progreso.</p>
               </mat-card-content>
               <mat-card-actions>
-                <div fxLayout="row" fxLayoutAlign="start center">
-                  <button mat-button color="primary" [routerLink]="['noti']">
-                    Ver más detalles
-                  </button>
+                <div fxLayout="row" fxLayoutAlign="start center" class="actions-container">
+                  <div class="button-container" style="position: relative;">
+                    <div class="notification-circle" *ngIf="totalNotificaciones > 0">
+                      {{ totalNotificaciones }}
+                    </div>
+                    <button mat-button color="primary" [routerLink]="['noti']">
+                      Ver más detalles
+                    </button>
+                  </div>
                 </div>
               </mat-card-actions>
             </mat-card>
