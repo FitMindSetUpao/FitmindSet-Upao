@@ -34,7 +34,6 @@ export class NotificacionesComponent implements OnInit {
   ngOnInit() {
     this.usuarioActual = this.authService.getUser()?.nombre || 'UsuarioDemo';
     this.loadNotifications();
-    this.startDailyNotifications();
   }
 
   loadNotifications() {
@@ -44,30 +43,12 @@ export class NotificacionesComponent implements OnInit {
     }
   }
 
-  startDailyNotifications() {
-    setInterval(() => {
-      this.generateDailyNotifications();
-    }, 24 * 60 * 60 * 1000);
-  }
+  confirmNotification(index: number) {
+    // Eliminar la notificación del arreglo
+    this.notifications.splice(index, 1);
 
-  generateDailyNotifications() {
-    const storedPreferences = localStorage.getItem(`preferences_${this.usuarioActual}`);
-    if (storedPreferences) {
-      const preferences = JSON.parse(storedPreferences);
-
-      preferences.forEach((preference: { label: string; enabled: boolean }) => {
-        if (preference.enabled) {
-          const newNotification: Notification = {
-            message: preference.label,
-            time: new Date()
-          };
-
-          this.notifications.push(newNotification);
-        }
-      });
-
-      localStorage.setItem(`notifications_${this.usuarioActual}`, JSON.stringify(this.notifications));
-    }
+    // Actualizar el localStorage
+    localStorage.setItem(`notifications_${this.usuarioActual}`, JSON.stringify(this.notifications));
   }
 
   goToPreferences() {

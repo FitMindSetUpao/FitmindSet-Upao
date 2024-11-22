@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -30,14 +31,14 @@ interface Preference {
 export class PreferenciasComponent implements OnInit {
   desktopNotifications: boolean = false;
   preferences: Preference[] = [
-    { label: 'Recordatorio para tomar agua', description: 'Recibe notificaciones para hidratarte cada hora.', enabled: false },
-    { label: 'Recordatorio para ejercitarte', description: 'Recibe notificaciones diarias para realizar ejercicio.', enabled: false },
-    { label: 'Recordatorio para caminar', description: 'Recibe notificaciones para dar un paseo y despejarte.', enabled: false },
+    { label: '¡Toma agua!', description: 'Recibe notificaciones para hidratarte cada hora.', enabled: false },
+    { label: '¡Ejercítate!', description: 'Recibe notificaciones diarias para realizar ejercicio.', enabled: false },
+    { label: '¡Sal a caminar!', description: 'Recibe notificaciones diarias para dar un paseo y despejarte.', enabled: false },
   ];
   usuarioActual: string = '';
   showValidationError: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.usuarioActual = this.authService.getUser()?.nombre || 'UsuarioDemo';
@@ -65,10 +66,25 @@ export class PreferenciasComponent implements OnInit {
       return;
     }
 
+    // Guardar en localStorage
     localStorage.setItem(`desktopNotifications_${this.usuarioActual}`, JSON.stringify(this.desktopNotifications));
     localStorage.setItem(`preferences_${this.usuarioActual}`, JSON.stringify(this.preferences));
 
+    // Generar notificaciones basadas en las preferencias activadas
+    const activatedPreferences = this.preferences.filter(pref => pref.enabled);
+    if (activatedPreferences.length > 0) {
+      const notifications = activatedPreferences.map(pref => ({
+        message: pref.label,
+        time: new Date()
+      }));
+      const storedNotifications = JSON.parse(localStorage.getItem(`notifications_${this.usuarioActual}`) || '[]');
+      const updatedNotifications = [...storedNotifications, ...notifications];
+      localStorage.setItem(`notifications_${this.usuarioActual}`, JSON.stringify(updatedNotifications));
+    }
+
+    // Mensaje y redirección
     alert('Preferencias guardadas correctamente.');
+    this.router.navigate(['/customer/noti']);
   }
 
   toggleDesktopNotifications() {

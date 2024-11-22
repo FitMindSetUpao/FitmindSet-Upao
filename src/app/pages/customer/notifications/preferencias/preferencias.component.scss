@@ -1,4 +1,4 @@
-$primary-color: #2ecc71;  // Verde primario
+$primary-color: #2ecc71; // Verde primario
 $slider-on-color: $primary-color;
 $slider-off-color: #ccc;
 $background-color: #f0f5f0;
@@ -19,7 +19,8 @@ $background-color: #f0f5f0;
     margin-bottom: 20px;
   }
 
-  .toggle-section, .preferences-list, .notification-list {
+  .toggle-section,
+  .preferences-list {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
@@ -30,8 +31,7 @@ $background-color: #f0f5f0;
     }
   }
 
-  .preferences-list,
-  .notification-list {
+  .preferences-list {
     gap: 15px;
 
     .item {
@@ -67,6 +67,12 @@ $background-color: #f0f5f0;
     &:hover {
       background-color: darken($primary-color, 10%);
     }
+  }
+
+  .error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
   }
 }
 
