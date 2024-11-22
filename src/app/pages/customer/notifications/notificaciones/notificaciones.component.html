@@ -1,0 +1,20 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <h2>Mis Notificaciones</h2>
+
+  <div class="notification-list" *ngIf="notifications.length > 0; else noNotifications">
+    <div class="item" *ngFor="let notification of notifications">
+      <p>{{ notification.message }}</p>
+    </div>
+  </div>
+
+  <ng-template #noNotifications>
+    <p>No tienes notificaciones activas. Configúralas para recibir recordatorios diarios.</p>
+  </ng-template>
+
+  <button (click)="goToPreferences()">Configuración</button>
+</div>
+
+<app-footer></app-footer>
+
