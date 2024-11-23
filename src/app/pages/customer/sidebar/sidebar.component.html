@@ -1,0 +1,70 @@
+<div class="layout-dashboard">
+  <!-- Botón de Toggle para el Sidebar -->
+  <button
+    class="sidebar-toggle-btn"
+    [class.active]="isSidebarActive"
+    (click)="toggleSidebar()">
+    <mat-icon *ngIf="!isSidebarActive">menu</mat-icon>
+    <mat-icon *ngIf="isSidebarActive">close</mat-icon>
+  </button>
+
+  <!-- Sidebar con opciones específicas -->
+  <div class="layout-sidebar" [class.collapsed]="isSidebarActive">
+    <nav>
+      <ul>
+        <li>
+          <a routerLink="habitos/mi-perfil" routerLinkActive="active">
+            <mat-icon>account_circle</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Perfil</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="habitos/metas/list" routerLinkActive="active">
+            <mat-icon>stars</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Mis Metas</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/notificaciones" routerLinkActive="active">
+            <mat-icon>notifications</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Notificaciones</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="habitos/list" routerLinkActive="active">
+            <mat-icon>fitness_center</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Mis Habitos</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/reportes" routerLinkActive="active">
+            <mat-icon>bar_chart</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Reportes</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/graficos" routerLinkActive="active">
+            <mat-icon>pie_chart</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Gráficos</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/pagos-suscripciones" routerLinkActive="active">
+            <mat-icon>credit_card</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Pagos y Suscripciones</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span class="nav-label" *ngIf="!isSidebarActive">Cerrar Sesión</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="layout-content">
+    <ng-content></ng-content>
+  </div>
+</div>
+<app-footer></app-footer>
