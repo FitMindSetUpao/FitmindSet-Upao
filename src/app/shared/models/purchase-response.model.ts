@@ -15,7 +15,7 @@ export enum PaymentStatus {
 
 export interface PurchaseItemResponse {
   id: number;
+  nombreRecurso: string;
   precio: number;
   cantidad: number;
-  nombreRecurso: string;
 }

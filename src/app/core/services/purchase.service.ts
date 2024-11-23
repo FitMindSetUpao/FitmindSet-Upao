@@ -6,6 +6,7 @@ import { PurchaseResponse } from '../../shared/models/purchase-response.model';
 import { PurchaseCreateUpdateRequest} from '../../shared/models/purchase-create-update-request.model';
 import { PurchaseItemResponse} from '../../shared/models/purchase-response.model';
 import {Purchase} from '../../shared/models/purchase.model';
+import {PurchaseReportResponse} from '../../shared/models/purchase-report-response.model';
 //import { PurchaseReportResponse} from '../../shared/models/purchase-response.model'; DE DONDE SALIO???
 
 @Injectable({
@@ -29,8 +30,9 @@ export class PurchaseService {
     return this.http.get<PurchaseResponse[]>(`${this.baseURL}/customer`);
   }
 
-  /*  getPurchaseReport(): Observable<PurchaseReportResponse[]> {
-    return this.http.get<PurchaseReportResponse[]>(`${this.baseURL}/reporte`);*/
+  getPurchaseReport(): Observable<PurchaseReportResponse[]> {
+    return this.http.get<PurchaseReportResponse[]>(`${this.baseURL}/reporte`);
+    }
 
   getPurchaseById(id: number): Observable<PurchaseResponse> {
     return this.http.get<PurchaseResponse>(`${this.baseURL}/${id}`);

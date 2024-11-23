@@ -1,11 +1,16 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {PaymentStatus, PurchaseResponse} from '../../../../shared/models/purchase-response.model';
 import { PurchaseService} from '../../../../core/services/purchase.service';
+import {CurrencyPipe, DatePipe, NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-history',
   standalone: true,
-  imports: [],
+  imports: [
+    DatePipe,
+    NgClass,
+    CurrencyPipe
+  ],
   templateUrl: './history.component.html',
   styleUrl: './history.component.scss'
 })

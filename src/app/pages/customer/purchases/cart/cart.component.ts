@@ -9,11 +9,14 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../../core/services/auth.service';
 import { CheckoutService} from '../../../../core/services/checkout.service';
 import {Purchase} from '../../../../shared/models/purchase.model';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [],
+  imports: [
+    CurrencyPipe
+  ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
@@ -74,7 +77,7 @@ export class CartComponent {
       customerId: this.customerId,
       items: cartItems.map((item) => ({
         recursoId: item.recursoId,
-        /*nombre falta, pregunta por el request luego aña*/
+        nombreRecurso: item.nombreRecurso,
         quantity: item.quantity,
         price: item.price,
       })),

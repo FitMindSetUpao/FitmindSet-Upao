@@ -44,7 +44,6 @@ export const customerRoutes: Routes = [
       { path: 'metas/:habitoId', component: MetaDetallesComponent },
       { path: 'metas/editar/:metaId', component: MetaFormComponent },
       { path: 'habitos/actividad', component: ActivadListComponent },
-      { path: 'cart', component: CartComponent },
       // Corregido: Solo una ruta para ActividadFormComponent
       { path: 'metas/actividad/:metaId', component: ActividadFormComponent }
     ]
@@ -63,4 +62,5 @@ export const customerRoutes: Routes = [
   {
     path: 'customer/pagos-suscripciones', component: PaymentComponent
   },
+  { path: 'cart', component: CartComponent },
 ];

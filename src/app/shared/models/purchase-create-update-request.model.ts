@@ -6,7 +6,7 @@ export interface PurchaseCreateUpdateRequest {
 
 export interface PurchaseItemCreateUpdateRequest {
   recursoId: number;
-  //nombreRecurso: string; no se si incluirlo, preguntar al chato//
+  nombreRecurso: string;
   quantity: number;
   price: number;
 }
