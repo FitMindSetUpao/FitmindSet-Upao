@@ -1,10 +1,7 @@
 import { inject, Injectable} from '@angular/core';
 import { HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import {Purchase} from '../../shared/models/purchase.model';
-//import {PaypalCaptureResponse,
-// PaypalOrderResponse,
-// } from '...'
+import { PaypalOrderResponse, PaypalCaptureResponse} from '../../shared/models/paypal-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +15,7 @@ export class CheckoutService {
     params = params.append('purchaseId', purchaseId);
     params = params.append('returnUrl', environment.paypalReturnUrl);
     params = params.append('cancelUrl', environment.paypalReturnUrl);
-    return this.http.post<PaypalOrderResponse>(`${this.baseURL}/create`, null, {
+    return this.http.post<PaypalOrderResponse>(`${this.baseURL}/crear`, null, {
       params: params,
     });
   }
