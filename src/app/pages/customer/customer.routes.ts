@@ -14,6 +14,7 @@ import { ForoBusquedaComponent } from './Comunidad/foro-busqueda/foro-busqueda.c
 import { ForoCrearComponent } from './Comunidad/foro-crear/foro-crear.component';
 import { ForoComentariosComponent } from './Comunidad/foro-comentarios/foro-comentarios.component';
 import { PaymentComponent } from './payment/payment.component';
+import {CartComponent} from './purchases/cart/cart.component';
 
 export const customerRoutes: Routes = [
   {
@@ -43,6 +44,7 @@ export const customerRoutes: Routes = [
       { path: 'metas/:habitoId', component: MetaDetallesComponent },
       { path: 'metas/editar/:metaId', component: MetaFormComponent },
       { path: 'habitos/actividad', component: ActivadListComponent },
+      { path: 'cart', component: CartComponent },
       // Corregido: Solo una ruta para ActividadFormComponent
       { path: 'metas/actividad/:metaId', component: ActividadFormComponent }
     ]
