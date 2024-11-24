@@ -9,14 +9,18 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../../core/services/auth.service';
 import { CheckoutService} from '../../../../core/services/checkout.service';
 import {Purchase} from '../../../../shared/models/purchase.model';
-import {CommonModule, CurrencyPipe} from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
+import { PaymentLayoutComponent } from '../../payment-layout/payment-layout.component';
+import { PaymentNavbarComponent } from '../../../../shared/components/payment-navbar/payment-navbar.component';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
   imports: [
     CurrencyPipe,
-    CommonModule
+    CommonModule,
+    PaymentLayoutComponent,
+    PaymentNavbarComponent
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
@@ -58,7 +62,7 @@ export class CartComponent {
   loadCart(): void {
     this.cartItems = this.cartService.getCartItems();
     this.total = this.cartService.getCartTotal();
-    
+
   }
 
   removeItem(recursoId: number): void {
