@@ -7,13 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../../../../shared/components/navbar/navbar.component';
 import { FooterComponent } from '../../../../shared/components/footer/footer.component';
 
-
 interface Preference {
   label: string;
   description: string;
   enabled: boolean;
 }
-
 
 @Component({
   selector: 'app-preferencias',
@@ -39,66 +37,56 @@ export class PreferenciasComponent implements OnInit {
   usuarioActual: string = '';
   showValidationError: boolean = false;
 
-
   constructor(private authService: AuthService, private router: Router) {}
-
 
   ngOnInit() {
     this.usuarioActual = this.authService.getUser()?.nombre || 'UsuarioDemo';
     this.loadPreferences();
   }
 
-
   loadPreferences() {
     const desktopNotif = localStorage.getItem(`desktopNotifications_${this.usuarioActual}`);
     const savedPreferences = localStorage.getItem(`preferences_${this.usuarioActual}`);
 
-
     if (desktopNotif) {
       this.desktopNotifications = JSON.parse(desktopNotif);
     }
-
 
     if (savedPreferences) {
       this.preferences = JSON.parse(savedPreferences);
     }
   }
 
-
   savePreferences() {
     this.showValidationError = false;
-
 
     if (this.desktopNotifications && this.preferences.every((pref) => !pref.enabled)) {
       this.showValidationError = true;
       return;
     }
 
-
-    // Guardar en localStorage
     localStorage.setItem(`desktopNotifications_${this.usuarioActual}`, JSON.stringify(this.desktopNotifications));
     localStorage.setItem(`preferences_${this.usuarioActual}`, JSON.stringify(this.preferences));
 
-
-    // Generar notificaciones basadas en las preferencias activadas
-    const activatedPreferences = this.preferences.filter((pref) => pref.enabled);
-    if (activatedPreferences.length > 0) {
+    if (!this.desktopNotifications) {
+      // Si se desactivan, limpiamos las notificaciones en localStorage.
+      localStorage.removeItem(`notifications_${this.usuarioActual}`);
+    } else {
+      // Si están activadas, generamos las notificaciones según preferencias.
+      const activatedPreferences = this.preferences.filter((pref) => pref.enabled);
       const notifications = activatedPreferences.map((pref) => ({
-        message: this.getCustomMessage(pref.label), // Mensajes personalizados
+        message: this.getCustomMessage(pref.label),
         time: new Date(),
-        interval: this.getNotificationInterval(pref.label), // Intervalo de notificaciones
+        interval: this.getNotificationInterval(pref.label),
       }));
       const storedNotifications = JSON.parse(localStorage.getItem(`notifications_${this.usuarioActual}`) || '[]');
       const updatedNotifications = [...storedNotifications, ...notifications];
       localStorage.setItem(`notifications_${this.usuarioActual}`, JSON.stringify(updatedNotifications));
     }
 
-
-    // Mensaje y redirección
     alert('Preferencias guardadas correctamente.');
     this.router.navigate(['/customer/noti']);
   }
-
 
   getCustomMessage(label: string): string {
     switch (label) {
@@ -113,11 +101,10 @@ export class PreferenciasComponent implements OnInit {
     }
   }
 
-
   getNotificationInterval(label: string): number {
     switch (label) {
       case '¡Toma agua!':
-        return 2 * 60 * 60 * 1000; // Cada 2 horas
+        return 10 * 1000; // Cada 2 horas
       case '¡Ejercítate!':
       case '¡Sal a caminar!':
         return 24 * 60 * 60 * 1000; // Cada 24 horas
@@ -125,7 +112,6 @@ export class PreferenciasComponent implements OnInit {
         return 0;
     }
   }
-
 
   toggleDesktopNotifications() {
     if (!this.desktopNotifications) {

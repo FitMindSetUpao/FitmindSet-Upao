@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,13 +7,11 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { FooterComponent } from '../../../../shared/components/footer/footer.component';
 import { NavbarComponent } from '../../../../shared/components/navbar/navbar.component';
 
-
 interface Notification {
   message: string;
   time: Date;
   interval?: number; // Intervalo en milisegundos para notificaciones recurrentes
 }
-
 
 @Component({
   selector: 'app-notificaciones',
@@ -29,20 +27,22 @@ interface Notification {
   templateUrl: './notificaciones.component.html',
   styleUrls: ['./notificaciones.component.scss'],
 })
-export class NotificacionesComponent implements OnInit {
+export class NotificacionesComponent implements OnInit, OnDestroy {
   notifications: Notification[] = [];
   usuarioActual: string = '';
-
+  private notificationIntervals: Map<number, any> = new Map(); // Manejador de intervalos
 
   constructor(private router: Router, private authService: AuthService) {}
-
 
   ngOnInit() {
     this.usuarioActual = this.authService.getUser()?.nombre || 'UsuarioDemo';
     this.loadNotifications();
-    this.scheduleNotifications(); // Programar notificaciones recurrentes
+    this.initializeNotificationIntervals();
   }
 
+  ngOnDestroy() {
+    this.clearAllIntervals(); // Limpiar recursos al destruir el componente
+  }
 
   loadNotifications() {
     const storedNotifications = localStorage.getItem(`notifications_${this.usuarioActual}`);
@@ -51,39 +51,53 @@ export class NotificacionesComponent implements OnInit {
     }
   }
 
-
   saveNotifications() {
     localStorage.setItem(`notifications_${this.usuarioActual}`, JSON.stringify(this.notifications));
   }
 
-
   confirmNotification(index: number) {
-    // Eliminar la notificación del arreglo y actualizar localStorage
     this.notifications.splice(index, 1);
     this.saveNotifications();
+    this.clearInterval(index); // Limpiar intervalo relacionado
   }
 
-
-  scheduleNotifications() {
-    this.notifications.forEach((notification) => {
+  initializeNotificationIntervals() {
+    this.notifications.forEach((notification, index) => {
       if (notification.interval) {
-        setTimeout(() => {
-          // Agregar una nueva notificación al final del intervalo
-          this.notifications.push({
-            message: notification.message,
-            time: new Date(),
-            interval: notification.interval,
-          });
-          this.saveNotifications();
-
-
-          // Reprogramar el mismo recordatorio
-          this.scheduleNotifications();
-        }, notification.interval);
+        this.setNotificationInterval(notification, index);
       }
     });
   }
 
+  setNotificationInterval(notification: Notification, index: number) {
+    if (this.notificationIntervals.has(index)) {
+      this.clearInterval(index); // Evitar duplicados
+    }
+
+    const intervalId = setInterval(() => {
+      const newNotification: Notification = {
+        message: notification.message,
+        time: new Date(),
+        interval: notification.interval,
+      };
+      this.notifications.push(newNotification);
+      this.saveNotifications();
+    }, notification.interval);
+
+    this.notificationIntervals.set(index, intervalId);
+  }
+
+  clearInterval(index: number) {
+    if (this.notificationIntervals.has(index)) {
+      clearInterval(this.notificationIntervals.get(index));
+      this.notificationIntervals.delete(index);
+    }
+  }
+
+  clearAllIntervals() {
+    this.notificationIntervals.forEach((intervalId) => clearInterval(intervalId));
+    this.notificationIntervals.clear();
+  }
 
   goToPreferences() {
     this.router.navigate(['/customer/prefe']);
