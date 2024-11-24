@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
   PurchaseCreateUpdateRequest,
   PurchaseItemCreateUpdateRequest
@@ -9,13 +9,14 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../../core/services/auth.service';
 import { CheckoutService} from '../../../../core/services/checkout.service';
 import {Purchase} from '../../../../shared/models/purchase.model';
-import {CurrencyPipe} from '@angular/common';
+import {CommonModule, CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
   imports: [
-    CurrencyPipe
+    CurrencyPipe,
+    CommonModule
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
@@ -57,6 +58,7 @@ export class CartComponent {
   loadCart(): void {
     this.cartItems = this.cartService.getCartItems();
     this.total = this.cartService.getCartTotal();
+    
   }
 
   removeItem(recursoId: number): void {

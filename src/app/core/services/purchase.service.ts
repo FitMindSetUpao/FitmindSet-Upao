@@ -1,13 +1,10 @@
 import {inject, Injectable} from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { environment} from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { PurchaseResponse } from '../../shared/models/purchase-response.model';
 import { PurchaseCreateUpdateRequest} from '../../shared/models/purchase-create-update-request.model';
-import { PurchaseItemResponse} from '../../shared/models/purchase-response.model';
-import {Purchase} from '../../shared/models/purchase.model';
-import {PurchaseReportResponse} from '../../shared/models/purchase-report-response.model';
-//import { PurchaseReportResponse} from '../../shared/models/purchase-response.model'; DE DONDE SALIO???
+import { PurchaseReportResponse } from '../../shared/models/purchase-report-response.model';
 
 @Injectable({
   providedIn: 'root'
