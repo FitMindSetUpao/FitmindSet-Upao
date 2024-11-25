@@ -1,0 +1,9 @@
+<div class="subscription-plans">
+  <h2>Selecciona tu Plan de Suscripción</h2>
+  <div *ngFor="let plan of plans" class="plan">
+    <h3>{{ plan.name }}</h3>
+    <p>{{ plan.description }}</p>
+    <p><strong>Precio: ${{ plan.price }}</strong></p>
+    <button (click)="subscribe(plan.id)">Suscribirme</button>
+  </div>
+</div>

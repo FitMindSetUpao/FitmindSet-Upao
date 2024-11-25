@@ -1,0 +1,79 @@
+.perfil-container {
+  width: 80%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .perfil-card {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    position: relative;
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .profile-picture {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-bottom: 8px;
+        }
+
+        button {
+          font-size: 0.8rem;
+          text-transform: none;
+        }
+      }
+
+      .acciones {
+        display: flex;
+        gap: 10px;
+      }
+    }
+
+    .card-content {
+      margin-top: 20px;
+
+      h3 {
+        font-size: 1.5rem;
+        color: #333;
+      }
+
+      p {
+        font-size: 1rem;
+        color: #666;
+      }
+    }
+  }
+
+  .additional-info {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+
+    mat-card-title {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    mat-card-content p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+  }
+}
