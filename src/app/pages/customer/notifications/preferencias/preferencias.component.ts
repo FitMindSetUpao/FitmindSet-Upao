@@ -104,7 +104,7 @@ export class PreferenciasComponent implements OnInit {
   getNotificationInterval(label: string): number {
     switch (label) {
       case '¡Toma agua!':
-        return 10 * 1000; // Cada 2 horas
+        return 2 * 60 * 60 * 1000; // Cada 2 horas
       case '¡Ejercítate!':
       case '¡Sal a caminar!':
         return 24 * 60 * 60 * 1000; // Cada 24 horas
