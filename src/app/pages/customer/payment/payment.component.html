@@ -1,7 +1,7 @@
 <app-sidebar>
 <mat-card class="purchase-history-card">
   <h2 class="title">Historial de compras de {{ nombreUsuario }}</h2>
-  <table mat-table [dataSource]="purchaseHistory" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Fecha Column -->
     <ng-container matColumnDef="fecha">
@@ -30,5 +30,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <mat-paginator [pageSize]="6" [pageSizeOptions]="[6, 12, 24]" showFirstLastButtons></mat-paginator>
+
 </mat-card>
 </app-sidebar>
