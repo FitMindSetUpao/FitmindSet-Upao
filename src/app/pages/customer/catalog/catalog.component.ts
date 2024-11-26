@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { RecursoCardComponent} from '../../../shared/components/recurso-card/recurso-card.component';
 import { HomeService} from '../../../core/services/home.service';
 import { Router } from '@angular/router';
@@ -18,7 +18,7 @@ import { PaymentLayoutComponent } from '../payment-layout/payment-layout.compone
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.scss'
 })
-export class CatalogComponent {
+export class CatalogComponent implements OnInit {
   recentRecursos: RecursoResponse[] = [];
   filteredRecursos: RecursoResponse[] = [];
   searchQuery: string = '';

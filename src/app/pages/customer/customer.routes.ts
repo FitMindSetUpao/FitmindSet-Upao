@@ -15,6 +15,11 @@ import { ForoCrearComponent } from './Comunidad/foro-crear/foro-crear.component'
 import { ForoComentariosComponent } from './Comunidad/foro-comentarios/foro-comentarios.component';
 import { PaymentComponent } from './payment/payment.component';
 import {CartComponent} from './purchases/cart/cart.component';
+import {CatalogComponent} from './catalog/catalog.component';
+import {PaymentLayoutComponent} from './payment-layout/payment-layout.component';
+import {PaymentNavbarComponent} from '../../shared/components/payment-navbar/payment-navbar.component';
+import {DetailsComponent} from './catalog/details/details.component';
+import {HistoryComponent} from './purchases/history/history.component';
 
 export const customerRoutes: Routes = [
   {
@@ -62,5 +67,15 @@ export const customerRoutes: Routes = [
   {
     path: 'customer/pagos-suscripciones', component: PaymentComponent
   },
-  { path: 'cart', component: CartComponent },
+
+  {
+    path: 'pagos',
+    component: PaymentLayoutComponent,
+    children: [
+      { path: 'catalog', component: CatalogComponent },
+      { path: 'cart', component: CartComponent },
+      { path: 'details/:id', component: DetailsComponent },
+      { path: 'history', component: HistoryComponent}
+    ]
+  },
 ];

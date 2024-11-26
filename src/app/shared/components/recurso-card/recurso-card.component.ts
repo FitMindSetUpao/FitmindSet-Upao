@@ -43,9 +43,11 @@ export class RecursoCardComponent {
   }
 
   viewDetails() {
-    const routePath = this.isCustomer
-      ? '/customer/catalog/details'
-      : '/home/book-details';
-    this.router.navigate([routePath, this.recurso.recursoid]);
+    if (!this.recurso?.recursoid) {
+      console.error('RecursoID está indefinido o vacío. No se puede navegar.');
+      return;
+    }
+
+    this.router.navigate(['/details', this.recurso.recursoid]);
   }
 }
