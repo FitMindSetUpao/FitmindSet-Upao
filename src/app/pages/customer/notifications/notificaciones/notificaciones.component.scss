@@ -1,1 +1,91 @@
 
+.container {
+    max-width: 800px;
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f0f5f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  
+    h2 {
+      text-align: center;
+      font-size: 1.8rem;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+  
+  
+    .notification-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+  
+  
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px; /* Espaciado interno del ítem */
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background-color: white;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  
+        .notification-content {
+          flex-grow: 1;
+  
+  
+          p {
+            font-size: 1rem;
+            color: #2c3e50;
+            margin: 0;
+          }
+  
+  
+          small {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+          }
+        }
+  
+  
+        /* Botón de confirmación */
+        button[mat-icon-button] { /* Botón completamente redondo */
+          width: 40px; /* Aumentado para simetría */
+          height: 40px; /* Igual al ancho para hacerlo circular */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: transform 0.2s ease, background-color 0.3s ease;
+  
+  
+  
+  
+        }
+      }
+    }
+  
+  
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #2ecc71;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  
+  
+      &:hover {
+        background-color: darken(#2ecc71, 10%);
+      }
+    }
+  }
+  
