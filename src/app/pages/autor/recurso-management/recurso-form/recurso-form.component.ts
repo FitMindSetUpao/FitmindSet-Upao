@@ -21,7 +21,7 @@ import { tipoDeRecursoResponse } from '../../../../shared/models/tipoDeRecurso.m
 import { RecursoResponse } from '../../../../shared/models/recurso-response.model';
 import { Recurso } from '../../../../shared/models/recurso.model';
 import { TipoDeHabito } from '../../../../shared/models/tipo-de-habito.model';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 import { planService } from '../../../../core/services/planes.service';
 
 @Component({
@@ -54,7 +54,7 @@ export class RecursoFormComponent implements OnInit {
 
   tiporecursos: tipoDeRecursoResponse[] = [];
   tipoDeHabitos: TipoDeHabito[] = [];
-  tiposSuscripcion: string[] = []; 
+  tiposSuscripcion: string[] = [];
 
   recursoid?: number;
   errors: string[] = [];
@@ -112,25 +112,25 @@ export class RecursoFormComponent implements OnInit {
     this.recursoService.getRecursoDetailsById(this.recursoid!).subscribe({
       next: (recurso: RecursoResponse) => {
         const tipoDeHabito = this.tipoDeHabitos.find(
-          (habito) => habito.nombre === recurso.tipoDeHabito 
+          (habito) => habito.nombre === recurso.tipoDeHabito
         );
         this.form.patchValue({
           ...recurso,
-          tiporecurso: recurso.recursoid,
-          tipoDeHabitosId: tipoDeHabito ? tipoDeHabito.id : null, 
+          tiporecurso: recurso.id,
+          tipoDeHabitosId: tipoDeHabito ? tipoDeHabito.id : null,
         });
       },
       error: () => this.errors.push('Error al cargar los detalles del Recurso.'),
     });
   }
-  
+
 
   uploadFile(event: Event, control: string): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
       const formData = new FormData();
       formData.append('file', file); // Solo se agrega el archivo, sin recursoId
-  
+
       this.mediaService.upload(formData).subscribe({
         next: (response) => {
           if (response && response.path) {
@@ -148,7 +148,7 @@ export class RecursoFormComponent implements OnInit {
       this.errors.push('No se seleccionó ningún archivo.');
     }
   }
-  
+
   save(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();

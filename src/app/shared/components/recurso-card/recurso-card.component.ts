@@ -42,12 +42,7 @@ export class RecursoCardComponent {
     this.isCustomer = this.authService.getUserRole() === 'CUSTOMER';
   }
 
-  viewDetails() {
-    if (!this.recurso?.recursoid) {
-      console.error('RecursoID está indefinido o vacío. No se puede navegar.');
-      return;
-    }
-
-    this.router.navigate(['/details', this.recurso.recursoid]);
+  viewDetails(recursoid: number) {
+    this.router.navigate(['/customer/catalog/details', recursoid]);
   }
 }

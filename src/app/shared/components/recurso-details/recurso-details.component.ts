@@ -72,7 +72,7 @@ export class RecursoDetailsComponent {
     }
 
     const cartItem : PurchaseItemCreateUpdateRequest = {
-      recursoId: this.recurso.recursoid,
+      recursoId: this.recurso.id,
       nombreRecurso: this.recurso.nombreRecurso,
       quantity : 1,
       price: this.recurso.precioRecurso,
