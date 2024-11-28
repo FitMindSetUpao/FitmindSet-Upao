@@ -64,16 +64,26 @@
       </nav>
       
     </div>
-    
-     <div class="layout-content">
-      <h1 class="titulo-usuario">Bienvenido, {{ nombreUsuario }}!</h1> 
-      <div class="card-container">
-        <mat-grid-list cols="2" rowHeight="200px" gutterSize="16px">
-          <mat-grid-tile>
-            <mat-card class="dashboard-card">
-              <div class="custom-card-header">
-                <mat-icon class="header-icon">account_circle</mat-icon>
-                <span class="header-title">Perfil</span>
+  </div>
+  
+   <div class="layout-content">
+    <h1 class="titulo-usuario">Bienvenido, {{ nombreUsuario }}!</h1> 
+    <div class="card-container">
+      <mat-grid-list cols="2" rowHeight="200px" gutterSize="16px">
+        <mat-grid-tile>
+          <mat-card class="dashboard-card">
+            <div class="custom-card-header">
+              <mat-icon class="header-icon">account_circle</mat-icon>
+              <span class="header-title">Perfil</span>
+            </div>
+            <mat-card-content>
+              <p class="descripcion">Administra tu información personal y configuraciones.</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-button color="primary" [routerLink]="['mi-perfil']">
+                  Ver más detalles
+                </button>
               </div>
               <mat-card-content>
                 <p class="descripcion">Administra tu información personal y configuraciones.</p>
@@ -95,101 +105,90 @@
                 <mat-icon class="header-icon">fitness_center</mat-icon>
                 <span class="header-title">Mis Habitos</span>
               </div>
-              <mat-card-content>
-                <p class="descripcion">Establece y sigue tus metas de salud y bienestar en base a tus habitos creados.</p>
-              </mat-card-content>
-              <mat-card-actions>
-                <div fxLayout="row" fxLayoutAlign="start center">
-                  <button mat-button color="primary" [routerLink]="['habitos/list']">
-                    Ver más detalles
-                  </button>
-                </div>
-              </mat-card-actions>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <mat-card class="dashboard-card">
-              <div class="custom-card-header">
-                <mat-icon class="header-icon">fitness_center</mat-icon>
-                <span class="header-title">Registra tu peso y altura</span>
+            </mat-card-actions>
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-card class="dashboard-card">
+            <div class="custom-card-header">
+              <mat-icon class="header-icon">fitness_center</mat-icon>
+              <span class="header-title">Registra tu peso y altura</span>
+            </div>
+            <mat-card-content>
+              <p class="descripcion">Mantén un seguimiento de tu bienestar físico registrando tu peso y altura de manera regular. </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-button color="primary" (click)="modalPeso_Altura()">
+                  Ver más detalles
+                </button>
               </div>
-              <mat-card-content>
-                <p class="descripcion">Mantén un seguimiento de tu bienestar físico registrando tu peso y altura de manera regular. </p>
-              </mat-card-content>
-              <mat-card-actions>
-                <div fxLayout="row" fxLayoutAlign="start center">
-                  <button mat-button color="primary" (click)="modalPeso_Altura()">
-                    Ver más detalles
-                  </button>
-                </div>
-                
-              </mat-card-actions>
-            </mat-card>
-          </mat-grid-tile>
-      
-          <!-- Card Notificaciones -->
-          <mat-grid-tile>
-            <mat-card class="dashboard-card">
-              <div class="custom-card-header">
-                <mat-icon class="header-icon">notifications</mat-icon>
-                <span class="header-title">Notificaciones</span>
+              
+            </mat-card-actions>
+          </mat-card>
+        </mat-grid-tile>
+    
+        <!-- Card Notificaciones -->
+        <mat-grid-tile>
+          <mat-card class="dashboard-card">
+            <div class="custom-card-header">
+              <mat-icon class="header-icon">notifications</mat-icon>
+              <span class="header-title">Notificaciones</span>
+            </div>
+            <mat-card-content>
+              <p class="descripcion">Revisa las notificaciones recientes sobre tu progreso.</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-button color="primary" [routerLink]="['/notificaciones/preferences']">
+                  Ver más detalles
+                </button>
               </div>
-              <mat-card-content>
-                <p class="descripcion">Revisa las notificaciones recientes sobre tu progreso.</p>
-              </mat-card-content>
-              <mat-card-actions>
-                <div fxLayout="row" fxLayoutAlign="start center">
-                  <button mat-button color="primary" [routerLink]="['/notificaciones/preferences']">
-                    Ver más detalles
-                  </button>
-                </div>
-              </mat-card-actions>
-            </mat-card>
-          </mat-grid-tile>
-      
-          <!-- Card Reportes -->
-          <mat-grid-tile>
-            <mat-card class="dashboard-card">
-              <div class="custom-card-header">
-                <mat-icon class="header-icon">bar_chart</mat-icon>
-                <span class="header-title">Reportes</span>
+            </mat-card-actions>
+          </mat-card>
+        </mat-grid-tile>
+    
+        <!-- Card Reportes -->
+        <mat-grid-tile>
+          <mat-card class="dashboard-card">
+            <div class="custom-card-header">
+              <mat-icon class="header-icon">bar_chart</mat-icon>
+              <span class="header-title">Reportes</span>
+            </div>
+            <mat-card-content>
+              <p class="descripcion">Consulta tus reportes de salud y rendimiento.</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-button color="primary" [routerLink]="['/seguimientos/reporte/{id}']">
+                  Ver más detalles
+                </button>
               </div>
-              <mat-card-content>
-                <p class="descripcion">Consulta tus reportes de salud y rendimiento.</p>
-              </mat-card-content>
-              <mat-card-actions>
-                <div fxLayout="row" fxLayoutAlign="start center">
-                  <button mat-button color="primary" [routerLink]="['/seguimientos/reporte/{id}']">
-                    Ver más detalles
-                  </button>
-                </div>
-              </mat-card-actions>
-            </mat-card>
-          </mat-grid-tile>
-      
-          <!-- Card Pagos y Suscripciones -->
-          <mat-grid-tile>
-            <mat-card class="dashboard-card">
-              <div class="custom-card-header">
-                <mat-icon class="header-icon">credit_card</mat-icon>
-                <span class="header-title">Pagos y suscripciones</span>
+            </mat-card-actions>
+          </mat-card>
+        </mat-grid-tile>
+    
+        <!-- Card Pagos y Suscripciones -->
+        <mat-grid-tile>
+          <mat-card class="dashboard-card">
+            <div class="custom-card-header">
+              <mat-icon class="header-icon">credit_card</mat-icon>
+              <span class="header-title">Pagos y suscripciones</span>
+            </div>
+            <mat-card-content>
+              <p class="descripcion">Administra tus pagos y suscripciones a recursos premium.</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-button color="primary" [routerLink]="['/purchases']">
+                  Ver más detalles
+                </button>
               </div>
-              <mat-card-content>
-                <p class="descripcion">Administra tus pagos y suscripciones a recursos premium.</p>
-              </mat-card-content>
-              <mat-card-actions>
-                <div fxLayout="row" fxLayoutAlign="start center">
-                  <button mat-button color="primary" [routerLink]="['/purchases']">
-                    Ver más detalles
-                  </button>
-                </div>
-                
-              </mat-card-actions>
-            </mat-card>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </div>
-      
+              
+            </mat-card-actions>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
     </div>
     <div class="sidebar-right">
       <h2>Recursos Suscritos</h2>
@@ -229,6 +228,14 @@
           Foros de la Comunidad
         </button></div>
     </div>
+    <ng-template #noPagos>
+      <p>No tienes pagos registrados aún.</p>
+    </ng-template>
+    <br>
+    <div class="forum-actions">
+      <button mat-button color="primary" [routerLink]="['foro']" class="btn-details">
+        Foros de la Comunidad
+      </button></div>
   </div>
-  <app-footer></app-footer>
-  
+</div>
+<app-footer></app-footer>

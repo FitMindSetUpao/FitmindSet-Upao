@@ -44,7 +44,6 @@ export class UserProfileComponent implements OnInit {
     }
   }
   
-  
   navigateToUpdateProfile(): void {
     this.router.navigate(['/mi-perfil/actualizar']);
   }

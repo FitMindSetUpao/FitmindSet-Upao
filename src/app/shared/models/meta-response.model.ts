@@ -1,4 +1,5 @@
 import { MetaDTO } from "./meta.model";
+
 export interface MetaResponseDTO {
     id: number;
     descripcion: string;

@@ -1,11 +1,13 @@
 <div class="meta-form-container">
     <h1 class="form-title">{{ metaId ? 'Editar' : 'Crear' }} Meta</h1>
+
     <div *ngIf="errors.length" class="alert alert-danger mt-5">
       <ul>
         <li *ngFor="let error of errors">{{ error }}</li>
       </ul>
     </div>
     <form [formGroup]="form" (ngSubmit)="guardarMeta()" class="form" autocomplete="off">
+
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Descripción</mat-label>
         <textarea matInput placeholder="Descripción" formControlName="descripcion"></textarea>
@@ -13,6 +15,7 @@
           La descripción es obligatoria
         </mat-error>
       </mat-form-field>
+
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Estado</mat-label>
         <mat-select formControlName="estado" required>
@@ -20,7 +23,7 @@
           <mat-option value="FINALIZADO">FINALIZADO</mat-option>
           <mat-option value="EN_PROGRESO">EN PROGRESO</mat-option>
           <mat-option value="DETENIDO">DETENIDO</mat-option>
-          
+
         </mat-select>
         <mat-error *ngIf="form.get('estado')?.hasError('required')">
           El estado es obligatorio
@@ -56,6 +59,7 @@
           Cancelar
         </button>
         <button mat-raised-button color="primary" class="submit-button" type="submit">
+
           {{ metaId ? 'Actualizar' : 'Crear' }} Meta
         </button>
         

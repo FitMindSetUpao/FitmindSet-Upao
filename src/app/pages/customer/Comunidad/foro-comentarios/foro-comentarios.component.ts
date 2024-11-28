@@ -40,6 +40,7 @@ export class ForoComentariosComponent implements OnInit {
     this.usuarioActual = this.authService.getUser()?.nombre || 'UsuarioDemo';
 
     // Recuperar título del foro desde los parámetros de la ruta
+
     this.route.queryParams.subscribe(params => {
       this.foroActual = params['title'] || '';
     });

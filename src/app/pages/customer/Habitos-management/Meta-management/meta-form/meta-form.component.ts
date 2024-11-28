@@ -90,7 +90,7 @@ export class MetaFormComponent implements OnInit {
   
   guardarMeta(): void {
     console.log('Meta ID:', this.metaId);  // Verifica si el ID de la meta está presente
-    
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       console.log('Formulario inválido');
@@ -146,3 +146,4 @@ export class MetaFormComponent implements OnInit {
     this.router.navigate(['/customer/habitos/metas']);
   }
 }
+
