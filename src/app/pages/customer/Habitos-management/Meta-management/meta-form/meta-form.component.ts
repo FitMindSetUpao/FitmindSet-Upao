@@ -51,8 +51,6 @@ export class MetaFormComponent implements OnInit {
   ngOnInit(): void {
     this.habitoId = Number(this.route.snapshot.paramMap.get('habitoId'));
     this.metaId = Number(this.route.snapshot.paramMap.get('metaId'));
-    
-    
     if (this.metaId) {
       this.cargarMeta();
     }
@@ -90,7 +88,7 @@ export class MetaFormComponent implements OnInit {
   
   guardarMeta(): void {
     console.log('Meta ID:', this.metaId);  // Verifica si el ID de la meta está presente
-    
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       console.log('Formulario inválido');

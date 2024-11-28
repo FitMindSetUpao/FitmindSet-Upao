@@ -20,7 +20,6 @@ export class MetaService {
   actualizarMeta(metaId: number, metaDTO: MetaDTO): Observable<MetaResponseDTO> {
     return this.http.put<MetaResponseDTO>(`${this.apiUrl}/actualizar/${metaId}`, metaDTO);
   }
-  
   eliminarMeta(metaId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/eliminar/${metaId}`);
   }
@@ -40,6 +39,4 @@ export class MetaService {
   obtenerMetasPorCustomer(customerId: number): Observable<MetaResponseDTO[]> {
     return this.http.get<MetaResponseDTO[]>(`${this.apiUrl}/customer/${customerId}`);
   }
-  
-  
 }
