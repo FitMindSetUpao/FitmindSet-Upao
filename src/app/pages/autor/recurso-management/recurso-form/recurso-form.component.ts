@@ -115,7 +115,7 @@ export class RecursoFormComponent implements OnInit {
         );
         this.form.patchValue({
           ...recurso,
-          tiporecurso: recurso.recursoid,
+          tiporecurso: recurso.recursoId,  
           tipoDeHabitosId: tipoDeHabito ? tipoDeHabito.id : null, 
         });
       },
