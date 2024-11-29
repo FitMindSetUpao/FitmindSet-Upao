@@ -12,7 +12,6 @@ import {
 } from '@angular/material/table';
 import {PaymentService} from '../../../core/services/payment.service';
 import {AuthService} from '../../../core/services/auth.service';
-import { SidebarComponent} from '../sidebar/sidebar.component';
 import {MatPaginator} from '@angular/material/paginator';
 
 interface Purchase {
@@ -37,8 +36,7 @@ interface Purchase {
     MatHeaderRowDef,
     MatRowDef,
     MatRow,
-    MatPaginator,
-    SidebarComponent
+    MatPaginator
   ],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss'
