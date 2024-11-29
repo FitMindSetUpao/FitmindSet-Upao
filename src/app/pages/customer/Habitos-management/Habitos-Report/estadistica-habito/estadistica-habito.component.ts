@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { HabitoService } from '../../../../../core/services/habito.services';
 import { SeguimientoService } from '../../../../../core/services/seguimiento.service';
 import { SeguimientoDTO } from '../../../../../shared/models/seguimiento.model';
-import { Chart } from 'chart.js/auto';
+import Chart from 'chart.js/auto';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
