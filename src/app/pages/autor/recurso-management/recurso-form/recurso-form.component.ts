@@ -96,16 +96,17 @@ export class RecursoFormComponent implements OnInit {
       error: () => this.errors.push('Error al cargar los tipos de recursos.')
     });
   }
-  loadTiposSuscripcion() {
-    this.tipoDeHabitoService.getAllTiposSuscripcion().subscribe({
-      next: (data: tiposSuscripcion[]) => {
-        this.tiposSuscripcion = data; // Ahora el tipo de dato coincide con la respuesta
-      },
-      error: (error) => {
-        console.error('Error loading tipos de suscripción:', error);
-      },
-    });
-  }
+loadTiposSuscripcion() {
+  this.tipoDeHabitoService.getAllTiposSuscripcion().subscribe({
+    next: (data: TiposSuscripcion[]) => {  
+      this.tiposSuscripcion = data; // Ahora el tipo de dato coincide con la respuesta
+    },
+    error: (error) => {
+      console.error('Error loading tipos de suscripción:', error);
+    },
+  });
+}
+
 
   
   
