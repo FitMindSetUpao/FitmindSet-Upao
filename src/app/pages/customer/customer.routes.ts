@@ -68,4 +68,20 @@ export const customerRoutes: Routes = [
     {
       path: 'prefe', component: PreferenciasComponent
     }
+  {
+    path: 'customer/pagos-suscripciones', component: PaymentComponent
+  },
+
+
+  {
+    path: 'pagos',
+    component: PaymentLayoutComponent,
+    children: [
+      { path: 'catalog', component: CatalogComponent },
+      { path: 'cart', component: CartComponent },
+   
+      { path: 'history', component: HistoryComponent},
+      { path: 'catalog/details/:recursoId', component: DetailsComponent },
+    ]
+  },
 ];
