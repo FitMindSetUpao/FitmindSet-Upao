@@ -7,5 +7,5 @@ export interface MetaResponseDTO {
     fechaFin: string;     // Formato ISO string
     habitoId: number;
     tiempoObjetivo: number;
-  }
-  
+    metas: MetaDTO[];     // Lista de metas asociadas
+}
