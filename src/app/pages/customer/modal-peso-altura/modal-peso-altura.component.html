@@ -39,9 +39,14 @@
 
     <label style="font-weight: bold; display: block; margin-top: 16px;">Resultado de tu IMC</label>
     <mat-form-field appearance="fill" *ngIf="imc !== null">
-      <mat-label>Tu IMC es</mat-label>
-      <input matInput [value]="imc" readonly />
-    </mat-form-field>
+  <mat-label>Tu IMC es</mat-label>
+  <input matInput [value]="imc" readonly />
+</mat-form-field>
+
+<div *ngIf="mensajeIMC" style="margin-top: 16px; font-weight: bold; color: #3f51b5;">
+  {{ mensajeIMC }}
+</div>
+
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
