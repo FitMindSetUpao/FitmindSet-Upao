@@ -31,8 +31,8 @@ import { RecursoResponse } from '../../../../shared/models/recurso-response.mode
   styleUrls: ['./recurso-list.component.scss'],
 })
 export class RecursoListComponent implements OnInit {
-  recursos: RecursoResponse[]=[];
-  filteredRecursos: RecursoResponse[]=[];
+  recursos: RecursoResponse[] = [];
+  filteredRecursos: RecursoResponse[] = [];
   filterText = '';
 
   displayedColumns: string[] = [
@@ -55,46 +55,51 @@ export class RecursoListComponent implements OnInit {
   ngOnInit(): void {
     this.loadRecursos();
   }
-  loadRecursos(pageIndex: number=0, pageSize: number = 5):void{
-    this.recursoService.paginateRecursos(pageIndex,pageSize).subscribe({
-      next: (response: PageableResponse<RecursoResponse>)=> {
+
+  loadRecursos(pageIndex: number = 0, pageSize: number = 5): void {
+    this.recursoService.paginateRecursos(pageIndex, pageSize).subscribe({
+      next: (response: PageableResponse<RecursoResponse>) => {
         this.recursos = response.content;
         this.filteredRecursos = response.content;
         this.totalElements = response.totalElements;
         this.pageSize = response.size;
         this.pageIndex = response.number;
-        console.log(this.recursos);
       },
-      error:()=> this.showSnackBar('Error al cargar la lista de recursos'),
+      error: () => this.showSnackBar('Error al cargar la lista de recursos'),
     });
   }
-  applyFilter(event: Event):void{
+
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value
-    .trim()
-    .toLowerCase();
-  this.filteredRecursos = this.recursos.filter((recurso) =>
-    recurso.nombreRecurso.toLowerCase().includes(filterValue)
-  );
-}
-onPageChange(event: PageEvent): void {
-  this.pageIndex = event.pageIndex;
-  this.pageSize = event.pageSize;
-  this.loadRecursos(this.pageIndex, this.pageSize);
-}
-createNewRecurso(): void{
-  this.router.navigate(['/autor/recursos/new']);
-}
-actualizarRecurso(recursoid:number):void{
-  this.router.navigate(['/autor/recursos/edit', recursoid]);
-}
-private showSnackBar(message: string): void {
-  this.snackBar.open(message, 'Cerrar', {
-    duration: 3000,
-  });
-}
+      .trim()
+      .toLowerCase();
+    this.filteredRecursos = this.recursos.filter((recurso) =>
+      recurso.nombreRecurso.toLowerCase().includes(filterValue)
+    );
+  }
 
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadRecursos(this.pageIndex, this.pageSize);
+  }
+
+  createNewRecurso(): void {
+    this.router.navigate(['/author/recursos/crear']);
+  }
+
+  actualizarRecurso(recursoid: number): void {
+    if (recursoid) {
+      this.router.navigate(['/autor/recursos/edit', recursoid]);
+    } else {
+      console.error('Invalid recursoid:', recursoid);
+    }
+  }
+  
+
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+    });
+  }
 }
-
-
-
-
