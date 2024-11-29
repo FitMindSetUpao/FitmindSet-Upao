@@ -57,7 +57,7 @@ export class RecursoFormComponent implements OnInit {
 
   tiporecursos: tipoDeRecursoResponse[] = [];
   tipoDeHabitos: TipoDeHabito[] = [];
-  tiposSuscripcion: string[] = []; 
+ tiposSuscripcion: TiposSuscripcion[] = [];
 
   recursoid?: number;
   errors: string[] = [];
