@@ -6,6 +6,8 @@ import { TipoDeHabito } from '../../shared/models/tipo-de-habito.model';
 import { environment } from '../../../environments/environment';
 import { catchError } from 'rxjs/operators';
 import { tipoDeRecursoResponse } from '../../shared/models/tipoDeRecurso.model';
+import { TiposSuscripcion } from '../../../../shared/models/tiposSuscripcion.model';
+
 import { of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
