@@ -62,26 +62,29 @@ export class EstadisticaHabitoComponent implements OnInit {
     this.loadSeguimientos();
   }
 
-  loadSeguimientos(): void {
-    if (this.selectedHabitoId === 0) return;
+loadSeguimientos(): void {
+  if (this.selectedHabitoId === 0) return;
 
-    this.seguimientoService.generarReportePorHabito(this.selectedHabitoId).subscribe({
-      next: (reporte: ReporteDTO) => {
-        if (reporte) {
-          this.totalSeguimientos = reporte.totalSeguimientos || 0;
-          this.totalTiempoInvertido = reporte.totalTiempoInvertido || 0;
-          this.porcentajeCumplido = reporte.porcentajeCumplido || 0;
-          this.seguimientos = reporte.seguimientos || []; // Asigna los seguimientos
-          this.updateProgressChart();
-        } else {
-          this.snackBar.open('No se encontraron datos de reporte.', 'Cerrar', { duration: 3000 });
-        }
-      },
-      error: () => {
-        this.snackBar.open('Error al cargar los seguimientos.', 'Cerrar', { duration: 3000 });
-      },
-    });
-  }
+  this.seguimientoService.generarReportePorHabito(this.selectedHabitoId).subscribe({
+    next: (reporte: ReporteDTO) => {
+      if (reporte) {
+        this.totalSeguimientos = reporte.totalSeguimientos || 0;
+        this.totalTiempoInvertido = reporte.totalTiempoInvertido || 0;
+        this.porcentajeCumplido = reporte.porcentajeCumplido || 0;
+        this.seguimientos = reporte.seguimientos ? [...reporte.seguimientos] : []; // Maneja seguimientos nulos
+        this.updateProgressChart();
+      } else {
+        this.snackBar.open('No se encontraron datos de reporte.', 'Cerrar', { duration: 3000 });
+        this.seguimientos = []; // Asegúrate de reiniciar los datos en caso de error
+      }
+    },
+    error: () => {
+      this.snackBar.open('Error al cargar los seguimientos.', 'Cerrar', { duration: 3000 });
+      this.seguimientos = []; // También maneja errores
+    },
+  });
+}
+
 
   // Método para obtener el porcentaje de progreso
   getProgressPercentage(): number {
