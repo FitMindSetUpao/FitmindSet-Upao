@@ -36,8 +36,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
-            "scripts": [],
-            "browser": true  // Se añadió la propiedad 'browser'
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -98,8 +97,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
-            "scripts": [],
-            "browser": true  // También añadí 'browser' aquí para las pruebas
+            "scripts": []
           }
         }
       }
