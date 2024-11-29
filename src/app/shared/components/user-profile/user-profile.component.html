@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container" *ngIf="profile && profile.nombre && profile.apellidos">
   <h2>Perfil de Usuario</h2>
-  
+
   <!-- Avatar de usuario -->
   <div class="user-avatar">
     <span>{{ profile.nombre[0] }}{{ profile.apellidos[0] }}</span> <!-- Iniciales del usuario -->
@@ -8,48 +8,16 @@
 
   <p><strong>Nombre:</strong> {{ profile.nombre }}</p>
   <p><strong>Apellido:</strong> {{ profile.apellidos }}</p>
-  <p><strong>Correo:</strong> {{ profile.correo }}</p>
+  <p *ngIf="profile.correo"><strong>Correo:</strong> {{ profile.correo }}</p>
 
   <!-- Verificar si el rol está disponible -->
-  <p *ngIf="profile.rol">
-    <strong>Rol:</strong> {{ profile.rol }}
-  </p>
-
-  <!-- Verificar si la especialidad está disponible -->
-  <p *ngIf="profile.especialidad">
-    <strong>Especialidad:</strong> {{ profile.especialidad }}
-  </p>
-
-  <!-- Verificar si la fecha de nacimiento está disponible -->
-  <p *ngIf="profile.fechaNacimiento">
-    <strong>Fecha de Nacimiento:</strong> {{ profile.fechaNacimiento | date: 'dd/MM/yyyy' }}
-  </p>
-
-  <!-- Verificar si el teléfono está disponible -->
-  <p *ngIf="profile.telefono">
-    <strong>Teléfono:</strong> {{ profile.telefono }}
-  </p>
-
-  <!-- Verificar si la dirección está disponible -->
-  <p *ngIf="profile.direccion">
-    <strong>Dirección:</strong> {{ profile.direccion }}
-  </p>
-
-  <!-- Verificar si el estado de la cuenta está disponible -->
-  <p *ngIf="profile.estadoCuenta">
-    <strong>Estado de la Cuenta:</strong> {{ profile.estadoCuenta }}
-  </p>
-
-  <!-- Verificar si la última actividad está disponible -->
-  <p *ngIf="profile.ultimaActividad">
-    <strong>Última actividad:</strong> {{ profile.ultimaActividad | date: 'dd/MM/yyyy HH:mm' }}
-  </p>
+  <p><strong>Rol:</strong> {{ profile.rol }}</p>
 
   <!-- Botones de actualización y eliminación -->
   <button (click)="navigateToUpdateProfile()" class="button update-button">
     Actualizar Perfil
   </button>
   <button (click)="deactivateAccount()" class="button deactivate-button">
-    Eliminar Cuenta
+    Desactivar Cuenta
   </button>
 </div>

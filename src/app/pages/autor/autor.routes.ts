@@ -11,7 +11,7 @@ export const autorRoutes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'recursos/crear', component: RecursoFormComponent },
-      { path: 'recursos/edit/:recursoid', component: RecursoFormComponent },
+      { path: 'recursos/edit/:id', component: RecursoFormComponent },
       { path: 'recursos/list', component: RecursoListComponent },
       { path: 'mi-perfil', component: UserProfileComponent },
       { path: 'mi-dashboard', component: AuthLayoutComponent },

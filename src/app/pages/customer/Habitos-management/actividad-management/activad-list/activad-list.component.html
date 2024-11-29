@@ -1,38 +1,49 @@
-<mat-table [dataSource]="filteredSeguimientos" class="mat-table">
-  <!-- Columna de Seguimientos -->
-  <ng-container matColumnDef="descripcion">
-    <mat-header-cell *matHeaderCellDef> Descripción del Seguimiento </mat-header-cell>
-    <mat-cell *matCellDef="let seguimiento"> {{ seguimiento.descripcion }} </mat-cell>
-  </ng-container>
+<div *ngIf="filteredHabitos.length > 0; else noData">
+  <h2>¿Qué Metas tengo?</h2>
+  
+  <div class="filter-controls">
+    <mat-form-field class="filter-input" appearance="outline">
+      <mat-label>Buscar por Nombre</mat-label>
+      <input matInput [(ngModel)]="filterText" (input)="applyFilter()" />
+    </mat-form-field>
+  </div>
+  
+  <div class="habit-container" *ngFor="let habito of filteredHabitos">
+    <mat-card class="habit-card">
+      <mat-card-header>
+        <mat-card-title>{{ habito.nombreHabito }}</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <h3>Metas Asociadas:</h3>
+        <mat-list>
+          <mat-list-item *ngFor="let meta of habito.metas">
+            <div class="meta-details">
+              <p class="meta-description">{{ meta.descripcion }} - <strong>Tiempo Objetivo:</strong> {{ meta.tiempoObjetivo }} hrs</p>
+              <div class="meta-actions">
+                <button mat-raised-button color="primary" (click)="viewActivityRecord(meta.id)" class="action-btn">Ver Registro de Actividad</button>
+              </div>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+      
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="registerActivity(habito.id)">Registrar Actividad</button>
+        <button mat-raised-button color="accent" (click)="viewMetaDetails(habito.id)">Ver Detalles</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 
-  <!-- Columna de Actividades -->
-  <ng-container matColumnDef="actividades">
-    <mat-header-cell *matHeaderCellDef> Actividades </mat-header-cell>
-    <mat-cell *matCellDef="let seguimiento">
-      <div *ngIf="seguimiento.actividades && seguimiento.actividades.length > 0; else noActividades">
-        <p>Actividades:</p>
-        <ul>
-          <li *ngFor="let actividad of seguimiento.actividades">
-            {{ actividad.descripcion }} - {{ actividad.fecha }}
-          </li>
-        </ul>
-      </div>
-      <ng-template #noActividades>
-        <p>No hay actividades registradas.</p>
-      </ng-template>
-    </mat-cell>
-  </ng-container>
+  <mat-paginator
+    [length]="totalElements"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>
 
-  <!-- Filas de la tabla -->
-  <mat-header-row *matHeaderRowDef="['descripcion', 'actividades']"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: ['descripcion', 'actividades']"></mat-row>
-</mat-table>
-
-<!-- Paginación -->
-<mat-paginator
-  [length]="totalElements"
-  [pageSize]="pageSize"
-  [pageIndex]="pageIndex"
-  [pageSizeOptions]="[5, 10, 20]"
-  (page)="onPageChange($event)">
-</mat-paginator>
+<ng-template #noData>
+  <p>No hay hábitos disponibles o no se encontraron resultados.</p>
+</ng-template>

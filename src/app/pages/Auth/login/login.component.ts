@@ -29,7 +29,7 @@ export class LoginComponent {
   private readonly CUSTOMER_ROLE = 'CUSTOMER';
   private readonly AUTHOR_ROLE = 'AUTHOR';
   private readonly CUSTOMER_ROUTE = '/customer';
-  private readonly AUTHOR_ROUTE = 'autor/recursos/list';
+  private readonly AUTHOR_ROUTE = 'author/recursos/list';
   private readonly DEFAULT_ROUTE = '/home';
 
   constructor(){

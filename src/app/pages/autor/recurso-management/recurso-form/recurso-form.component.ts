@@ -21,8 +21,9 @@ import { tipoDeRecursoResponse } from '../../../../shared/models/tipoDeRecurso.m
 import { RecursoResponse } from '../../../../shared/models/recurso-response.model';
 import { Recurso } from '../../../../shared/models/recurso.model';
 import { TipoDeHabito } from '../../../../shared/models/tipo-de-habito.model';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 import { planService } from '../../../../core/services/planes.service';
+import { tiposSuscripcion } from '../../../../shared/models/tiposSuscripcion.model';
 
 @Component({
   selector: 'app-recurso-form',
@@ -54,31 +55,34 @@ export class RecursoFormComponent implements OnInit {
 
   tiporecursos: tipoDeRecursoResponse[] = [];
   tipoDeHabitos: TipoDeHabito[] = [];
-  tiposSuscripcion: string[] = []; 
-
+  tiposSuscripcion: tiposSuscripcion[] = [];
+  previewImage: string | ArrayBuffer | null | undefined = null;
   recursoid?: number;
   errors: string[] = [];
 
   form: FormGroup = this.fb.group({
-    nombre: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(250)]],
+    nombreRecurso: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(250)]],
     descripcion: ['', [Validators.required]],
     precio: [0, [Validators.required, Validators.min(0)]],
     coverPath: ['', [Validators.required]], // Asegúrate de que esta validación se aplica correctamente
     filePath: ['', [Validators.required]],  // Asegúrate de que esta validación se aplica correctamente
     tiporecurso: ['', Validators.required],
     tipoDeHabitosId: ['', Validators.required],
-    fechaPublicacion: ['', Validators.required],
-    autor: ['', Validators.required],
-    estado: ['', Validators.required],
-    descripcionExtendida: [''],
     plan_id: [null, Validators.required],
-    etiquetas: ['']
   });
-    ngOnInit(): void {
+  ngOnInit(): void {
     this.recursoid = Number(this.route.snapshot.paramMap.get('id'));
+    console.log('ID del recurso:', this.recursoid);
+
+    // Cargar datos iniciales
     this.loadtipoDeHabito();
     this.loadTipoDeRecurso();
     this.loadTiposSuscripcion();
+
+    // Cargar recurso en caso de edición
+    if (this.recursoid) {
+      this.loadRecursosForActualizar();
+    }
   }
   private loadtipoDeHabito(): void {
     this.tipoDeHabitoService.getAllTiposDeHabitos().subscribe({
@@ -99,84 +103,150 @@ export class RecursoFormComponent implements OnInit {
     });
   }
   loadTiposSuscripcion() {
-    this.tipoDeHabitoService.getAllTiposSuscripcion().subscribe(
-      (data) => {
-        this.tiposSuscripcion = data;
+    this.tipoDeHabitoService.getAllTiposSuscripcion().subscribe({
+      next: (data: tiposSuscripcion[]) => {
+        this.tiposSuscripcion = data; // Ahora el tipo de dato coincide con la respuesta
       },
-      (error) => {
+      error: (error) => {
         console.error('Error loading tipos de suscripción:', error);
-      }
-    );
-  }
-  private loadRecursosForActualizar(): void {
-    this.recursoService.getRecursoDetailsById(this.recursoid!).subscribe({
-      next: (recurso: RecursoResponse) => {
-        const tipoDeHabito = this.tipoDeHabitos.find(
-          (habito) => habito.nombre === recurso.tipoDeHabito 
-        );
-        this.form.patchValue({
-          ...recurso,
-          tiporecurso: recurso.recursoid,
-          tipoDeHabitosId: tipoDeHabito ? tipoDeHabito.id : null, 
-        });
       },
-      error: () => this.errors.push('Error al cargar los detalles del Recurso.'),
     });
   }
-  
+
+
+  private loadRecursosForActualizar(): void {
+    if (!this.recursoid) {
+      this.errors.push('ID de recurso no válido.');
+      return;
+    }
+
+    this.recursoService.getRecursoDetailsById(this.recursoid).subscribe({
+      next: (recurso: RecursoResponse) => {
+        console.log('Recurso cargado:', recurso);
+        this.form.patchValue({
+          nombreRecurso: recurso.nombreRecurso,
+          descripcion: recurso.descripcionRecurso,
+          precio: recurso.precioRecurso,
+          tiporecurso: recurso.tipoRecurso,
+          tipoDeHabitosId: recurso.tipoDeHabitoId,
+          plan_id: recurso.planId,
+        });
+      },
+      error: (err) => {
+        console.error('Error al cargar los detalles del recurso:', err);
+        this.errors.push('Error al cargar los detalles del recurso.');
+      },
+    });
+  }
 
   uploadFile(event: Event, control: string): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      const formData = new FormData();
-      formData.append('file', file); // Solo se agrega el archivo, sin recursoId
-  
-      this.mediaService.upload(formData).subscribe({
-        next: (response) => {
-          if (response && response.path) {
-            this.form.controls[control].setValue(response.path); // Asignamos el path recibido al control
-          } else {
-            this.errors.push('Respuesta inesperada del servidor.');
-          }
-        },
-        error: (err) => {
-          console.error('Error de carga de archivo:', err);
-          this.errors.push('Error al cargar el archivo. Verifica los detalles en la consola.');
-        },
-      });
+      console.log(`${control} cargado:`, file.name);
+      this.form.controls[control].setValue(file);
+
+      if (control === 'coverPath') {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.previewImage = e.target?.result;
+        };
+        reader.readAsDataURL(file);
+      }
     } else {
-      this.errors.push('No se seleccionó ningún archivo.');
+      console.error(`${control} no seleccionado.`);
     }
   }
-  
+
+  private showSnackBar(message: string, action: string = 'Cerrar') {
+    this.snackBar.open(message, action, { duration: 3000 });
+  }
+
+  goToRecursosList(): void {
+    this.router.navigate(['/author/recursos/list']);
+  }
+
   save(): void {
+    // Validar formulario
     if (this.form.invalid) {
+      this.errors = ['Por favor, completa todos los campos obligatorios.'];
       this.form.markAllAsTouched();
       return;
     }
 
-    const formData: Recurso = {
-      ...this.form.value,
-      authorId: this.authService.getUser()?.autorId
-    };
+    const formData = new FormData();
+    const formValue = this.form.value;
 
-    const request: Observable<RecursoResponse> = this.recursoid
+    // Agregar valores al FormData
+    formData.append('nombreRecurso', formValue.nombreRecurso);
+    formData.append('descripcionRecurso', formValue.descripcion);
+    formData.append('precioRecurso', formValue.precio.toString());
+    formData.append('tipoRecurso', formValue.tiporecurso.toUpperCase());
+    formData.append('tipoDeHabitoId', formValue.tipoDeHabitosId.toString());
+    formData.append('planId', formValue.plan_id.toString());
+
+    // Agregar archivos opcionales si existen y son válidos
+    if (formValue.coverPath && formValue.coverPath instanceof File) {
+      formData.append('coverPath', formValue.coverPath);
+    }
+    if (formValue.filePath && formValue.filePath instanceof File) {
+      formData.append('filePath', formValue.filePath);
+    }
+
+    // Verificar FormData en consola (para depuración, eliminar en producción)
+    console.log('FormData enviado:');
+    formData.forEach((value, key) => console.log(key, value));
+
+    // Determinar si es una creación o actualización
+    const request = this.recursoid
       ? this.recursoService.updateRecurso(this.recursoid, formData)
       : this.recursoService.createRecursos(formData);
 
+    // Llamar al servicio y manejar la respuesta
     request.subscribe({
       next: () => {
-        this.snackBar.open('Recurso guardado exitosamente', 'Cerrar', {
-          duration: 3000,
-        });
-        this.router.navigate(['/autor/recursos/list']);
+        const message = this.recursoid
+          ? 'Recurso actualizado exitosamente.'
+          : 'Recurso creado exitosamente.';
+        this.showSnackBar(message);
+        this.router.navigate(['/author/recursos/list']);
       },
       error: (error) => {
-        this.errors = error.error.errors || ['Error al guardar el Recurso'];
-        this.snackBar.open('Error al guardar el recurso', 'Cerrar', {
-          duration: 3000,
-        });
+        console.error('Error desde el servidor:', error);
+
+        // Manejo genérico de errores
+        if (error.error?.error) {
+          this.errors = [error.error.error]; // Si el backend devuelve un mensaje de error específico
+        } else if (error.error?.errors) {
+          this.errors = error.error.errors; // Si el backend devuelve un array de errores
+        } else {
+          this.errors = ['Error inesperado al guardar el recurso.'];
+        }
+
+        this.showSnackBar('Error al guardar el recurso.');
       },
     });
   }
+
+  downloadFile(filename: string): void {
+    if (!filename) {
+      this.showSnackBar('El archivo no está disponible para descargar.');
+      return;
+    }
+
+    this.mediaService.getMedia(filename).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob); // Crear una URL temporal
+        const a = document.createElement('a'); // Crear un elemento de enlace
+        a.href = url;
+        a.download = filename; // Establecer el nombre del archivo
+        document.body.appendChild(a);
+        a.click(); // Simular el clic para descargar
+        document.body.removeChild(a); // Eliminar el enlace temporal
+      },
+      error: () => {
+        this.showSnackBar('Error al descargar el archivo.');
+      },
+    });
+  }
+
 }

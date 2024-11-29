@@ -38,7 +38,6 @@ export class RecursoListComponent implements OnInit {
   displayedColumns: string[] = [
     'cover',
     'nombreRecurso',
-    'nombreAutor',
     'tipoDeHabito',
     'tipoDeRecurso',
     'precio',
@@ -85,11 +84,27 @@ export class RecursoListComponent implements OnInit {
   }
 
   createNewRecurso(): void {
-    this.router.navigate(['/autor/recursos/crear']);
+    this.router.navigate(['/author/recursos/crear']);
   }
 
   actualizarRecurso(recursoid: number): void {
-    this.router.navigate(['/autor/recursos/edit', recursoid]);
+    this.router.navigate(['/author/recursos/edit', recursoid]);
+  }
+
+  eliminarRecurso(id: number): void {
+    console.log('Intentando eliminar recurso con ID:', id); // Verificar el ID
+    if (confirm('¿Estás seguro de que deseas eliminar este recurso?')) {
+      this.recursoService.deleteRecurso(id).subscribe({
+        next: () => {
+          this.showSnackBar('Recurso eliminado con éxito.');
+          this.loadRecursos(); // Actualiza la lista
+        },
+        error: (error) => {
+          const errorMessage = error.error || 'Error desconocido al eliminar el recurso.';
+          this.showSnackBar(errorMessage);
+        },
+      });
+    }
   }
 
   private showSnackBar(message: string): void {

@@ -10,7 +10,9 @@ import { EstadisticaHabitoComponent } from './Habitos-management/Habitos-Report/
 import { ActivadListComponent } from './Habitos-management/actividad-management/activad-list/activad-list.component';
 import { MetaDetallesComponent } from './Habitos-management/Meta-management/meta-detalles/meta-detalles.component';
 import { ActividadFormComponent } from './Habitos-management/actividad-management/actividad-form/actividad-form.component';
-
+import { ForoBusquedaComponent } from './Comunidad/foro-busqueda/foro-busqueda.component';
+import { ForoCrearComponent } from './Comunidad/foro-crear/foro-crear.component';
+import { ForoComentariosComponent } from './Comunidad/foro-comentarios/foro-comentarios.component';
 export const customerRoutes: Routes = [
   {
     path: '',
@@ -18,6 +20,7 @@ export const customerRoutes: Routes = [
     children: [
       { path: 'mi-perfil', component: UserProfileComponent },
       { path: 'habitos', component: HabitoListComponent },
+      { path: 'metas', component: MetaListComponent},
     ]
   },
   {
@@ -27,10 +30,10 @@ export const customerRoutes: Routes = [
       { path: 'crear', component: HabitoFormComponent }, 
       { path: 'edit/:id', component: HabitoFormComponent },  
       { path: 'list', component: HabitoListComponent }, 
-      { path: 'metas', component: MetaListComponent },  
+      { path: 'metas/list', component: MetaListComponent },  
       { path: 'metas/crear/:habitoId', component: MetaFormComponent },
-      { path: 'habitos/metas', component: MetaFormComponent },
-      { path: 'customer/habitos/metas/:habitoId', component: MetaFormComponent },
+      { path: 'habitos/metas', component: MetaListComponent },
+      { path: 'habitos/metas/:habitoId', component: MetaFormComponent },
       { path: 'metas/edit/:id', component: MetaFormComponent }, 
       { path: 'reportes', component: EstadisticaHabitoComponent },  
       { path: 'actividad', component: ActivadListComponent },  
@@ -47,4 +50,13 @@ export const customerRoutes: Routes = [
       
     ]
   },
+    {
+      path: 'foro', component: ForoBusquedaComponent
+    },
+    {
+      path: 'foro/foro-co', component: ForoComentariosComponent
+    },
+    {
+      path: 'foro/foro-cr', component: ForoCrearComponent
+    }
 ];

@@ -7,6 +7,8 @@ import { environment } from '../../../environments/environment';
 import { catchError } from 'rxjs/operators';
 import { tipoDeRecursoResponse } from '../../shared/models/tipoDeRecurso.model';
 import { of } from 'rxjs';
+import { tiposSuscripcion} from '../../shared/models/tiposSuscripcion.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +21,7 @@ export class TipoDeHabitoService {
     return this.http.get<TipoDeHabito[]>(this.baseUrl).pipe(
       catchError(error => {
         console.error('Error al obtener los tipos de hábitos', error);
-        return of([]); 
+        return of([]);
       })
     );
   }
@@ -31,12 +33,12 @@ export class TipoDeHabitoService {
       })
     );
   }
-  getAllTiposSuscripcion(): Observable<string[]> {
+  getAllTiposSuscripcion(): Observable<tiposSuscripcion[]> {
     const tiposSuscripcionUrl = `${this.baseUrl}/tipos-suscripcion`;
-    return this.http.get<string[]>(tiposSuscripcionUrl).pipe(
+    return this.http.get<tiposSuscripcion[]>(tiposSuscripcionUrl).pipe(
       catchError(error => {
         console.error('Error al obtener los tipos de suscripción', error);
-        return of([]);
+        return of([]); // Devuelve un array vacío en caso de error
       })
     );
   }
