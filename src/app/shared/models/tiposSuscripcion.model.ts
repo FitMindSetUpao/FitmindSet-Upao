@@ -1,4 +1,5 @@
-export interface tiposSuscripcion {
-    id: number;
-    nombre: string;
-  }
+// En 'tiposSuscripcion.model.ts'
+export interface TiposSuscripcion {
+  id: number;
+  nombre: string;
+}
