@@ -31,12 +31,12 @@ export class TipoDeHabitoService {
       })
     );
   }
-  getAllTiposSuscripcion(): Observable<string[]> {
+    getAllTiposSuscripcion(): Observable<TiposSuscripcion[]> {
     const tiposSuscripcionUrl = `${this.baseUrl}/tipos-suscripcion`;
-    return this.http.get<string[]>(tiposSuscripcionUrl).pipe(
+    return this.http.get<TiposSuscripcion[]>(tiposSuscripcionUrl).pipe(
       catchError(error => {
         console.error('Error al obtener los tipos de suscripción', error);
-        return of([]);
+        return of([]); 
       })
     );
   }
