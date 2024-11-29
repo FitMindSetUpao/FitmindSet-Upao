@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { RecursoResponse } from '../../shared/models/recurso-response.model';
 import { PageableResponse } from '../../shared/models/pageable.response.model';
 import { Recurso } from '../../shared/models/recurso.model';
+import { tipoDeRecursoResponse } from '../../shared/models/tipoDeRecurso.model';
 @Injectable({
     providedIn: 'root'
   })
@@ -20,15 +21,21 @@ export class RecursoService{
     return this.http.get<PageableResponse<RecursoResponse>>(`${this.baseUrl}/page`,
       { params });
   }
-  createRecursos(recurso: Recurso): Observable<RecursoResponse>{
+  createRecursos(recurso: FormData): Observable<RecursoResponse> {
     return this.http.post<RecursoResponse>(`${this.baseUrl}/registrar`, recurso);
   }
-  updateRecurso(id:number, recurso: Recurso): Observable<RecursoResponse>{
+
+  updateRecurso(id: number, recurso: FormData): Observable<RecursoResponse> {
     return this.http.put<RecursoResponse>(`${this.baseUrl}/actualizar/${id}`, recurso);
   }
+
   getRecursoDetailsById(id: number): Observable<RecursoResponse> {
     return this.http.get<RecursoResponse>(`${this.baseUrl}/${id}`);
   }
 
+  deleteRecurso(id: number): Observable<void> {
+    const url = `${this.baseUrl}/eliminar/${id}`;
+    return this.http.delete<void>(url);
+  }
 
 }
