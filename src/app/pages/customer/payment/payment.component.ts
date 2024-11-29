@@ -36,7 +36,6 @@ interface Purchase {
     MatHeaderRowDef,
     MatRowDef,
     MatRow,
-    SidebarComponent,
     MatPaginator
   ],
   templateUrl: './payment.component.html',
