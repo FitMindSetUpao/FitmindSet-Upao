@@ -1,3 +1,4 @@
+
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -9,10 +10,12 @@ import { RegisterRequest } from '../../shared/models/register-request.model';
 import { RegisterResponse } from '../../shared/models/register-response.model';
 import { Router } from '@angular/router';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
 
   private baseURL = `${environment.baseURL}/auth`;
   private http = inject(HttpClient);

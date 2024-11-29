@@ -13,6 +13,7 @@ import { ActividadFormComponent } from './Habitos-management/actividad-managemen
 import { ForoBusquedaComponent } from './Comunidad/foro-busqueda/foro-busqueda.component';
 import { ForoCrearComponent } from './Comunidad/foro-crear/foro-crear.component';
 import { ForoComentariosComponent } from './Comunidad/foro-comentarios/foro-comentarios.component';
+
 export const customerRoutes: Routes = [
   {
     path: '',
@@ -20,7 +21,7 @@ export const customerRoutes: Routes = [
     children: [
       { path: 'mi-perfil', component: UserProfileComponent },
       { path: 'habitos', component: HabitoListComponent },
-      { path: 'metas', component: MetaListComponent},
+      { path: 'metas', component: MetaListComponent },
     ]
   },
   {
@@ -29,35 +30,34 @@ export const customerRoutes: Routes = [
     children: [
       { path: 'crear', component: HabitoFormComponent }, 
       { path: 'edit/:id', component: HabitoFormComponent },  
-      { path: 'list', component: HabitoListComponent }, 
-      { path: 'metas/list', component: MetaListComponent },  
+      { path: 'list', component: HabitoListComponent },  
+      { path: 'metas', component: MetaListComponent },  
       { path: 'metas/crear/:habitoId', component: MetaFormComponent },
-      { path: 'habitos/metas', component: MetaListComponent },
+      { path: 'habitos/metas', component: MetaListComponent }, 
       { path: 'habitos/metas/:habitoId', component: MetaFormComponent },
+      { path: 'metas/detalles/:id', component: MetaDetallesComponent }, 
       { path: 'metas/edit/:id', component: MetaFormComponent }, 
       { path: 'reportes', component: EstadisticaHabitoComponent },  
       { path: 'actividad', component: ActivadListComponent },  
       { path: 'mi-perfil', component: UserProfileComponent },
-      { path: 'metas/:habitoId', component: MetaDetallesComponent },
       { path: 'metas/editar/:metaId', component: MetaFormComponent },
       { path: 'habitos/actividad', component: ActivadListComponent },
-      {path: 'habitos/metas/:habitoId', component: MetaFormComponent},
+      { path: 'habitos/metas/:habitoId', component: MetaFormComponent },
 
       // Corregido: Solo una ruta para ActividadFormComponent
       {
         path: 'metas/actividad/:metaId', 
         component: ActividadFormComponent
       }
-      
     ]
   },
-    {
-      path: 'foro', component: ForoBusquedaComponent
-    },
-    {
-      path: 'foro/foro-co', component: ForoComentariosComponent
-    },
-    {
-      path: 'foro/foro-cr', component: ForoCrearComponent
-    }
+  {
+    path: 'foro', component: ForoBusquedaComponent
+  },
+  {
+    path: 'foro/foro-co', component: ForoComentariosComponent
+  },
+  {
+    path: 'foro/foro-cr', component: ForoCrearComponent
+  }
 ];
