@@ -167,11 +167,12 @@ export class EstadisticaHabitoComponent implements OnInit {
           },
         },
         plugins: {
-          tooltip: {
-            callbacks: {
-              label: (context) => `${context.dataset.label}: ${Math.round(context.raw as number)}%`,
-            },
-          },
+         tooltip: {
+  callbacks: {
+    label: (context: TooltipItem) => `${context.dataset.label}: ${Math.round(context.raw as number)}%`,
+  },
+},
+
           legend: {
             display: true,
           },
