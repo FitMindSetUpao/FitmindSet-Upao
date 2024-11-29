@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-   "builder": "@angular-devkit/build-angular:browser", 
+         "builder": "@angular-devkit/build-angular:application", 
           "options": {
             "outputPath": "dist/proyecto_frontend",
             "index": "src/index.html",
@@ -28,7 +28,7 @@
             "assets": [
               {
                 "glob": "_redirects",
-                "input": "src/assets",
+                "input": "src",
                 "output": "/"
               }
             ],
