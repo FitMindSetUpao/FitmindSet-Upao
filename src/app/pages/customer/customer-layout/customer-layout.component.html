@@ -7,7 +7,7 @@
       <mat-icon *ngIf="!isSidebarActive">menu</mat-icon>
       <mat-icon *ngIf="isSidebarActive">close</mat-icon>
     </button>
-  
+
     <!-- Sidebar con opciones específicas -->
     <div class="layout-sidebar" [class.collapsed]="isSidebarActive">
       <nav>
@@ -25,7 +25,7 @@
             </a>
           </li>
           <li>
-            <a [routerLink]="['noti']" routerLinkActive="active">
+            <a routerLink="/notificaciones" routerLinkActive="active">
               <mat-icon>notifications</mat-icon>
               <span class="nav-label" *ngIf="!isSidebarActive">Notificaciones</span>
             </a>
@@ -49,7 +49,7 @@
             </a>
           </li>
           <li>
-            <a routerLink="/pagos-suscripciones" routerLinkActive="active">
+            <a routerLink="customer/pagos-suscripciones" routerLinkActive="active">
               <mat-icon>credit_card</mat-icon>
               <span class="nav-label" *ngIf="!isSidebarActive">Pagos y Suscripciones</span>
             </a>
@@ -62,11 +62,11 @@
           </li>
         </ul>
       </nav>
-      
+
     </div>
-    
+
      <div class="layout-content">
-      <h1 class="titulo-usuario">Bienvenido, {{ nombreUsuario }}!</h1> 
+      <h1 class="titulo-usuario">Bienvenido, {{ nombreUsuario }}!</h1>
       <div class="card-container">
         <mat-grid-list cols="2" rowHeight="200px" gutterSize="16px">
           <mat-grid-tile>
@@ -87,7 +87,7 @@
               </mat-card-actions>
             </mat-card>
           </mat-grid-tile>
-          
+
           <!-- Card Metas de Salud -->
           <mat-grid-tile>
             <mat-card class="dashboard-card">
@@ -122,38 +122,31 @@
                     Ver más detalles
                   </button>
                 </div>
-                
+
               </mat-card-actions>
             </mat-card>
           </mat-grid-tile>
-      
+
           <!-- Card Notificaciones -->
           <mat-grid-tile>
             <mat-card class="dashboard-card">
               <div class="custom-card-header">
-                <mat-icon class="header-icon notification-icon">
-                  notifications
-                </mat-icon>
+                <mat-icon class="header-icon">notifications</mat-icon>
                 <span class="header-title">Notificaciones</span>
               </div>
               <mat-card-content>
                 <p class="descripcion">Revisa las notificaciones recientes sobre tu progreso.</p>
               </mat-card-content>
               <mat-card-actions>
-                <div fxLayout="row" fxLayoutAlign="start center" class="actions-container">
-                  <div class="button-container" style="position: relative;">
-                    <div class="notification-circle" *ngIf="totalNotificaciones > 0">
-                      {{ totalNotificaciones }}
-                    </div>
-                    <button mat-button color="primary" [routerLink]="['noti']">
-                      Ver más detalles
-                    </button>
-                  </div>
+                <div fxLayout="row" fxLayoutAlign="start center">
+                  <button mat-button color="primary" [routerLink]="['/notificaciones/preferences']">
+                    Ver más detalles
+                  </button>
                 </div>
               </mat-card-actions>
             </mat-card>
           </mat-grid-tile>
-      
+
           <!-- Card Reportes -->
           <mat-grid-tile>
             <mat-card class="dashboard-card">
@@ -173,7 +166,7 @@
               </mat-card-actions>
             </mat-card>
           </mat-grid-tile>
-      
+
           <!-- Card Pagos y Suscripciones -->
           <mat-grid-tile>
             <mat-card class="dashboard-card">
@@ -186,17 +179,17 @@
               </mat-card-content>
               <mat-card-actions>
                 <div fxLayout="row" fxLayoutAlign="start center">
-                  <button mat-button color="primary" [routerLink]="['/purchases']">
+                  <button mat-button color="primary" [routerLink]="['customer/pagos-suscripciones']">
                     Ver más detalles
                   </button>
                 </div>
-                
+
               </mat-card-actions>
             </mat-card>
           </mat-grid-tile>
         </mat-grid-list>
       </div>
-      
+
     </div>
     <div class="sidebar-right">
       <h2>Recursos Suscritos</h2>
@@ -214,7 +207,7 @@
       <ng-template #noRecursos>
         <p>No tienes recursos suscritos disponibles en este momento.</p>
       </ng-template>
-  
+
       <h2>Reporte de Pagos</h2>
       <div *ngIf="reportePagos && reportePagos.length > 0; else noPagos">
         <mat-card *ngFor="let pago of reportePagos">
@@ -230,12 +223,20 @@
       <ng-template #noPagos>
         <p>No tienes pagos registrados aún.</p>
       </ng-template>
-      <br>
+
       <div class="forum-actions">
         <button mat-button color="primary" [routerLink]="['foro']" class="btn-details">
           Foros de la Comunidad
-        </button></div>
+        </button>
+      </div>
+
+      <div class="forum-actions">
+        <button mat-button color="primary" [routerLink]="['pagos/catalog']" class="btn-details">
+          Tienda de recursos
+        </button>
+      </div>
+
     </div>
   </div>
   <app-footer></app-footer>
-  
+
