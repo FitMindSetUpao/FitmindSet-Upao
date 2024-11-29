@@ -1,5 +1,5 @@
 export interface HabitoResponse{
-    id: number;
+    id?: number;
     nombreHabito: string; 
     descripcion: string;
     tipoDeHabitoId: number;
