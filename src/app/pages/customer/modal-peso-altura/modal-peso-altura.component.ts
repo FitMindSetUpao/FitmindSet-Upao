@@ -43,15 +43,37 @@ export class ModalPesoAlturaComponent {
     this.dialogRef.close();
   }
 
-  calcularIMC(): void {
-    if (this.peso && this.altura && this.peso > 0 && this.altura > 0) {
-      const alturaEnMetros = this.altura / 100;
-      const imcValue = this.peso / (alturaEnMetros * alturaEnMetros);
-      this.imc = this.decimalPipe.transform(imcValue, '1.1-2'); 
-    } else {
-      this.imc = null; 
-    }
+calcularIMC(): void {
+  if (this.peso && this.altura && this.peso > 0 && this.altura > 0) {
+    const alturaEnMetros = this.altura / 100;
+    const imcValue = this.peso / (alturaEnMetros * alturaEnMetros);
+    this.imc = this.decimalPipe.transform(imcValue, '1.1-2'); // Redondear a 1 o 2 decimales.
+    this.obtenerMensajeIMC(imcValue); // Evaluar el rango y establecer el mensaje.
+  } else {
+    this.imc = null;
+    this.mensajeIMC = null; // Reiniciar el mensaje si los datos son inválidos.
   }
+}
+mensajeIMC: string | null = null;
+
+obtenerMensajeIMC(imc: number): void {
+  if (imc < 18.5) {
+    this.mensajeIMC = 'Tienes bajo peso. Considera una dieta equilibrada para ganar peso saludablemente.';
+  } else if (imc >= 18.5 && imc < 24.9) {
+    this.mensajeIMC = 'Tu peso es normal. ¡Sigue con un estilo de vida saludable!';
+  } else if (imc >= 25 && imc < 29.9) {
+    this.mensajeIMC = 'Tienes sobrepeso. Se recomienda aumentar la actividad física y cuidar la dieta.';
+  } else if (imc >= 30 && imc < 34.9) {
+    this.mensajeIMC = 'Tienes obesidad grado I. Considera consultar a un profesional de la salud.';
+  } else if (imc >= 35 && imc < 39.9) {
+    this.mensajeIMC = 'Tienes obesidad grado II. Es importante buscar orientación médica.';
+  } else if (imc >= 40) {
+    this.mensajeIMC = 'Tienes obesidad grado III (mórbida). Consulta a un especialista para un plan integral de salud.';
+  } else {
+    this.mensajeIMC = null;
+  }
+}
+
 
   registrar(form: NgForm): void {
     if (form.invalid) {
