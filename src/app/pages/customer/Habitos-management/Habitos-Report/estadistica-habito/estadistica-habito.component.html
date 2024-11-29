@@ -1,0 +1,73 @@
+<mat-card *ngIf="habitos.length > 0" class="habit-card">
+  <mat-card-header>
+    <mat-card-title>Seleccione un Hábito</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- Mostrar cada hábito como un botón -->
+    <div class="habit-buttons">
+      <button mat-raised-button color="primary" *ngFor="let habito of habitos" (click)="onHabitoSelected(habito.id)" class="habit-button">
+        {{ habito.nombreHabito }}
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Mensaje si no hay hábitos -->
+<mat-card *ngIf="habitos.length === 0" class="habit-card">
+  <mat-card-header>
+    <mat-card-title>No hay Hábitos disponibles</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Actualmente no tienes hábitos registrados.</p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="seguimientos.length > 0" class="meta-card">
+  <mat-card-header>
+    <mat-card-title>Estadísticas del Hábito</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- Estadísticas del hábito -->
+    <div *ngIf="seguimientos.length">
+      <h3 class="progress-heading">Estadísticas del Hábito</h3>
+
+      <!-- Porcentaje de progreso -->
+      <div class="progress-info">
+        <p><strong>Progreso:</strong> {{ getProgressPercentage() }}%</p>
+        
+        <!-- Barra de progreso (mat-progress-bar) -->
+        <mat-progress-bar mode="determinate" [value]="getProgressPercentage()" class="progress-bar"></mat-progress-bar>
+      </div>
+
+      <!-- Gráfico de progreso -->
+      <div class="chart-container">
+        <canvas id="progressChart"></canvas>
+      </div>
+
+      <!-- Historial de actividades -->
+      <div *ngIf="seguimientos.length > 0">
+        <h4>Historial de Actividades</h4>
+        <mat-list>
+          <mat-list-item *ngFor="let seguimiento of seguimientos">
+            <div class="activity-info">
+              <span>{{ seguimiento.fecha }} - {{ seguimiento.observaciones }}</span>
+              <button mat-icon-button (click)="verDetalles(seguimiento.id)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Mensaje si no hay seguimientos -->
+<mat-card *ngIf="seguimientos.length === 0" class="meta-card">
+  <mat-card-header>
+    <mat-card-title>No hay Seguimientos disponibles</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>No tienes seguimientos registrados para este hábito.</p>
+  </mat-card-content>
+</mat-card>

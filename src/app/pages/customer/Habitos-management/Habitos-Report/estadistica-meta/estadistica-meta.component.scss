@@ -1,0 +1,13 @@
+.chart-container {
+    margin-top: 20px;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  canvas {
+    width: 100% !important;
+    height: 300px !important;
+  }
+  

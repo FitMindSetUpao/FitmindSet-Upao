@@ -1,0 +1,348 @@
+/* Estilos generales para los cards */
+.habit-card, .meta-card {
+  margin: 20px 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background-color: #ffffff;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.habit-card:hover, .meta-card:hover {
+  transform: translateY(-5px); /* Efecto de levitación sutil */
+}
+
+/* Estilos del encabezado de los cards */
+mat-card-header {
+  background-color: #f9f9f9;
+  text-align: center;
+  padding: 20px;
+}
+
+mat-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e50;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin: 0;
+}
+
+/* Estilos para los botones de los hábitos */
+.habit-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.habit-button {
+  padding: 14px 28px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 30px;
+  color: white;
+  background-color: #4CAF50; /* Color verde brillante */
+  border: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #388E3C; /* Color verde más oscuro */
+    transform: translateY(-3px); /* Efecto de levitación al pasar el mouse */
+  }
+
+  &:active {
+    background-color: #2c6f2e; /* Color aún más oscuro al hacer clic */
+    transform: translateY(2px); /* Efecto de presión */
+  }
+}
+
+/* Estilos para la sección de metas */
+.progress-heading {
+  margin-top: 30px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2ECC71; /* Color verde brillante para resaltar el progreso */
+}
+
+.progress-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.progress-bar {
+  width: 85%;
+  height: 10px;
+  border-radius: 8px;
+  background-color: #e0e0e0;
+  margin-top: 12px;
+}
+
+.progress-bar .mat-progress-bar-fill {
+  background-color: #2ECC71; /* Color del progreso */
+  border-radius: 8px;
+}
+
+/* Contenedor para el gráfico */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 350px; /* Altura ajustada para gráficos */
+  margin-top: 35px;
+}
+
+canvas {
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  background-color: #fafafa; /* Fondo suave */
+}
+
+/* Estilos del historial de actividades */
+mat-list {
+  margin-top: 30px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+mat-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+  border-bottom: 1px solid #ddd;
+  font-size: 1.1rem;
+  color: #34495e;
+  transition: background-color 0.3s ease;
+}
+
+mat-list-item:last-child {
+  border-bottom: none;
+}
+
+mat-list-item:hover {
+  background-color: #f1f1f1; /* Efecto de hover suave */
+}
+
+button.mat-icon-button {
+  color: #3f51b5;
+  transition: color 0.3s ease;
+}
+
+button.mat-icon-button:hover {
+  color: #16a085; /* Color suave al pasar el ratón */
+}
+
+mat-icon {
+  font-size: 22px;
+  transition: transform 0.2s ease;
+}
+
+button.mat-icon-button:hover mat-icon {
+  transform: scale(1.2); /* Efecto de escala al hacer hover */
+}
+
+/* Estilos del formulario de selección */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+mat-select {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 1.1rem;
+}
+
+mat-label {
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+/* Estilos generales para todo el componente */
+h3, h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #34495e;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+}
+
+/* Animaciones para carga */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mat-card {
+  animation: fadeIn 0.5s ease-out;
+}
+.chart-container {
+  width: 100%;
+  max-width: 400px; // Ajusta el tamaño según tu diseño
+  margin: auto;
+}
+
+canvas {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+}
+/* Estilo para el contenedor del historial de actividades */
+.activity-history {
+  background-color: #f0f2f5; /* Fondo gris muy suave */
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+
+  .history-heading {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #34495e;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    position: relative;
+    padding-left: 25px;
+    border-left: 4px solid #2980b9;
+  }
+}
+
+/* Estilo para la lista de actividades */
+.activity-list {
+  max-height: 500px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding: 0;
+  list-style: none;
+  padding-left: 10px;
+  border-left: 2px solid #e0e0e0;
+}
+
+/* Estilo para cada ítem de actividad */
+.activity-item {
+  background-color: #ffffff;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: #ecf0f1; /* Fondo al hacer hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra más fuerte */
+  }
+}
+
+/* Estilo para la información de cada actividad */
+.activity-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Asegura que ocupe todo el espacio disponible */
+  flex-wrap: wrap;
+}
+
+.activity-details {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  font-weight: 500;
+  line-height: 1.6;
+  flex: 1;
+  word-wrap: break-word;
+  padding-right: 10px;
+}
+
+.view-details-button {
+  background-color: transparent;
+  border: none;
+  color: #2980b9;
+  transition: color 0.3s ease, transform 0.2s ease;
+  font-size: 1.5rem;
+
+  &:hover {
+    color: #1f6fa0;
+    transform: scale(1.1); /* Efecto de agrandar el botón */
+  }
+
+  mat-icon {
+    font-size: 1.6rem;
+  }
+}
+
+/* Estilo para el scrollbar de la lista de actividades */
+.activity-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.activity-list::-webkit-scrollbar-thumb {
+  background-color: #b0bec5;
+  border-radius: 10px;
+}
+
+.activity-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Estilos para mejorar la accesibilidad y legibilidad */
+.activity-info span {
+  font-weight: 600; /* Resalta el texto de fecha y observaciones */
+  color: #34495e;
+  margin-right: 10px;
+}
+
+.activity-info button {
+  border-radius: 50%;
+  background-color: transparent;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.activity-info button:hover {
+  background-color: #f5f5f5; /* Fondo suave al pasar el ratón sobre el botón */
+}
+
+@media (max-width: 768px) {
+  .activity-history {
+    padding: 15px;
+  }
+
+  .activity-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .activity-details {
+    font-size: 1.1rem;
+  }
+
+  .view-details-button {
+    margin-top: 10px;
+  }
+}
+

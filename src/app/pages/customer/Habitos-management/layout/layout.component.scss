@@ -1,0 +1,167 @@
+/* Variables de color */
+$verde-oscuro: #2e7d32;
+$verde-medio: #388e3c;
+$verde-claro: #4caf50;
+$blanco: #ffffff;
+$gris-claro: #f1f1f1;
+$gris-oscuro: #343a40;
+
+/* Layout principal */
+.layout-dashboard {
+  display: flex;
+  height: 100vh;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Sidebar */
+.layout-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 70px;
+  width: 250px;
+  background-color: $verde-oscuro;
+  color: $blanco;
+  overflow-y: auto;
+  z-index: 1040;
+  transition: width 0.3s ease-in-out, box-shadow 0.3s ease;
+
+  &.collapsed {
+    width: 60px; /* Sidebar colapsado */
+    overflow: hidden;
+
+    nav ul li a {
+      justify-content: center; /* Alinear iconos al centro */
+      padding-left: 0; /* Elimina la sangría */
+    }
+  }
+
+  nav ul li {
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 4px;
+
+    a {
+      display: flex;
+      align-items: center;
+      color: $blanco;
+      text-decoration: none;
+
+      i {
+        margin-right: 10px;
+      }
+
+      &:hover,
+      &.active {
+        background-color: $verde-medio;
+      }
+    }
+  }
+}
+
+/* Contenido principal */
+.layout-content {
+  flex-grow: 1;
+  padding: 90px 20px 70px 20px;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease-in-out;
+
+  .layout-sidebar.collapsed + & {
+    margin-left: 60px; /* Ajuste cuando el sidebar está colapsado */
+  }
+}
+
+/* Botón de toggle */
+.sidebar-toggle-btn {
+  position: fixed;
+  top: 70px;
+  left: 10px;
+  font-size: 24px;
+  z-index: 1060;
+  background-color: transparent;
+  border: none;
+  color: $blanco;
+  cursor: pointer;
+}
+
+/* Footer */
+app-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+  background-color: $gris-oscuro;
+  color: $blanco;
+  text-align: center;
+  line-height: 70px;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividad */
+@media screen and (max-width: 768px) {
+  .layout-sidebar {
+    width: 60px;
+
+    &.collapsed {
+      width: 0; /* Oculta completamente el sidebar */
+    }
+  }
+
+  .layout-content {
+    margin-left: 60px;
+
+    .layout-sidebar.collapsed + & {
+      margin-left: 0; /* Ajuste cuando el sidebar está oculto */
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .layout-sidebar {
+    position: fixed;
+    width: 100%;
+    height: auto;
+    bottom: unset;
+    left: 0;
+    z-index: 1100;
+
+    &.collapsed {
+      width: 0;
+      height: 0;
+      overflow: hidden; /* Oculta el sidebar por completo */
+    }
+  }
+
+  .layout-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .sidebar-toggle-btn {
+    top: 20px; /* Ajusta la posición del botón de toggle */
+  }
+}
+.logout-float-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: $verde-oscuro;
+  color: $blanco;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1100;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $verde-medio;
+  }
+
+  i {
+    margin-right: 5px;
+  }
+}
+

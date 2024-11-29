@@ -1,0 +1,59 @@
+<mat-card *ngIf="habitos.length > 0" class="habit-card">
+  <mat-card-header>
+    <mat-card-title>Seleccione un Hábito</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- Mostrar cada hábito como un botón -->
+    <div class="habit-buttons">
+      <button mat-raised-button color="primary" *ngFor="let habito of habitos" (click)="onHabitoSelected(habito.id)" class="habit-button">
+        {{ habito.nombreHabito }}
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="metas.length > 0" class="meta-card">
+  <mat-card-header>
+    <mat-card-title>Metas de Hábito</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- Selección de meta -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Seleccionar Meta</mat-label>
+      <mat-select [(value)]="selectedMetaId" (selectionChange)="onMetaSelected()">
+        <mat-option *ngFor="let meta of metas" [value]="meta.id">{{ meta.descripcion }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Estadísticas de la meta -->
+    <div *ngIf="selectedMetaId">
+      <h3 class="progress-heading">Estadísticas de la Meta</h3>
+
+      <!-- Porcentaje de progreso -->
+      <div class="progress-info">
+        <p><strong>Progreso:</strong> {{ getProgressPercentage() }}%</p>
+        <mat-progress-bar mode="determinate" [value]="getProgressPercentage()" class="progress-bar"></mat-progress-bar>
+      </div>
+
+      <!-- Gráfico de progreso (ejemplo con Chart.js) -->
+      <div class="chart-container">
+        <canvas id="progressChart"></canvas>
+      </div>
+
+      <!-- Historial de actividades -->
+      <div *ngIf="seguimientos.length > 0">
+        <h4>Historial de Actividades</h4>
+        <mat-list>
+          <mat-list-item *ngFor="let seguimiento of seguimientos">
+            <div class="activity-info">
+              <span>{{ seguimiento.fecha }} - {{ seguimiento.observaciones }}</span>
+              <button mat-icon-button (click)="verDetalles(seguimiento.metaId)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
