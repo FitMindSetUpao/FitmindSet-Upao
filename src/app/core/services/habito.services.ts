@@ -21,6 +21,7 @@ export class HabitoService {
     { params });
   
  }
+ 
  createHabito(habito: Habito): Observable<HabitoResponse>{
   return this.http.post<HabitoResponse>(`${this.baseUrl}/crear`, habito);
  }
@@ -33,6 +34,9 @@ export class HabitoService {
  deleteHabito(id: number): Observable<void>{
   return this.http.delete<void>(`${this.baseUrl}/${id}`);
  }
+ getHabitos(): Observable<Habito[]> {
+  return this.http.get<Habito[]>(this.baseUrl);  // Llamada al endpoint que devuelve todos los hábitos
+}
  
  
 }
