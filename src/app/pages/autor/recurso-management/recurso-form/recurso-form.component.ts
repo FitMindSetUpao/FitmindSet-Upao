@@ -60,20 +60,21 @@ export class RecursoFormComponent implements OnInit {
   errors: string[] = [];
 
   form: FormGroup = this.fb.group({
-    nombre: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(250)]],
-    descripcion: ['', [Validators.required]],
-    precio: [0, [Validators.required, Validators.min(0)]],
-    coverPath: ['', [Validators.required]], // Asegúrate de que esta validación se aplica correctamente
-    filePath: ['', [Validators.required]],  // Asegúrate de que esta validación se aplica correctamente
-    tiporecurso: ['', Validators.required],
-    tipoDeHabitosId: ['', Validators.required],
-    fechaPublicacion: ['', Validators.required],
-    autor: ['', Validators.required],
-    estado: ['', Validators.required],
-    descripcionExtendida: [''],
-    plan_id: [null, Validators.required],
-    etiquetas: ['']
-  });
+  nombre: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(250)]],
+  descripcion: ['', [Validators.required]],
+  precio: [0, [Validators.required, Validators.min(0)]],
+  coverPath: ['', Validators.required],
+  filePath: ['', Validators.required],
+  tiporecurso: ['', Validators.required],
+  tipoDeHabitosId: ['', Validators.required],
+  fechaPublicacion: ['', Validators.required],
+  autor: ['', Validators.required],
+  estado: ['', Validators.required],
+  descripcionExtendida: [''],
+  plan_id: [null, Validators.required],
+  etiquetas: ['']
+});
+
     ngOnInit(): void {
     this.recursoid = Number(this.route.snapshot.paramMap.get('id'));
     this.loadtipoDeHabito();
@@ -98,16 +99,16 @@ export class RecursoFormComponent implements OnInit {
       error: () => this.errors.push('Error al cargar los tipos de recursos.')
     });
   }
-  loadTiposSuscripcion() {
-    this.tipoDeHabitoService.getAllTiposSuscripcion().subscribe(
-      (data) => {
-        this.tiposSuscripcion = data;
-      },
-      (error) => {
-        console.error('Error loading tipos de suscripción:', error);
-      }
-    );
-  }
+loadTiposSuscripcion() {
+  this.tipoDeHabitoService.getAllTiposSuscripcion().subscribe(
+    (data: TiposSuscripcion[]) => {
+      this.tiposSuscripcion = data.map((suscripcion) => suscripcion.nombre);
+    },
+    (error) => {
+      console.error('Error loading tipos de suscripción:', error);
+    }
+  );
+}
   private loadRecursosForActualizar(): void {
     this.recursoService.getRecursoDetailsById(this.recursoid!).subscribe({
       next: (recurso: RecursoResponse) => {
@@ -150,33 +151,37 @@ export class RecursoFormComponent implements OnInit {
   }
 
   save(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    const formData: Recurso = {
-      ...this.form.value,
-      authorId: this.authService.getUser()?.autorId
-    };
-
-    const request: Observable<RecursoResponse> = this.recursoid
-      ? this.recursoService.updateRecurso(this.recursoid, formData)
-      : this.recursoService.createRecursos(formData);
-
-    request.subscribe({
-      next: () => {
-        this.snackBar.open('Recurso guardado exitosamente', 'Cerrar', {
-          duration: 3000,
-        });
-        this.router.navigate(['/autor/recursos/list']);
-      },
-      error: (error) => {
-        this.errors = error.error.errors || ['Error al guardar el Recurso'];
-        this.snackBar.open('Error al guardar el recurso', 'Cerrar', {
-          duration: 3000,
-        });
-      },
-    });
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  const formValues = this.form.value;
+
+  const formData = new FormData();
+  Object.keys(formValues).forEach((key) => {
+    formData.append(key, formValues[key]);
+  });
+
+  formData.append('authorId', this.authService.getUser()?.autorId);
+
+  const request: Observable<RecursoResponse> = this.recursoid
+    ? this.recursoService.updateRecurso(this.recursoid, formData)
+    : this.recursoService.createRecursos(formData);
+
+  request.subscribe({
+    next: () => {
+      this.snackBar.open('Recurso guardado exitosamente', 'Cerrar', {
+        duration: 3000,
+      });
+      this.router.navigate(['/autor/recursos/list']);
+    },
+    error: (error) => {
+      this.errors = error.error.errors || ['Error al guardar el Recurso'];
+      this.snackBar.open('Error al guardar el recurso', 'Cerrar', {
+        duration: 3000,
+      });
+    },
+  });
 }
+
