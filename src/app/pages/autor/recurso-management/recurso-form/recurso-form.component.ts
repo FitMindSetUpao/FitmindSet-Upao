@@ -25,8 +25,6 @@ import { CommonModule } from '@angular/common';
 import { planService } from '../../../../core/services/planes.service';
 import { TiposSuscripcion } from '../../../../shared/models/tiposSuscripcion.model';
 
-
-
 @Component({
   selector: 'app-recurso-form',
   standalone: true,
@@ -57,7 +55,7 @@ export class RecursoFormComponent implements OnInit {
 
   tiporecursos: tipoDeRecursoResponse[] = [];
   tipoDeHabitos: TipoDeHabito[] = [];
- tiposSuscripcion: TiposSuscripcion[] = [];
+  tiposSuscripcion: string[] = []; 
 
   recursoid?: number;
   errors: string[] = [];
@@ -96,18 +94,17 @@ export class RecursoFormComponent implements OnInit {
       error: () => this.errors.push('Error al cargar los tipos de recursos.')
     });
   }
-loadTiposSuscripcion() {
-  this.tipoDeHabitoService.getAllTiposSuscripcion().subscribe({
-    next: (data: TiposSuscripcion[]) => {  
-      this.tiposSuscripcion = data; // Ahora el tipo de dato coincide con la respuesta
-    },
-    error: (error) => {
-      console.error('Error loading tipos de suscripción:', error);
-    },
-  });
-}
-
-
+  loadTiposSuscripcion() {
+    this.tipoDeHabitoService.getAllTiposSuscripcion().subscribe(
+      (data: TiposSuscripcion[]) => {
+        // Extraemos solo los nombres para usar en el formulario
+        this.tiposSuscripcion = data.map(tipo => tipo.nombre);
+      },
+      (error) => {
+        console.error('Error loading tipos de suscripción:', error);
+      }
+    );
+  }
   
   
   private loadRecursosForActualizar(): void {
