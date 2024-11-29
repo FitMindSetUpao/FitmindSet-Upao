@@ -1,5 +1,6 @@
 import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {MatCard} from '@angular/material/card';
+
 import {
   MatCell,
   MatCellDef,
@@ -36,7 +37,8 @@ interface Purchase {
     MatHeaderRowDef,
     MatRowDef,
     MatRow,
-    MatPaginator
+    MatPaginator,
+    SidebarComponent
   ],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss'
