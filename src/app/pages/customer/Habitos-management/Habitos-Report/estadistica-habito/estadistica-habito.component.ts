@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReporteDTO } from '../../../../../shared/models/reporte.model';
+import { TooltipItem } from 'chart.js'; 
 
 @Component({
   selector: 'app-estadistica-habito',
@@ -164,16 +165,16 @@ export class EstadisticaHabitoComponent implements OnInit {
             max: 100, // El máximo para mostrar el 100%
           },
         },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label: (context) => `${context.dataset.label}: ${Math.round(context.raw as number)}%`,
-            },
-          },
-          legend: {
-            display: true,
-          },
-        },
+    plugins: {
+  tooltip: {
+    callbacks: {
+      label: (context: TooltipItem) => `${context.dataset.label}: ${Math.round(context.raw as number)}%`, // Definimos el tipo de 'context'
+    },
+  },
+  legend: {
+    display: true,
+  },
+},
       },
     });
   }
