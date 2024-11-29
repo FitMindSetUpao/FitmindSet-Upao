@@ -25,7 +25,7 @@ import { PageableResponse } from '../../../../../shared/models/pageable.response
     FormsModule,
   ],
   templateUrl: './meta-list.component.html',
-  styleUrl: './meta-list.component.scss'
+  styleUrls: ['./meta-list.component.scss']
 })
 export class MetaListComponent implements OnInit {
   habitos: HabitoResponse[] = [];
@@ -34,6 +34,7 @@ export class MetaListComponent implements OnInit {
   
   displayedColumns: String[] = [
     'nombre',
+    'descripcion',
     'actions',
   ];
   totalElements = 0;
@@ -79,8 +80,10 @@ export class MetaListComponent implements OnInit {
   }
 
   viewDetails(habitoId: number): void {
+    // Navigating to the habit's metas details page
     this.router.navigate(['/customer/habitos/metas/detalles', habitoId]);
   }
+
   private showSnackBar(message: string): void {
     this.snackbar.open(message, 'Cerrar', {
       duration: 3000,

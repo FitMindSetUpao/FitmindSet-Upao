@@ -7,11 +7,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MetaResponseDTO } from '../../../../../shared/models/meta-response.model';
 import { MetaService } from '../../../../../core/services/meta.services';
 import { ConfirmarEliminacionComponent } from '../confirmar-eliminacion/confirmar-eliminacion.component';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+
 @Component({
   selector: 'app-meta-detalles',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule,MatIconModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './meta-detalles.component.html',
   styleUrls: ['./meta-detalles.component.scss']
 })
@@ -41,7 +42,6 @@ export class MetaDetallesComponent implements OnInit {
 
   actualizarMeta(metaId: number): void {
     this.router.navigate(['/customer/habitos/metas/editar', metaId]);
-
   }
 
   registrarActividad(metaId: number): void {
@@ -74,5 +74,10 @@ export class MetaDetallesComponent implements OnInit {
         alert('Error al borrar la meta');
       }
     });
+  }
+
+  // Método para redirigir al formulario de creación de nueva meta
+  crearMeta(): void {
+    this.router.navigate(['/customer/habitos/metas/crear']);
   }
 }
