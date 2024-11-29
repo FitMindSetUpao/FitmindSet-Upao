@@ -15,6 +15,14 @@ import { ForoCrearComponent } from './Comunidad/foro-crear/foro-crear.component'
 import { ForoComentariosComponent } from './Comunidad/foro-comentarios/foro-comentarios.component';
 import { NotificacionesComponent } from './notifications/notificaciones/notificaciones.component';
 import { PreferenciasComponent } from './notifications/preferencias/preferencias.component';
+import { PaymentComponent } from './payment/payment.component';
+import {CartComponent} from './purchases/cart/cart.component';
+import {CatalogComponent} from './catalog/catalog.component';
+import {PaymentLayoutComponent} from './payment-layout/payment-layout.component';
+import {PaymentNavbarComponent} from '../../shared/components/payment-navbar/payment-navbar.component';
+import {DetailsComponent} from './catalog/details/details.component';
+import {HistoryComponent} from './purchases/history/history.component';
+import { RecursoCardComponent } from '../../shared/components/recurso-card/recurso-card.component';
 
 export const customerRoutes: Routes = [
   {
