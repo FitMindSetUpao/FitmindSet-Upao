@@ -1,0 +1,90 @@
+/* Sidebar */
+.layout-sidebar {
+  width: 250px;
+  transition: width 0.3s ease;
+  background-color: #343a40; /* Fondo del sidebar */
+  color: #ffffff; /* Color del texto */
+  position: relative;
+
+  &.collapsed {
+    width: 60px; /* Cambia el ancho del sidebar al colapsar */
+    overflow: hidden;
+  }
+
+  + .layout-content {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+
+    .layout-sidebar.collapsed & {
+      margin-left: 60px;
+    }
+  }
+}
+
+/* Botón de toggle del Sidebar */
+.sidebar-toggle-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  padding: 0.5rem;
+  position: absolute;
+  top: 1rem;
+  right: -2.5rem;
+  cursor: pointer;
+  outline: none;
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;base64,..."); /* Icono SVG de Bootstrap */
+  }
+}
+
+/* Navbar */
+.navbar {
+  .btn-outline-primary {
+    border-color: #158467; /* Verde suave */
+    color: #6cbf84; /* Verde suave */
+    border-radius: 5px;
+    padding: 8px 20px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #6cbf84; /* Fondo verde suave */
+      color: #ffffff; /* Texto blanco */
+      border-color: #6cbf84;
+    }
+  }
+
+  .btn-primary {
+    background-color: #158467; /* Verde suave */
+    color: #ffffff; /* Texto blanco */
+    border-radius: 5px;
+    padding: 8px 20px;
+    transition: all 0.3s ease;
+    border: none;
+
+    &:hover {
+      background-color: #5ba873; /* Verde suave más oscuro en hover */
+    }
+  }
+
+  .btn-cart {
+    background-color: #ff9800; /* Color naranja */
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 8px 20px;
+    transition: all 0.3s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &:hover {
+      background-color: #e68900;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    mat-icon {
+      font-size: 1.2rem;
+    }
+  }
+}
