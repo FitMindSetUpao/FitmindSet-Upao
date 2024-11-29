@@ -10,105 +10,81 @@ $gris-oscuro: #343a40;
 .layout-dashboard {
   display: flex;
   height: 100vh;
-  font-family: 'Arial', sans-serif; /* Fuente de ejemplo para mejorar la legibilidad */
+  font-family: 'Arial', sans-serif;
 }
 
 /* Sidebar */
 .layout-sidebar {
   position: fixed;
-  top: 0px; /* Ajusta según la altura del navbar */
+  top: 0;
   left: 0;
-  bottom: 70px; /* Ajusta según la altura del footer */
+  bottom: 70px;
   width: 250px;
   background-color: $verde-oscuro;
   color: $blanco;
   overflow-y: auto;
-  transition: width 0.3s ease-in-out, box-shadow 0.3s ease; /* Añadí transición para mejorar la suavidad */
   z-index: 1040;
+  transition: width 0.3s ease-in-out, box-shadow 0.3s ease;
 
-  /* Efecto de sombra cuando el sidebar está expandido */
-  &.expanded {
-    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+  &.collapsed {
+    width: 60px; /* Sidebar colapsado */
+    overflow: hidden;
+
+    nav ul li a {
+      justify-content: center; /* Alinear iconos al centro */
+      padding-left: 0; /* Elimina la sangría */
+    }
   }
 
-  /* Estilo de los enlaces */
-  nav {
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+  nav ul li {
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 4px;
 
-      li {
-        margin: 10px 0;
-        padding: 10px 20px;
-        border-radius: 4px;
-        transition: background-color 0.3s ease, padding-left 0.3s ease; /* Mejor transición en el hover */
+    a {
+      display: flex;
+      align-items: center;
+      color: $blanco;
+      text-decoration: none;
 
-        a {
-          color: $blanco;
-          text-decoration: none;
-          display: flex;
-          align-items: center;
-          padding: 10px;
-          border-radius: 4px;
-          transition: background-color 0.3s ease, padding-left 0.3s ease;
+      i {
+        margin-right: 10px;
+      }
 
-          i {
-            margin-right: 10px;
-          }
-
-          &:hover,
-          &.active {
-            background-color: $verde-medio;
-            padding-left: 30px; /* Efecto de desplazamiento en hover */
-          }
-        }
+      &:hover,
+      &.active {
+        background-color: $verde-medio;
       }
     }
   }
 }
 
-/* Contenido principal ajustado al sidebar */
+/* Contenido principal */
 .layout-content {
   flex-grow: 1;
-  padding: 90px 20px 70px 20px; /* Ajuste para el navbar y footer */
-  margin-left: 250px; /* Se ajusta según el tamaño del sidebar */
+  padding: 90px 20px 70px 20px;
+  margin-left: 250px;
   transition: margin-left 0.3s ease-in-out;
 
-  /* Cuando el sidebar se colapsa, el contenido se ajusta automáticamente */
   .layout-sidebar.collapsed + & {
-    margin-left: 0;
+    margin-left: 60px; /* Ajuste cuando el sidebar está colapsado */
   }
 }
 
-/* Botón de toggle para el sidebar */
+/* Botón de toggle */
 .sidebar-toggle-btn {
   position: fixed;
-  top: 70px; /* Ajusta según la altura del navbar */
+  top: 70px;
   left: 10px;
+  font-size: 24px;
+  z-index: 1060;
   background-color: transparent;
   border: none;
-  font-size: 24px;
+  color: $blanco;
   cursor: pointer;
-  z-index: 1060;
-  color: $blanco;
-  transition: transform 0.3s ease; /* Efecto de transición para el botón */
-
-  &:hover {
-    transform: scale(1.1); /* Efecto al pasar el ratón sobre el botón */
-  }
 }
 
-/* Iconos del sidebar */
-.icon-white {
-  color: $blanco;
-}
-
-.icon-black {
-  color: $gris-oscuro; /* Cambié el color a un gris más oscuro para darle contraste */
-}
-
-/* Estilo para el Footer */
+/* Footer */
 app-footer {
   position: fixed;
   bottom: 0;
@@ -117,12 +93,75 @@ app-footer {
   background-color: $gris-oscuro;
   color: $blanco;
   text-align: center;
-  line-height: 70px; /* Centra el texto verticalmente */
-  z-index: 1050;
-  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil para separarlo de la pantalla */
+  line-height: 70px;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilo para el contenedor principal cuando el sidebar está colapsado */
-.layout-sidebar.collapsed + .layout-content {
-  margin-left: 0;
+/* Responsividad */
+@media screen and (max-width: 768px) {
+  .layout-sidebar {
+    width: 60px;
+
+    &.collapsed {
+      width: 0; /* Oculta completamente el sidebar */
+    }
+  }
+
+  .layout-content {
+    margin-left: 60px;
+
+    .layout-sidebar.collapsed + & {
+      margin-left: 0; /* Ajuste cuando el sidebar está oculto */
+    }
+  }
 }
+
+@media screen and (max-width: 576px) {
+  .layout-sidebar {
+    position: fixed;
+    width: 100%;
+    height: auto;
+    bottom: unset;
+    left: 0;
+    z-index: 1100;
+
+    &.collapsed {
+      width: 0;
+      height: 0;
+      overflow: hidden; /* Oculta el sidebar por completo */
+    }
+  }
+
+  .layout-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .sidebar-toggle-btn {
+    top: 20px; /* Ajusta la posición del botón de toggle */
+  }
+}
+.logout-float-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: $verde-oscuro;
+  color: $blanco;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1100;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $verde-medio;
+  }
+
+  i {
+    margin-right: 5px;
+  }
+}
+

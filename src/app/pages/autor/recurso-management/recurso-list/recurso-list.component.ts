@@ -1,115 +1,182 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatInputModule } from '@angular/material/input';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-
-import { Recurso } from '../../../../shared/models/recurso.model';
-import { PageableResponse } from '../../../../shared/models/pageable.response.model';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 import { ApiImgPipe } from '../../../../core/pipes/api-img.pipe';
 import { RecursoService } from '../../../../core/services/recurso.service';
+import { TipoDeHabitoService } from '../../../../core/services/tipo-de-habito.services';
+import { AuthService } from '../../../../core/services/auth.service';
+import { MediaService } from '../../../../core/services/media.service';
+import { tipoDeRecursoResponse } from '../../../../shared/models/tipoDeRecurso.model';
 import { RecursoResponse } from '../../../../shared/models/recurso-response.model';
+import { Recurso } from '../../../../shared/models/recurso.model';
+import { TipoDeHabito } from '../../../../shared/models/tipo-de-habito.model';
+import { CommonModule } from '@angular/common'; 
+import { planService } from '../../../../core/services/planes.service';
 
 @Component({
-  selector: 'app-recurso-list',
+  selector: 'app-recurso-form',
   standalone: true,
   imports: [
-    CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSnackBarModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule,
+    MatButtonModule,
+    MatSelectModule,
     ApiImgPipe,
+    CommonModule,
   ],
-  templateUrl: './recurso-list.component.html',
-  styleUrls: ['./recurso-list.component.scss'],
+  templateUrl: './recurso-form.component.html',
+  styleUrl: './recurso-form.component.scss'
 })
-export class RecursoListComponent implements OnInit {
-  recursos: RecursoResponse[] = [];
-  filteredRecursos: RecursoResponse[] = [];
-  filterText = '';
-
-  displayedColumns: string[] = [
-    'cover',
-    'nombreRecurso',
-    'tipoDeHabito',
-    'tipoDeRecurso',
-    'precio',
-    'actions',
-  ];
-  totalElements = 0;
-  pageSize = 5;
-  pageIndex = 0;
-
+export class RecursoFormComponent implements OnInit {
   private recursoService = inject(RecursoService);
-  private snackBar = inject(MatSnackBar);
+  private mediaService = inject(MediaService);
+  private tipoDeHabitoService = inject(TipoDeHabitoService);
+  private authService = inject(AuthService);
+  private planService = inject(planService);
+
+  private fb = inject(FormBuilder);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private snackBar = inject(MatSnackBar);
+  planes: Array<{ id: number, nombre: string }> = [];
 
-  ngOnInit(): void {
-    this.loadRecursos();
+  tiporecursos: tipoDeRecursoResponse[] = [];
+  tipoDeHabitos: TipoDeHabito[] = [];
+  tiposSuscripcion: string[] = []; 
+
+  recursoid?: number;
+  errors: string[] = [];
+
+  form: FormGroup = this.fb.group({
+    nombre: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(250)]],
+    descripcion: ['', [Validators.required]],
+    precio: [0, [Validators.required, Validators.min(0)]],
+    coverPath: ['', [Validators.required]], // Asegúrate de que esta validación se aplica correctamente
+    filePath: ['', [Validators.required]],  // Asegúrate de que esta validación se aplica correctamente
+    tiporecurso: ['', Validators.required],
+    tipoDeHabitosId: ['', Validators.required],
+    fechaPublicacion: ['', Validators.required],
+    autor: ['', Validators.required],
+    estado: ['', Validators.required],
+    descripcionExtendida: [''],
+    plan_id: [null, Validators.required],
+    etiquetas: ['']
+  });
+    ngOnInit(): void {
+    this.recursoid = Number(this.route.snapshot.paramMap.get('id'));
+    this.loadtipoDeHabito();
+    this.loadTipoDeRecurso();
+    this.loadTiposSuscripcion();
   }
-
-  loadRecursos(pageIndex: number = 0, pageSize: number = 5): void {
-    this.recursoService.paginateRecursos(pageIndex, pageSize).subscribe({
-      next: (response: PageableResponse<RecursoResponse>) => {
-        this.recursos = response.content;
-        this.filteredRecursos = response.content;
-        this.totalElements = response.totalElements;
-        this.pageSize = response.size;
-        this.pageIndex = response.number;
+  private loadtipoDeHabito(): void {
+    this.tipoDeHabitoService.getAllTiposDeHabitos().subscribe({
+      next: (tipoDeHabitos) => {
+        this.tipoDeHabitos = tipoDeHabitos;
+        if (this.recursoid) this.loadRecursosForActualizar();
       },
-      error: () => this.showSnackBar('Error al cargar la lista de recursos'),
+      error: () => this.errors.push('Error al cargar los tipos de hábitos.'),
     });
   }
-
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value
-      .trim()
-      .toLowerCase();
-    this.filteredRecursos = this.recursos.filter((recurso) =>
-      recurso.nombreRecurso.toLowerCase().includes(filterValue)
+  private loadTipoDeRecurso(): void {
+    this.tipoDeHabitoService.getAllTiposDeHabitos().subscribe({
+      next: (tiposDeRecurso) => {
+        this.tiporecursos = tiposDeRecurso;
+        if (this.recursoid) this.loadRecursosForActualizar();
+      },
+      error: () => this.errors.push('Error al cargar los tipos de recursos.')
+    });
+  }
+  loadTiposSuscripcion() {
+    this.tipoDeHabitoService.getAllTiposSuscripcion().subscribe(
+      (data) => {
+        this.tiposSuscripcion = data;
+      },
+      (error) => {
+        console.error('Error loading tipos de suscripción:', error);
+      }
     );
   }
-
-  onPageChange(event: PageEvent): void {
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.loadRecursos(this.pageIndex, this.pageSize);
+  private loadRecursosForActualizar(): void {
+    this.recursoService.getRecursoDetailsById(this.recursoid!).subscribe({
+      next: (recurso: RecursoResponse) => {
+        const tipoDeHabito = this.tipoDeHabitos.find(
+          (habito) => habito.nombre === recurso.tipoDeHabito 
+        );
+        this.form.patchValue({
+          ...recurso,
+          tiporecurso: recurso.recursoid,
+          tipoDeHabitosId: tipoDeHabito ? tipoDeHabito.id : null, 
+        });
+      },
+      error: () => this.errors.push('Error al cargar los detalles del Recurso.'),
+    });
   }
+  
 
-  createNewRecurso(): void {
-    this.router.navigate(['/author/recursos/crear']);
-  }
-
-  actualizarRecurso(recursoid: number): void {
-    this.router.navigate(['/author/recursos/edit', recursoid]);
-  }
-
-  eliminarRecurso(id: number): void {
-    console.log('Intentando eliminar recurso con ID:', id); // Verificar el ID
-    if (confirm('¿Estás seguro de que deseas eliminar este recurso?')) {
-      this.recursoService.deleteRecurso(id).subscribe({
-        next: () => {
-          this.showSnackBar('Recurso eliminado con éxito.');
-          this.loadRecursos(); // Actualiza la lista
+  uploadFile(event: Event, control: string): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file); // Solo se agrega el archivo, sin recursoId
+  
+      this.mediaService.upload(formData).subscribe({
+        next: (response) => {
+          if (response && response.path) {
+            this.form.controls[control].setValue(response.path); // Asignamos el path recibido al control
+          } else {
+            this.errors.push('Respuesta inesperada del servidor.');
+          }
         },
-        error: (error) => {
-          const errorMessage = error.error || 'Error desconocido al eliminar el recurso.';
-          this.showSnackBar(errorMessage);
+        error: (err) => {
+          console.error('Error de carga de archivo:', err);
+          this.errors.push('Error al cargar el archivo. Verifica los detalles en la consola.');
         },
       });
+    } else {
+      this.errors.push('No se seleccionó ningún archivo.');
     }
   }
+  
+  save(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
-  private showSnackBar(message: string): void {
-    this.snackBar.open(message, 'Cerrar', {
-      duration: 3000,
+    const formData: Recurso = {
+      ...this.form.value,
+      authorId: this.authService.getUser()?.autorId
+    };
+
+    const request: Observable<RecursoResponse> = this.recursoid
+      ? this.recursoService.updateRecurso(this.recursoid, formData)
+      : this.recursoService.createRecursos(formData);
+
+    request.subscribe({
+      next: () => {
+        this.snackBar.open('Recurso guardado exitosamente', 'Cerrar', {
+          duration: 3000,
+        });
+        this.router.navigate(['/autor/recursos/list']);
+      },
+      error: (error) => {
+        this.errors = error.error.errors || ['Error al guardar el Recurso'];
+        this.snackBar.open('Error al guardar el recurso', 'Cerrar', {
+          duration: 3000,
+        });
+      },
     });
   }
 }

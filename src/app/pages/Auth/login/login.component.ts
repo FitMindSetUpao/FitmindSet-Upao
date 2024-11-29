@@ -8,12 +8,14 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../core/services/auth.service';
 import { AuthRequest } from '../../../shared/models/auth-request.model';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, MatInputModule, MatCardModule,
-    MatSnackBarModule,MatButtonModule, RouterLink],
+    MatSnackBarModule,MatButtonModule, RouterLink, MatProgressSpinnerModule,CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -29,7 +31,7 @@ export class LoginComponent {
   private readonly CUSTOMER_ROLE = 'CUSTOMER';
   private readonly AUTHOR_ROLE = 'AUTHOR';
   private readonly CUSTOMER_ROUTE = '/customer';
-  private readonly AUTHOR_ROUTE = 'author/recursos/list';
+  private readonly AUTHOR_ROUTE = 'autor/recursos/list';
   private readonly DEFAULT_ROUTE = '/home';
 
   constructor(){
@@ -42,14 +44,15 @@ export class LoginComponent {
   controlHasError(control: string, error: string){
     return this.loginForm.controls[control].hasError(error);
   }
-
-  onSubmit(){
-    if(this.loginForm.invalid){
+  isLoading = false;
+  onSubmit() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched(); // Marca todos los campos como "tocados" para que se muestren los errores
       return;
-    };
-
+    }
+  
     const credentials: AuthRequest = this.loginForm.value;
-
+  
     this.authService.login(credentials).subscribe({
       next: () => {
         this.showSnackBar('Inicio de sesión exitoso');
@@ -59,8 +62,8 @@ export class LoginComponent {
         this.showSnackBar('Error en el inicio de sesión. Por favor, intenta de nuevo.');
       },
     });
-
   }
+  
   private redirectUserBasedOnRole(): void {
     const userRole = this.authService.getUserRole();
 

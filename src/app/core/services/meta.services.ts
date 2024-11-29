@@ -20,26 +20,13 @@ export class MetaService {
   actualizarMeta(metaId: number, metaDTO: MetaDTO): Observable<MetaResponseDTO> {
     return this.http.put<MetaResponseDTO>(`${this.apiUrl}/actualizar/${metaId}`, metaDTO);
   }
-  
   eliminarMeta(metaId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/eliminar/${metaId}`);
   }
   obtenerMetasPorHabito(habitoId: number): Observable<MetaResponseDTO[]> {
     return this.http.get<MetaResponseDTO[]>(`${this.apiUrl}/habito/${habitoId}`);
   }
-  getMetaById(metaId: string): Observable<MetaResponseDTO> {
-    return this.http.get<MetaResponseDTO>(`${this.apiUrl}/${metaId}`);
+  getMetaById(metaId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${metaId}`);
   }
-  
-  getMetasDetailsById(id: number):Observable<MetaResponseDTO> {
-    return this.http.get<MetaResponseDTO>(`${this.apiUrl}/${id}`);
-   }
-   obtenerHabitosPorCustomer(customerId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/customer/${customerId}`);
-  }
-  obtenerMetasPorCustomer(customerId: number): Observable<MetaResponseDTO[]> {
-    return this.http.get<MetaResponseDTO[]>(`${this.apiUrl}/customer/${customerId}`);
-  }
-  
-  
 }

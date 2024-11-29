@@ -7,17 +7,11 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    // Mejora el rendimiento agrupando eventos en el `Zone`
-    provideZoneChangeDetection({ eventCoalescing: true }),
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }),
+     provideRouter(routes),
+      provideAnimationsAsync(),
+    
+    provideHttpClient(withInterceptors([jwtInterceptor]))]
 
-    // Configuración de rutas
-    provideRouter(routes),
-
-    // Animaciones asíncronas (si Angular es compatible)
-    provideAnimationsAsync(),
-
-    // Cliente HTTP con interceptor JWT
-    provideHttpClient(withInterceptors([jwtInterceptor]))
-  ]
+    
 };

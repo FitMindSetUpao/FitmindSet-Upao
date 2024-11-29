@@ -1,4 +1,5 @@
-export interface tiposSuscripcion {
+export interface TiposSuscripcion {
   id: number;
   nombre: string;
 }
+

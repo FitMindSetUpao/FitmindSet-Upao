@@ -5,12 +5,12 @@ import { AuthResponse } from '../../shared/models/auth-response.model';
   providedIn: 'root'
 })
 export class StorageService {
-
+  
   private authDataKey = 'authData';
   private userNameKey = 'nombre'; // Clave para almacenar el nombre
 
   setAuthData(authData: AuthResponse): void {
-    localStorage.setItem('authData', JSON.stringify(authData));
+    localStorage.setItem(this.authDataKey, JSON.stringify(authData));
   }
 
   getAuthData(): AuthResponse | null {
