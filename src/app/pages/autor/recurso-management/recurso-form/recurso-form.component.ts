@@ -155,7 +155,7 @@ export class RecursoFormComponent implements OnInit {
 
     const formData: Recurso = {
       ...this.form.value,
-      authorId: this.authService.getUser()?.autorId,
+      authorId: this.authService.getUser()?.autorId
     };
 
     const request: Observable<RecursoResponse> = this.recursoid
@@ -167,7 +167,7 @@ export class RecursoFormComponent implements OnInit {
         this.snackBar.open('Recurso guardado exitosamente', 'Cerrar', {
           duration: 3000,
         });
-        this.router.navigate(['/author/recursos/list']);
+        this.router.navigate(['/autor/recursos/list']);
       },
       error: (error) => {
         this.errors = error.error.errors || ['Error al guardar el Recurso'];
