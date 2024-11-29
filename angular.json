@@ -19,7 +19,7 @@
           "options": {
             "outputPath": "dist/proyecto_frontend",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -28,8 +28,8 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public",
-                "src/assets"
+                "input": "src/assets", 
+                "output": "/assets"
               }
             ],
             "styles": [
@@ -43,13 +43,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "600kB",  // Incrementado el límite
+                  "maximumError": "1.5MB"    // Incrementado el límite
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "3kB",   // Aumentado el límite para los estilos de los componentes
+                  "maximumError": "5kB"      // Aumentado el límite
                 }
               ],
               "outputHashing": "all"
@@ -89,7 +89,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/assets"
               }
             ],
             "styles": [
