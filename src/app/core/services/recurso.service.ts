@@ -21,18 +21,15 @@ export class RecursoService{
     return this.http.get<PageableResponse<RecursoResponse>>(`${this.baseUrl}/page`,
       { params });
   }
-  createRecursos(recurso: FormData): Observable<RecursoResponse> {
+  createRecursos(recurso: Recurso): Observable<RecursoResponse>{
     return this.http.post<RecursoResponse>(`${this.baseUrl}/registrar`, recurso);
   }
-
-  updateRecurso(id: number, recurso: FormData): Observable<RecursoResponse> {
+  updateRecurso(id:number, recurso: Recurso): Observable<RecursoResponse>{
     return this.http.put<RecursoResponse>(`${this.baseUrl}/actualizar/${id}`, recurso);
   }
-
   getRecursoDetailsById(id: number): Observable<RecursoResponse> {
     return this.http.get<RecursoResponse>(`${this.baseUrl}/${id}`);
   }
-
   deleteRecurso(id: number): Observable<void> {
     const url = `${this.baseUrl}/eliminar/${id}`;
     return this.http.delete<void>(url);
