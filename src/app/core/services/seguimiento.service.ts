@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { SeguimientoDTO } from '../../shared/models/reporte.model';
+import { SeguimientoDTO } from '../../shared/models/seguimiento.model';
 import { ReporteDTO } from '../../shared/models/reporte.model';
+import { SeguimientoResponse } from '../../shared/models/seguimiento-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,19 +19,15 @@ export class SeguimientoService {
   registrarSeguimiento(seguimientoDTO: SeguimientoDTO, metaId: number): Observable<SeguimientoDTO> {
     return this.http.post<SeguimientoDTO>(`${this.apiUrl}/registrar/${metaId}`, seguimientoDTO);
 }
-
-
-  // Actualizar un seguimiento
-  actualizarSeguimiento(id: number, seguimientoDTO: SeguimientoDTO): Observable<SeguimientoDTO> {
-    return this.http.put<SeguimientoDTO>(`${this.apiUrl}/actualizar/${id}`, seguimientoDTO, this.getHeaders());
+  
+  actualizarSeguimientoPorMetaId(metaId: number, seguimientoDTO: SeguimientoDTO) {
+    return this.http.put<SeguimientoResponse>(`${this.apiUrl}meta/${metaId}`, seguimientoDTO);
   }
 
-  // Eliminar un seguimiento
+
   eliminarSeguimiento(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/eliminar/${id}`, this.getHeaders());
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-
-  // Generar un reporte estadístico por meta
   generarReporteEstadistico(metaId: number): Observable<ReporteDTO> {
     return this.http.get<ReporteDTO>(`${this.apiUrl}/reporte/${metaId}`, this.getHeaders());
   }
@@ -39,12 +36,25 @@ export class SeguimientoService {
   generarReportePorHabito(habitoId: number): Observable<ReporteDTO> {
     return this.http.get<ReporteDTO>(`${this.apiUrl}/habito/${habitoId}`, this.getHeaders());
   }
-  obtenerSeguimientosPorCustomer(customerId: number): Observable<SeguimientoDTO[]> {
-    return this.http.get<SeguimientoDTO[]>(`${this.apiUrl}/seguimientos/${customerId}`, this.getHeaders());
+  obtenerSeguimientosPorCustomer(seguimientoId: number): Observable<SeguimientoDTO[]> {
+    return this.http.get<SeguimientoDTO[]>(`${this.apiUrl}/${seguimientoId}`);
+  }
+  generarReporte(metaId: number): Observable<SeguimientoDTO[]> {
+    return this.http.get<SeguimientoDTO[]>(`${this.apiUrl}/reportes/${metaId}`, this.getHeaders());
+  }
+  getSegumientosDetailsById(seguimientoId: number):Observable<SeguimientoDTO> {
+    return this.http.get<SeguimientoDTO>(`${this.apiUrl}/${seguimientoId}`);
+   }
+   getAllSeguimientos(): Observable<SeguimientoDTO[]> {
+    return this.http.get<SeguimientoDTO[]>(`${this.apiUrl}/seguimientos`);
+  }
+  getSeguimientosByMetaId(metaId: number): Observable<SeguimientoDTO[]> {
+    return this.http.get<SeguimientoDTO[]>(`${this.apiUrl}/seguimientosByMeta/${metaId}`);
   }
   
   
-
+  
+  
   // Método para obtener los headers con el token de autenticación (si es necesario)
   private getHeaders(): { headers: HttpHeaders } {
     const token = localStorage.getItem('auth_token'); // Obtener el token de autenticación de localStorage o sesión
