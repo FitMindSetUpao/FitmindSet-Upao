@@ -75,7 +75,7 @@ export const customerRoutes: Routes = [
     },
     {
       path: 'prefe', component: PreferenciasComponent
-    }
+    },
   {
     path: 'customer/pagos-suscripciones', component: PaymentComponent
   },
