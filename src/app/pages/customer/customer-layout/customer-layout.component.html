@@ -33,7 +33,7 @@
         <li>
           <a routerLink="habitos/list" routerLinkActive="active">
             <mat-icon>fitness_center</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Mis Hábitos</span>
+            <span class="nav-label" *ngIf="!isSidebarActive">Mis Habitos</span>
           </a>
         </li>
         <li>
@@ -62,9 +62,10 @@
         </li>
       </ul>
     </nav>
+    
   </div>
-
-  <div class="layout-content">
+  
+   <div class="layout-content">
     <h1 class="titulo-usuario">Bienvenido, {{ nombreUsuario }}!</h1> 
     <div class="card-container">
       <mat-grid-list cols="2" rowHeight="200px" gutterSize="16px">
@@ -86,16 +87,16 @@
             </mat-card-actions>
           </mat-card>
         </mat-grid-tile>
-
+        
         <!-- Card Metas de Salud -->
         <mat-grid-tile>
           <mat-card class="dashboard-card">
             <div class="custom-card-header">
               <mat-icon class="header-icon">fitness_center</mat-icon>
-              <span class="header-title">Mis Hábitos</span>
+              <span class="header-title">Mis Habitos</span>
             </div>
             <mat-card-content>
-              <p class="descripcion">Establece y sigue tus metas de salud y bienestar en base a tus hábitos creados.</p>
+              <p class="descripcion">Establece y sigue tus metas de salud y bienestar en base a tus habitos creados.</p>
             </mat-card-content>
             <mat-card-actions>
               <div fxLayout="row" fxLayoutAlign="start center">
@@ -106,7 +107,6 @@
             </mat-card-actions>
           </mat-card>
         </mat-grid-tile>
-
         <mat-grid-tile>
           <mat-card class="dashboard-card">
             <div class="custom-card-header">
@@ -114,7 +114,7 @@
               <span class="header-title">Registra tu peso y altura</span>
             </div>
             <mat-card-content>
-              <p class="descripcion">Mantén un seguimiento de tu bienestar físico registrando tu peso y altura de manera regular.</p>
+              <p class="descripcion">Mantén un seguimiento de tu bienestar físico registrando tu peso y altura de manera regular. </p>
             </mat-card-content>
             <mat-card-actions>
               <div fxLayout="row" fxLayoutAlign="start center">
@@ -122,10 +122,11 @@
                   Ver más detalles
                 </button>
               </div>
+              
             </mat-card-actions>
           </mat-card>
         </mat-grid-tile>
-
+    
         <!-- Card Notificaciones -->
         <mat-grid-tile>
           <mat-card class="dashboard-card">
@@ -145,7 +146,7 @@
             </mat-card-actions>
           </mat-card>
         </mat-grid-tile>
-
+    
         <!-- Card Reportes -->
         <mat-grid-tile>
           <mat-card class="dashboard-card">
@@ -165,13 +166,13 @@
             </mat-card-actions>
           </mat-card>
         </mat-grid-tile>
-
+    
         <!-- Card Pagos y Suscripciones -->
         <mat-grid-tile>
           <mat-card class="dashboard-card">
             <div class="custom-card-header">
               <mat-icon class="header-icon">credit_card</mat-icon>
-              <span class="header-title">Pagos y Suscripciones</span>
+              <span class="header-title">Pagos y suscripciones</span>
             </div>
             <mat-card-content>
               <p class="descripcion">Administra tus pagos y suscripciones a recursos premium.</p>
@@ -182,13 +183,14 @@
                   Ver más detalles
                 </button>
               </div>
+              
             </mat-card-actions>
           </mat-card>
         </mat-grid-tile>
       </mat-grid-list>
     </div>
+    
   </div>
-
   <div class="sidebar-right">
     <h2>Recursos Suscritos</h2>
     <div *ngIf="recursosSuscritos && recursosSuscritos.length > 0; else noRecursos">
@@ -219,7 +221,13 @@
       </mat-card>
     </div>
     <ng-template #noPagos>
-      <p>No se han registrado pagos aún.</p>
+      <p>No tienes pagos registrados aún.</p>
     </ng-template>
+    <br>
+    <div class="forum-actions">
+      <button mat-button color="primary" [routerLink]="['foro']" class="btn-details">
+        Foros de la Comunidad
+      </button></div>
   </div>
 </div>
+<app-footer></app-footer>

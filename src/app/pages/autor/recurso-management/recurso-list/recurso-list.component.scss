@@ -6,7 +6,7 @@ h2 {
     font-weight: 600;
     text-transform: uppercase;
   }
-  
+
   .table-controls {
     display: flex;
     justify-content: space-between;
@@ -14,41 +14,48 @@ h2 {
     margin-bottom: 20px;
     flex-wrap: wrap;
     gap: 10px;
-  
+
     .filter-input {
       width: 100%;
       max-width: 250px;
       margin-left: 20px;
-  
+
       mat-form-field {
         width: 100%;
       }
     }
   }
-  
+
   .mat-table {
     width: 100%;
     margin: auto;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); // Sombra ligera para darle profundidad
     border-radius: 8px;
     overflow: hidden;
-  
+
     .mat-header-cell, .mat-cell {
       text-align: left;
       padding: 12px 16px;
     }
-  
+
     .mat-header-cell {
       font-weight: 700;
       color: #555;
       background-color: #f5f5f5;
     }
-  
+
     .mat-row:nth-child(even) {
       background-color: #fafafa; // Alternancia de colores para filas pares
     }
+    .book-cover-img {
+      width: 100px; /* Ajusta según tus necesidades */
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
   }
-  
+
   .mat-paginator {
     margin-top: 20px;
     display: flex;
@@ -58,7 +65,7 @@ h2 {
     border-radius: 8px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   }
-  
+
   .button-group {
     display: flex;
     gap: 8px;
@@ -86,43 +93,43 @@ h2 {
       }
     }
   }
-  
+
   // Ajustes de adaptabilidad para pantallas pequeñas y móviles
   @media (max-width: 768px) {
     .table-controls {
       flex-direction: column;
       align-items: stretch;
       gap: 10px;
-  
+
       .filter-input {
         max-width: 100%;
         margin-left: 0;
       }
     }
-  
+
     .button-group {
       flex-direction: column;
       gap: 8px;
     }
-  
+
     .mat-header-cell, .mat-cell {
       padding: 8px;
       font-size: 0.9rem;
     }
   }
-  
+
   @media (max-width: 480px) {
     h2 {
       font-size: 1.4rem;
     }
-  
+
     .mat-table {
       .mat-header-cell, .mat-cell {
         padding: 6px;
         font-size: 0.85rem;
       }
     }
-  
+
     .mat-paginator {
       flex-direction: column;
       gap: 10px;
@@ -135,4 +142,3 @@ h2 {
     background:#388e3c ;
     color: #fff;
   }
-  

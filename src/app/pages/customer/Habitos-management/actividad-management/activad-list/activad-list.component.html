@@ -1,72 +1,16 @@
-<div class="activity-container">
-  <h2>Registros de Actividad</h2>
-
-  <!-- Campo de búsqueda para seleccionar hábito -->
-  <mat-form-field appearance="outline" class="search-habito">
-    <mat-label>Seleccionar Hábito</mat-label>
-    <mat-select [(ngModel)]="selectedHabitoId" (selectionChange)="onHabitoSelected()">
-      <mat-option *ngFor="let habito of habitos" [value]="habito.id">{{ habito.nombreHabito }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!-- Mostrar metas asociadas al hábito seleccionado -->
-  <div *ngIf="selectedHabitoId && metas.length > 0" class="metas-container">
-    <h3>Metas del Hábito Seleccionado</h3>
-    <div class="meta-cards">
-      <mat-card *ngFor="let meta of metas" class="meta-card">
-        <mat-card-header>
-          <mat-card-title>Meta: {{ meta.descripcion }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-actions>
-          <button mat-raised-button class="button-right" color="primary" (click)="verDetalles(meta.id)">Ver Detalles</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  </div>
-
-  <div *ngIf="selectedHabitoId && metas.length === 0" class="no-metas">
-    <p>No se encontraron metas para el hábito seleccionado.</p>
-  </div>
-
-  <!-- Contenedor de tarjetas para registros de actividad -->
-  <div *ngIf="selectedHabitoId && seguimientos.length > 0" class="seguimiento-container">
-    <h3>Registros de Actividad</h3>
-    <div class="seguimiento-cards">
-      <mat-card *ngFor="let seguimiento of seguimientos" class="seguimiento-card">
-        <mat-card-header>
-          <mat-card-title>Meta: {{ seguimiento.metaId }}</mat-card-title>
-          <mat-card-subtitle>Estado: {{ seguimiento.estado }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Fecha: {{ seguimiento.fecha }}</p>
-          <p>Porcentaje Cumplido: {{ seguimiento.porcentajeCumplido }}%</p>
-          <p>Tiempo Invertido: {{ seguimiento.tiempoInvertido }} minutos</p>
-          <p>Observaciones: {{ seguimiento.observaciones }}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary" (click)="editarSeguimiento(seguimiento)">Actualizar</button>
-          <button mat-raised-button color="warn" (click)="eliminarSeguimiento(seguimiento.id)">Eliminar</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  </div>
-
-  <div *ngIf="selectedHabitoId && seguimientos?.length === 0" class="no-seguimientos">
-    <p>No se encontraron registros de actividad.</p>
-  </div>
-  
-  <!-- Mostrar metas de todos los hábitos -->
-  <div *ngIf="habitos.length > 0">
+@if(habitos.length > 0) {
     <h2>¿Qué Metas tengo?</h2>
     <div class="table-controls">
       <mat-form-field class="filter-input" appearance="outline">
         <mat-label>Buscar por Nombre</mat-label>
         <input matInput [(ngModel)]="filterText" (input)="applyFilter()" />
+
+
       </mat-form-field>
     </div>
-
     <mat-table [dataSource]="filteredHabitos" class="mat-table">
-      <!-- Columna de Hábitos -->
+      
+      <!-- Columna de Habitos -->
       <ng-container matColumnDef="nombre">
         <mat-header-cell *matHeaderCellDef> Hábitos </mat-header-cell>
         <mat-cell *matCellDef="let habito"> {{ habito.nombreHabito }} </mat-cell>
@@ -100,17 +44,14 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-
-    <mat-paginator
-      [length]="totalElements"
-      [pageSize]="pageSize"
-      [pageIndex]="pageIndex"
-      [pageSizeOptions]="[5, 10, 20]"
-      (page)="onPageChange($event)"
-    ></mat-paginator>
-  </div>
   
-  <div *ngIf="habitos.length === 0">
-    <p>Cargando citas...</p>
-  </div>
-</div>
+    <mat-paginator
+    [length]="totalElements"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+} @else {
+  <p>Cargando citas</p>
+}

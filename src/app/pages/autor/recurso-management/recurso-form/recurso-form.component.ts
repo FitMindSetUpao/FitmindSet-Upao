@@ -21,9 +21,8 @@ import { tipoDeRecursoResponse } from '../../../../shared/models/tipoDeRecurso.m
 import { RecursoResponse } from '../../../../shared/models/recurso-response.model';
 import { Recurso } from '../../../../shared/models/recurso.model';
 import { TipoDeHabito } from '../../../../shared/models/tipo-de-habito.model';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'; 
 import { planService } from '../../../../core/services/planes.service';
-import { TiposSuscripcion } from '../../../../shared/models/tiposSuscripcion.model';
 
 @Component({
   selector: 'app-recurso-form',
@@ -38,7 +37,7 @@ import { TiposSuscripcion } from '../../../../shared/models/tiposSuscripcion.mod
     CommonModule,
   ],
   templateUrl: './recurso-form.component.html',
-  styleUrls: ['./recurso-form.component.scss'],
+  styleUrl: './recurso-form.component.scss'
 })
 export class RecursoFormComponent implements OnInit {
   private recursoService = inject(RecursoService);
@@ -55,16 +54,13 @@ export class RecursoFormComponent implements OnInit {
 
   tiporecursos: tipoDeRecursoResponse[] = [];
   tipoDeHabitos: TipoDeHabito[] = [];
-  tiposSuscripcion: string[] = []; // Added to hold subscription types
+  tiposSuscripcion: string[] = []; 
 
   recursoid?: number;
   errors: string[] = [];
 
   form: FormGroup = this.fb.group({
-    nombre: [
-      '',
-      [Validators.required, Validators.minLength(6), Validators.maxLength(250)],
-    ],
+    nombre: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(250)]],
     descripcion: ['', [Validators.required]],
     precio: [0, [Validators.required, Validators.min(0)]],
     coverPath: ['', [Validators.required]], // Asegúrate de que esta validación se aplica correctamente
@@ -76,90 +72,83 @@ export class RecursoFormComponent implements OnInit {
     estado: ['', Validators.required],
     descripcionExtendida: [''],
     plan_id: [null, Validators.required],
-    etiquetas: [''],
+    etiquetas: ['']
   });
-
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.recursoid = Number(this.route.snapshot.paramMap.get('id'));
     this.loadtipoDeHabito();
     this.loadTipoDeRecurso();
     this.loadTiposSuscripcion();
   }
-
   private loadtipoDeHabito(): void {
     this.tipoDeHabitoService.getAllTiposDeHabitos().subscribe({
       next: (tipoDeHabitos) => {
-        this.tipoDeHabitos = tipoDeHabitos.map((habito) => ({
-          ...habito,
-          id: habito.id,
-        }));
+        this.tipoDeHabitos = tipoDeHabitos;
         if (this.recursoid) this.loadRecursosForActualizar();
       },
       error: () => this.errors.push('Error al cargar los tipos de hábitos.'),
     });
   }
-
   private loadTipoDeRecurso(): void {
-    this.tipoDeHabitoService.getAllTiposDeRecurso().subscribe({
+    this.tipoDeHabitoService.getAllTiposDeHabitos().subscribe({
       next: (tiposDeRecurso) => {
         this.tiporecursos = tiposDeRecurso;
         if (this.recursoid) this.loadRecursosForActualizar();
       },
-      error: () => this.errors.push('Error al cargar los tipos de recursos.'),
+      error: () => this.errors.push('Error al cargar los tipos de recursos.')
     });
   }
-
   loadTiposSuscripcion() {
     this.tipoDeHabitoService.getAllTiposSuscripcion().subscribe(
-      (data: TiposSuscripcion[]) => {
-        // Extraemos solo los nombres para usar en el formulario
-        this.tiposSuscripcion = data.map((tipo) => tipo.nombre);
+      (data) => {
+        this.tiposSuscripcion = data;
       },
       (error) => {
         console.error('Error loading tipos de suscripción:', error);
       }
     );
   }
-
   private loadRecursosForActualizar(): void {
     this.recursoService.getRecursoDetailsById(this.recursoid!).subscribe({
       next: (recurso: RecursoResponse) => {
         const tipoDeHabito = this.tipoDeHabitos.find(
-          (habito) => habito.nombre === recurso.tipoDeHabito
+          (habito) => habito.nombre === recurso.tipoDeHabito 
         );
         this.form.patchValue({
           ...recurso,
           tiporecurso: recurso.recursoid,
-          tipoDeHabitosId: tipoDeHabito ? tipoDeHabito.id : null,
+          tipoDeHabitosId: tipoDeHabito ? tipoDeHabito.id : null, 
         });
       },
       error: () => this.errors.push('Error al cargar los detalles del Recurso.'),
     });
   }
+  
 
   uploadFile(event: Event, control: string): void {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (!file) {
-      this.showSnackBar('No se seleccionó ningún archivo.');
-      return;
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file); // Solo se agrega el archivo, sin recursoId
+  
+      this.mediaService.upload(formData).subscribe({
+        next: (response) => {
+          if (response && response.path) {
+            this.form.controls[control].setValue(response.path); // Asignamos el path recibido al control
+          } else {
+            this.errors.push('Respuesta inesperada del servidor.');
+          }
+        },
+        error: (err) => {
+          console.error('Error de carga de archivo:', err);
+          this.errors.push('Error al cargar el archivo. Verifica los detalles en la consola.');
+        },
+      });
+    } else {
+      this.errors.push('No se seleccionó ningún archivo.');
     }
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    this.mediaService.upload(formData).subscribe({
-      next: (response) => {
-        this.form.controls[control].setValue(response.path);
-        this.showSnackBar('Archivo cargado exitosamente.');
-      },
-      error: () => this.showSnackBar('Error al cargar el archivo.'),
-    });
   }
-
-  private showSnackBar(message: string, action: string = 'Cerrar') {
-    this.snackBar.open(message, action, { duration: 3000 });
-  }
-
+  
   save(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -168,7 +157,7 @@ export class RecursoFormComponent implements OnInit {
 
     const formData: Recurso = {
       ...this.form.value,
-      authorId: this.authService.getUser()?.autorId,
+      authorId: this.authService.getUser()?.autorId
     };
 
     const request: Observable<RecursoResponse> = this.recursoid
@@ -180,7 +169,7 @@ export class RecursoFormComponent implements OnInit {
         this.snackBar.open('Recurso guardado exitosamente', 'Cerrar', {
           duration: 3000,
         });
-        this.router.navigate(['/author/recursos/list']);
+        this.router.navigate(['/autor/recursos/list']);
       },
       error: (error) => {
         this.errors = error.error.errors || ['Error al guardar el Recurso'];

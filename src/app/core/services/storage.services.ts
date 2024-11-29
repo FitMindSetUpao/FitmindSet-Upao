@@ -6,7 +6,7 @@ import { AuthResponse } from '../../shared/models/auth-response.model';
 })
 export class StorageService {
   
-  private authDataKey = 'fitmindset_auth';
+  private authDataKey = 'authData';
   private userNameKey = 'nombre'; // Clave para almacenar el nombre
 
   setAuthData(authData: AuthResponse): void {
@@ -14,8 +14,8 @@ export class StorageService {
   }
 
   getAuthData(): AuthResponse | null {
-    const data = localStorage.getItem(this.authDataKey);
-    return data ? (JSON.parse(data) as AuthResponse) : null;
+    const authData = localStorage.getItem(this.authDataKey);
+    return authData ? JSON.parse(authData) : null;
   }
 
   clearAuthData(): void {

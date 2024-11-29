@@ -1,15 +1,26 @@
 import { Routes } from '@angular/router';
-import { PhysicalComponent } from './Pages/physical/physical.component';
-import { passwordRecoveryRoutes} from './Pages/password-recovery-request/password-recovery-request.routes';
-import { passwordRecoveryConfirmationRoutes } from './Pages/password-recovery-confirmation/password-recovery-confirmation.routes';
-import { passwordResetRoutes} from './Pages/password-reset/password-reset.routes';
-import { registerResourceRoutes} from './Pages/register-resource/register-resource.routes';
+import { authGuard } from './core/guards/auth.guard';
+import { authInverseGuard } from './core/guards/auth-inverse.guard';
+
+
+
 
 export const routes: Routes = [
-  { path: 'reg', component: PhysicalComponent},
-  ...passwordRecoveryConfirmationRoutes,
-  ...passwordRecoveryRoutes,
-  ...passwordResetRoutes,
-  ...registerResourceRoutes,
-  { path: '**', redirectTo: '/reg' },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  { 
+    path: 'auth', 
+    loadChildren: () => import('./pages/auth/auth.routes').then(a => a.authRoutes), 
+    canActivate: [authInverseGuard], 
+  },
+  { 
+    path: 'customer', 
+    loadChildren: () => import('./pages/customer/customer.routes').then(a => a.customerRoutes), 
+    canActivate: [authGuard] 
+  },
+  {
+    path: 'autor',
+    loadChildren:() =>import('./pages/autor/autor.routes').then(m => m.autorRoutes),
+    canActivate:[authGuard]
+  }
+
 ];

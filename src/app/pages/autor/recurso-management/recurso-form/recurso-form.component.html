@@ -66,26 +66,19 @@
         <mat-form-field class="form-field w-100" appearance="outline">
           <mat-label>Plan de Suscripción</mat-label>
           <mat-select formControlName="plan_id">
-            <mat-option *ngFor="let plan of tiposSuscripcion" [value]="plan">
-              {{ plan }}
+            <mat-option *ngFor="let plan of planes" [value]="plan.id">
+              {{ plan.nombre }}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="form.get('plan_id')?.hasError('required')">El plan es obligatorio</mat-error>
         </mat-form-field>
-        
-        
 
         <!-- Carga de archivo de portada -->
         <div class="file-upload w-100">
           <label>Portada</label>
-          <input
-            type="file"
-            class="form-control"
-            accept=".png,.jpg,.jpeg"
-            (change)="uploadFile($event, 'coverPath')"
-          />
+          <input type="file" class="form-control" accept=".png,.jpg,.jpeg" (change)="uploadFile($event, 'coverPath')" />
           <div class="small text-muted">
-            Ruta actual: {{ form.get("coverPath")!.value }}
+            Ruta actual: {{ form.get('coverPath')?.value }}
           </div>
         </div>
 
@@ -101,28 +94,18 @@
         <!-- Botones de acción -->
         <div class="action-buttons text-end">
           <button mat-button type="button" routerLink="/autor/recursos/list">Cancelar</button>
-          <button mat-raised-button color="primary" class="ms-2" [disabled]="form.valid">
+          <button mat-raised-button color="primary" class="ms-2" [disabled]="form.invalid">
             {{ recursoid ? 'Actualizar' : 'Crear' }} recurso
           </button>
         </div>
       </form>
     </div>
-    <!-- Mostrar el estado del formulario para depuración -->
-
-
 
     <!-- Vista previa de la portada -->
     <div class="col-md-4 text-center preview">
-      @if(form.get('coverPath')?.value) {
       <h3>Portada</h3>
-      <img
-        [src]="form.get('coverPath')?.value | apiImg"
-        alt="Portada"
-        class="img-thumbnail"
-      />
-      } @else {
-      <p>Sin portada</p>
-      }
+      <img *ngIf="form.get('coverPath')?.value" [src]="form.get('coverPath')?.value | apiImg" alt="Portada" class="img-thumbnail" />
+      <p *ngIf="!form.get('coverPath')?.value">Sin portada</p>
     </div>
   </div>
 </div>
