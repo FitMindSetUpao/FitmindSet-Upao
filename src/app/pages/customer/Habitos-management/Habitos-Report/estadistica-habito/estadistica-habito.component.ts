@@ -12,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReporteDTO } from '../../../../../shared/models/reporte.model';
+import { TooltipItem } from 'chart.js';
+
 
 @Component({
   selector: 'app-estadistica-habito',
