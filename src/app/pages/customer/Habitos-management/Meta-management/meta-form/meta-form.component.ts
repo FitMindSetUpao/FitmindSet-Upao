@@ -66,6 +66,7 @@ export class MetaFormComponent implements OnInit {
     this.metaService.getMetaById(this.metaId.toString()).subscribe(
       (meta) => {
         console.log('Meta cargada:', meta);  // Verifica que los datos de la meta estén llegando correctamente
+
         if (meta) {
           this.form.patchValue({
             descripcion: meta.descripcion,

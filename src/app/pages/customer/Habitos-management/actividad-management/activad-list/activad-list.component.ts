@@ -59,7 +59,6 @@ export class ActivadListComponent implements OnInit {
       (data: any) => {
         this.habitos = data;
         this.applyFilter();  // Aplica el filtro después de cargar los datos
-
         this.totalElements = this.habitos.length;
       },
       (error) => {
@@ -71,7 +70,6 @@ export class ActivadListComponent implements OnInit {
   applyFilter(): void {
     if (this.filterText) {
       this.filteredHabitos = this.habitos.filter((habito) =>
-
         habito.nombreHabito.toLowerCase().includes(this.filterText.toLowerCase())
       );
     } else {

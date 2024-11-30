@@ -96,7 +96,7 @@ export class RecursoListComponent implements OnInit {
     this.loadtipoDeHabito();
     this.loadTipoDeRecurso();
     this.loadTiposSuscripcion();
-    }
+  }
 
   loadRecursos(pageIndex: number = 0, pageSize: number = 5): void {
     this.recursoService.paginateRecursos(pageIndex, pageSize).subscribe({
@@ -137,6 +137,7 @@ export class RecursoListComponent implements OnInit {
   private showSnackBar(message: string): void {
     this.snackBar.open(message, 'Cerrar', {
       duration: 3000,
+
     });
   }
 }

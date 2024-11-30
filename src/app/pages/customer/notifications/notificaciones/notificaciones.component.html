@@ -1,0 +1,28 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <h2>Mis Notificaciones</h2>
+
+  <!-- Lista de notificaciones -->
+  <div class="notification-list" *ngIf="notifications.length > 0; else noNotifications">
+    <div class="item" *ngFor="let notification of notifications; let i = index">
+      <div class="notification-content">
+        <p>{{ notification.message }}</p>
+        <small>Recibido el {{ notification.time | date:'short' }}</small>
+      </div>
+      <!-- Botón check verde -->
+      <button mat-icon-button color="primary" (click)="confirmNotification(i)">
+        <mat-icon>check_circle</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mensaje si no hay notificaciones -->
+  <ng-template #noNotifications>
+    <p>No tienes notificaciones activas. Configúralas para recibir recordatorios diarios.</p>
+  </ng-template>
+
+  <button (click)="goToPreferences()">Ir a la Configuración</button>
+</div>
+
+<app-footer></app-footer>

@@ -25,20 +25,39 @@ import { ModalPesoAlturaComponent } from '../modal-peso-altura/modal-peso-altura
 })
 export class CustomerLayoutComponent implements OnInit {
   private authService = inject(AuthService);
-  
+
   isAuthenticated: boolean = false;
   isSidebarActive = false;
   nombreUsuario: string | null = ''; 
   recursosSuscritos: any[] = [];
   reportePagos: any[] = [];
-  foroComunidad: any[] = [];
+  totalNotificaciones: number = 0; // Nueva propiedad
 
   constructor(private router: Router, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.isAuthenticated = this.authService.isAuthenticated();
     const user = this.authService.getUser();
-    this.nombreUsuario = user ? user.nombre : null; 
+    this.nombreUsuario = user ? user.nombre : null;
+
+    // Cargar las notificaciones desde localStorage o servicio
+    this.loadNotificaciones();
+  }
+
+  loadNotificaciones(): void {
+    const storedNotifications = localStorage.getItem(`notifications_${this.nombreUsuario}`);
+    const notifications = storedNotifications ? JSON.parse(storedNotifications) : [];
+    this.totalNotificaciones = notifications.length;
+  }
+
+  // Simular adición de una nueva notificación para prueba
+  addNotification(): void {
+    const newNotification = { message: 'Nueva notificación', time: new Date() };
+    const storedNotifications = localStorage.getItem(`notifications_${this.nombreUsuario}`);
+    const notifications = storedNotifications ? JSON.parse(storedNotifications) : [];
+    notifications.push(newNotification);
+    localStorage.setItem(`notifications_${this.nombreUsuario}`, JSON.stringify(notifications));
+    this.totalNotificaciones = notifications.length; // Actualizar el contador
   }
 
   toggleSidebar(): void {

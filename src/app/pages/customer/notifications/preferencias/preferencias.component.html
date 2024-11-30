@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+
+
+<div class="container">
+  <h2>Preferencias de Notificaciones</h2>
+
+
+  <div class="error-message" *ngIf="showValidationError">
+    Debes habilitar al menos una preferencia si las notificaciones están activadas.
+  </div>
+
+
+  <div class="toggle-section">
+    <label class="toggle-switch" for="desktop-notifications">
+      <input
+        id="desktop-notifications"
+        type="checkbox"
+        [(ngModel)]="desktopNotifications"
+        (change)="toggleDesktopNotifications()"
+      />
+      <span class="slider"></span>
+    </label>
+    <span class="toggle-label">Activar notificaciones en este navegador</span>
+    <p>Recibe notificaciones en tu ordenador para tus recordatorios personalizados.</p>
+  </div>
+
+
+  <div class="preferences-list">
+    <div
+      class="item"
+      *ngFor="let pref of preferences"
+      [class.disabled]="!desktopNotifications"
+    >
+      <label class="toggle-switch" [for]="pref.label">
+        <input
+          [id]="pref.label"
+          type="checkbox"
+          [(ngModel)]="pref.enabled"
+          [disabled]="!desktopNotifications"
+        />
+        <span class="slider"></span>
+      </label>
+      <span class="toggle-label">{{ pref.label }}</span>
+      <p>{{ pref.description }}</p>
+    </div>
+  </div>
+
+
+  <button (click)="savePreferences()">Guardar Preferencias</button>
+</div>
+
+
+<app-footer></app-footer>

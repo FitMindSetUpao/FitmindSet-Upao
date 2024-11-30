@@ -32,5 +32,3 @@ export class RecursoService{
   getRecursoDetailsById(id: number): Observable<RecursoResponse> {
     return this.http.get<RecursoResponse>(`${this.baseUrl}/${id}`);
   }
-
-}

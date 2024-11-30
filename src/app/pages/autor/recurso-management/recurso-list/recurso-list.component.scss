@@ -19,7 +19,7 @@ h2 {
       width: 100%;
       max-width: 250px;
       margin-left: 20px;
-      
+
       mat-form-field {
         width: 100%;
       }
@@ -48,6 +48,7 @@ h2 {
       background-color: #fafafa; // Alternancia de colores para filas pares
     }
   }
+
   .mat-paginator {
     margin-top: 20px;
     display: flex;

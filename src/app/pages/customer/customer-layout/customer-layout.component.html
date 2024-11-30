@@ -25,7 +25,7 @@
             </a>
           </li>
           <li>
-            <a routerLink="/notificaciones" routerLinkActive="active">
+            <a [routerLink]="['noti']" routerLinkActive="active">
               <mat-icon>notifications</mat-icon>
               <span class="nav-label" *ngIf="!isSidebarActive">Notificaciones</span>
             </a>
@@ -123,46 +123,53 @@
                   Ver más detalles
                 </button>
               </div>
-              
-            </mat-card-actions>
-          </mat-card>
-        </mat-grid-tile>
-    
-        <!-- Card Notificaciones -->
-        <mat-grid-tile>
-          <mat-card class="dashboard-card">
-            <div class="custom-card-header">
-              <mat-icon class="header-icon">notifications</mat-icon>
-              <span class="header-title">Notificaciones</span>
-            </div>
-            <mat-card-content>
-              <p class="descripcion">Revisa las notificaciones recientes sobre tu progreso.</p>
-            </mat-card-content>
-            <mat-card-actions>
-              <div fxLayout="row" fxLayoutAlign="start center">
-                <button mat-button color="primary" [routerLink]="['/notificaciones/preferences']">
-                  Ver más detalles
-                </button>
+              <mat-card-content>
+                <p class="descripcion">Mantén un seguimiento de tu bienestar físico registrando tu peso y altura de manera regular. </p>
+              </mat-card-content>
+              <mat-card-actions>
+                <div fxLayout="row" fxLayoutAlign="start center">
+                  <button mat-button color="primary" (click)="modalPeso_Altura()">
+                    Ver más detalles
+                  </button>
+                </div>
+                
+              </mat-card-actions>
+            </mat-card>
+          </mat-grid-tile>
+      
+          <!-- Card Notificaciones -->
+          <mat-grid-tile>
+            <mat-card class="dashboard-card">
+              <div class="custom-card-header">
+                <mat-icon class="header-icon notification-icon">
+                  notifications
+                </mat-icon>
+                <span class="header-title">Notificaciones</span>
               </div>
-            </mat-card-actions>
-          </mat-card>
-        </mat-grid-tile>
-    
-        <!-- Card Reportes -->
-        <mat-grid-tile>
-          <mat-card class="dashboard-card">
-            <div class="custom-card-header">
-              <mat-icon class="header-icon">bar_chart</mat-icon>
-              <span class="header-title">Reportes</span>
-            </div>
-            <mat-card-content>
-              <p class="descripcion">Consulta tus reportes de salud y rendimiento.</p>
-            </mat-card-content>
-            <mat-card-actions>
-              <div fxLayout="row" fxLayoutAlign="start center">
-                <button mat-button color="primary" [routerLink]="['/seguimientos/reporte/{id}']">
-                  Ver más detalles
-                </button>
+              <mat-card-content>
+                <p class="descripcion">Revisa las notificaciones recientes sobre tu progreso.</p>
+              </mat-card-content>
+              <mat-card-actions>
+                <div fxLayout="row" fxLayoutAlign="start center" class="actions-container">
+                  <div class="button-container" style="position: relative;">
+                    <div class="notification-circle" *ngIf="totalNotificaciones > 0">
+                      {{ totalNotificaciones }}
+                    </div>
+                    <button mat-button color="primary" [routerLink]="['noti']">
+                      Ver más detalles
+                    </button>
+                  </div>
+                </div>
+              </mat-card-actions>
+            </mat-card>
+          </mat-grid-tile>
+      
+          <!-- Card Reportes -->
+          <mat-grid-tile>
+            <mat-card class="dashboard-card">
+              <div class="custom-card-header">
+                <mat-icon class="header-icon">bar_chart</mat-icon>
+                <span class="header-title">Reportes</span>
               </div>
             </mat-card-actions>
           </mat-card>

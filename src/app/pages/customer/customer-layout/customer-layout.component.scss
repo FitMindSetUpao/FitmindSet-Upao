@@ -17,6 +17,31 @@
   }
 }
 
+.notification-icon {
+  position: relative;
+  display: flex; /* Para alinear el ícono y el contador correctamente */
+  margin-right: 8px; /* Espaciado entre el ícono y el botón */
+}
+
+.notification-circle {
+  background-color: #f44336; /* Fondo rojo */
+  color: white; /* Texto blanco */
+  font-size: 14px; /* Tamaño del texto */
+  width: 24px; /* Ancho del círculo */
+  height: 24px; /* Alto del círculo */
+  border-radius: 50%; /* Forma circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra opcional */
+
+  /* Ajustes para posicionamiento */
+  position: absolute; /* Para ubicarlo relativo al contenedor */
+  top: -10px; /* Ajusta el círculo hacia arriba */
+  left: -10px; /* Ajusta el círculo hacia la izquierda */
+}
+
 .forum-actions {
   .btn-details {
     background-color: #4caf50; // Verde para el botón "Ver detalles"

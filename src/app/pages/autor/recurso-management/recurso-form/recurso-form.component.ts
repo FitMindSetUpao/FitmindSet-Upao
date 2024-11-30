@@ -88,6 +88,7 @@ export class RecursoFormComponent implements OnInit {
       },
       error: () => this.errors.push('Error al cargar los tipos de hábitos.'),
     });
+
   }
   private loadTipoDeRecurso(): void {
     this.tipoDeHabitoService.getAllTiposDeRecurso().subscribe({

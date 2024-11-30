@@ -13,6 +13,9 @@ import { ActividadFormComponent } from './Habitos-management/actividad-managemen
 import { ForoBusquedaComponent } from './Comunidad/foro-busqueda/foro-busqueda.component';
 import { ForoCrearComponent } from './Comunidad/foro-crear/foro-crear.component';
 import { ForoComentariosComponent } from './Comunidad/foro-comentarios/foro-comentarios.component';
+import { NotificacionesComponent } from './notifications/notificaciones/notificaciones.component';
+import { PreferenciasComponent } from './notifications/preferencias/preferencias.component';
+
 export const customerRoutes: Routes = [
   {
     path: '',
@@ -58,5 +61,11 @@ export const customerRoutes: Routes = [
     },
     {
       path: 'foro/foro-cr', component: ForoCrearComponent
+    },
+    {
+      path: 'noti', component: NotificacionesComponent
+    },
+    {
+      path: 'prefe', component: PreferenciasComponent
     }
 ];
