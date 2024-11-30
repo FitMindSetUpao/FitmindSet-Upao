@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 
+
 @Component({
   selector: 'app-activad-list',
   standalone: true,
@@ -47,6 +48,7 @@ export class ActivadListComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'metas', 'actions'];
 
   constructor(private habitoService: HabitoService, private metaService: MetaService) {}
+
 
   ngOnInit(): void {
     this.loadHabitos();
@@ -111,6 +113,5 @@ export class ActivadListComponent implements OnInit {
   // Método para ver el registro de actividad de una meta
   viewActivityRecord(metaId: number): void {
     console.log('Ver registro de actividad para la meta:', metaId);
-  
   }
 }

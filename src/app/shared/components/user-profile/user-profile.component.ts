@@ -43,6 +43,7 @@ export class UserProfileComponent implements OnInit {
       this.router.navigate(['/auth/login']);
     }
   }
+  
   navigateToUpdateProfile(): void {
     this.router.navigate(['/mi-perfil/actualizar']);
   }

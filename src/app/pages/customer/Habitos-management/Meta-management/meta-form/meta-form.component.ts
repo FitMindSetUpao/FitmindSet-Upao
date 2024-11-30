@@ -66,7 +66,7 @@ export class MetaFormComponent implements OnInit {
     this.metaService.getMetaById(this.metaId.toString()).subscribe(
       (meta) => {
         console.log('Meta cargada:', meta);  // Verifica que los datos de la meta estén llegando correctamente
-        
+
         if (meta) {
           this.form.patchValue({
             descripcion: meta.descripcion,
@@ -86,7 +86,7 @@ export class MetaFormComponent implements OnInit {
       }
     );
   }
-
+  
   guardarMeta(): void {
     console.log('Meta ID:', this.metaId);  // Verifica si el ID de la meta está presente
 
@@ -95,7 +95,7 @@ export class MetaFormComponent implements OnInit {
       console.log('Formulario inválido');
       return;
     }
-
+    
     const metaDTO: MetaDTO = {
       id: this.metaId,
       ...this.form.value,
@@ -122,6 +122,7 @@ export class MetaFormComponent implements OnInit {
       );
     } else {
       console.log("Creando nueva meta...");
+
       // Aquí no deberías pasar metaId al crear una nueva meta
       if (this.habitoId !== undefined) {
         this.metaService.crearMeta(this.habitoId, metaDTO).subscribe(
@@ -144,3 +145,4 @@ export class MetaFormComponent implements OnInit {
     this.router.navigate(['/customer/habitos/metas']);
   }
 }
+

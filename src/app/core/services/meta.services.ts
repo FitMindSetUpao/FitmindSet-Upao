@@ -39,4 +39,15 @@ export class MetaService {
   obtenerMetasPorCustomer(customerId: number): Observable<MetaResponseDTO[]> {
     return this.http.get<MetaResponseDTO[]>(`${this.apiUrl}/customer/${customerId}`);
   }
+  
+  getMetasDetailsById(id: number):Observable<MetaResponseDTO> {
+    return this.http.get<MetaResponseDTO>(`${this.apiUrl}/${id}`);
+   }
+   obtenerHabitosPorCustomer(customerId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/customer/${customerId}`);
+  }
+  obtenerMetasPorCustomer(customerId: number): Observable<MetaResponseDTO[]> {
+    return this.http.get<MetaResponseDTO[]>(`${this.apiUrl}/customer/${customerId}`);
+  }
+  
 }
