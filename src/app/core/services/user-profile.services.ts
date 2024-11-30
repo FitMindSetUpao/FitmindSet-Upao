@@ -24,10 +24,10 @@ export class UserProfileService {
     return this.http.delete<void>(`${this.baseURL}/me`);
   }
   logout(): void {
-    localStorage.removeItem('token'); 
-    sessionStorage.clear();         
+    localStorage.removeItem('token');
+    sessionStorage.clear();
     this.router.navigate(['/auth/login']);
 }
 
-  
+
 }

@@ -1,34 +1,43 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatInputModule } from '@angular/material/input';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-
-import { Recurso } from '../../../../shared/models/recurso.model';
-import { PageableResponse } from '../../../../shared/models/pageable.response.model';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 import { ApiImgPipe } from '../../../../core/pipes/api-img.pipe';
 import { RecursoService } from '../../../../core/services/recurso.service';
+import { TipoDeHabitoService } from '../../../../core/services/tipo-de-habito.services';
+import { AuthService } from '../../../../core/services/auth.service';
+import { MediaService } from '../../../../core/services/media.service';
+import { tipoDeRecursoResponse } from '../../../../shared/models/tipoDeRecurso.model';
 import { RecursoResponse } from '../../../../shared/models/recurso-response.model';
+import { Recurso } from '../../../../shared/models/recurso.model';
+import { TipoDeHabito } from '../../../../shared/models/tipo-de-habito.model';
+import { CommonModule } from '@angular/common'; 
+import { planService } from '../../../../core/services/planes.service';
 
 @Component({
-  selector: 'app-recurso-list',
+  selector: 'app-recurso-form',
   standalone: true,
   imports: [
-    CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSnackBarModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule,
+    MatButtonModule,
+    MatSelectModule,
     ApiImgPipe,
+    CommonModule,
   ],
-  templateUrl: './recurso-list.component.html',
-  styleUrls: ['./recurso-list.component.scss'],
+  templateUrl: './recurso-form.component.html',
+  styleUrl: './recurso-form.component.scss'
 })
 export class RecursoListComponent implements OnInit {
   recursos: RecursoResponse[] = [];
@@ -47,14 +56,47 @@ export class RecursoListComponent implements OnInit {
   totalElements = 0;
   pageSize = 5;
   pageIndex = 0;
-
+  
   private recursoService = inject(RecursoService);
-  private snackBar = inject(MatSnackBar);
-  private router = inject(Router);
+  private mediaService = inject(MediaService);
+  private tipoDeHabitoService = inject(TipoDeHabitoService);
+  private authService = inject(AuthService);
+  private planService = inject(planService);
 
-  ngOnInit(): void {
-    this.loadRecursos();
-  }
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private snackBar = inject(MatSnackBar);
+  planes: Array<{ id: number, nombre: string }> = [];
+
+  tiporecursos: tipoDeRecursoResponse[] = [];
+  tipoDeHabitos: TipoDeHabito[] = [];
+  tiposSuscripcion: string[] = []; 
+
+  recursoid?: number;
+  errors: string[] = [];
+
+  form: FormGroup = this.fb.group({
+    nombre: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(250)]],
+    descripcion: ['', [Validators.required]],
+    precio: [0, [Validators.required, Validators.min(0)]],
+    coverPath: ['', [Validators.required]], // Asegúrate de que esta validación se aplica correctamente
+    filePath: ['', [Validators.required]],  // Asegúrate de que esta validación se aplica correctamente
+    tiporecurso: ['', Validators.required],
+    tipoDeHabitosId: ['', Validators.required],
+    fechaPublicacion: ['', Validators.required],
+    autor: ['', Validators.required],
+    estado: ['', Validators.required],
+    descripcionExtendida: [''],
+    plan_id: [null, Validators.required],
+    etiquetas: ['']
+  });
+    ngOnInit(): void {
+    this.recursoid = Number(this.route.snapshot.paramMap.get('id'));
+    this.loadtipoDeHabito();
+    this.loadTipoDeRecurso();
+    this.loadTiposSuscripcion();
+    }
 
   loadRecursos(pageIndex: number = 0, pageSize: number = 5): void {
     this.recursoService.paginateRecursos(pageIndex, pageSize).subscribe({

@@ -20,7 +20,6 @@
     </ng-container>
 
     <!-- Columna de Acciones -->
-
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
       <mat-cell *matCellDef="let habito">
@@ -31,9 +30,11 @@
         </div>
       </mat-cell>
     </ng-container>
+    
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
+
   <mat-paginator
     [length]="totalElements"
     [pageSize]="pageSize"

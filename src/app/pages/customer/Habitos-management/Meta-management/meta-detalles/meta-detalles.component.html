@@ -3,6 +3,7 @@
   <div *ngIf="metas.length === 0" class="no-metas">
     <p>No tienes metas creadas</p>
   </div>
+
   <mat-card *ngFor="let meta of metas" class="meta-card">
     <mat-card-title>{{ meta.descripcion }}</mat-card-title>
     <mat-card-content>

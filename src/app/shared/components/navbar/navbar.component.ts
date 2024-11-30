@@ -1,30 +1,19 @@
-
-import { Component, inject } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
-
+import { Component, signal } from '@angular/core';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-navbar',
-  standalone: true,
-
-  imports: [RouterLink, RouterOutlet],
-
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrls: ['./navbar.component.scss'],
+  imports: [
+    MatIcon
+  ],
+  standalone: true
 })
 export class NavbarComponent {
+  sidebarCollapsed = signal(false);
 
-  private authService = inject(AuthService);
-
-  isAuthenticated: boolean = false;
-
-  ngOnInit(): void {
-    this.isAuthenticated = this.authService.isAuthenticated();
-  }
-
-  logout(): void {
-      this.authService.logout();
-      this.isAuthenticated = false;
+  toggleSidebar() {
+    this.sidebarCollapsed.update(value => !value);
   }
 }

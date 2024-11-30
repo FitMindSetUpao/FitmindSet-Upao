@@ -10,4 +10,3 @@ export interface MetaResponseDTO {
     tiempoObjetivo: number;
     metas: MetaDTO[];
   }
-  
