@@ -1,35 +1,30 @@
 @if(recursos) {
     <h2>Lista de Recursos</h2>
-    
+
     <div class="table-controls">
       <button mat-raised-button color="primary" (click)="createNewRecurso()">
         Nuevo Recurso
       </button>
-    
+
       <mat-form-field class="filter-input" appearance="outline">
         <mat-label>Buscar por nombre</mat-label>
         <input matInput [(ngModel)]="filterText" (input)="applyFilter($event)" />
       </mat-form-field>
     </div>
-    
+
     <mat-table [dataSource]="filteredRecursos" class="mat-table">
       <ng-container matColumnDef="cover">
         <mat-header-cell *matHeaderCellDef> Portada </mat-header-cell>
         <mat-cell *matCellDef="let recurso">
-          <img [src]="recurso.coverPath | apiImg" alt="Cover" class="book-cover-img" />
+          <img [src]="recurso.coverPath" alt="Cover" class="book-cover-img" />
         </mat-cell>
       </ng-container>
-    
+
       <ng-container matColumnDef="nombreRecurso">
         <mat-header-cell *matHeaderCellDef> Nombre</mat-header-cell>
         <mat-cell *matCellDef="let recurso"> {{ recurso.nombreRecurso }} </mat-cell>
       </ng-container>
-    
-      <ng-container matColumnDef="nombreAutor">
-        <mat-header-cell *matHeaderCellDef> Autor </mat-header-cell>
-        <mat-cell *matCellDef="let recurso"> {{ recurso.nombreAutor }} </mat-cell>
-      </ng-container>
-    
+
       <ng-container matColumnDef="tipoDeHabito">
         <mat-header-cell *matHeaderCellDef> Tipo de Habito </mat-header-cell>
         <mat-cell *matCellDef="let recurso"> {{ recurso.tipoDeHabito }} </mat-cell>
@@ -38,12 +33,12 @@
         <mat-header-cell *matHeaderCellDef> Tipo de Recurso</mat-header-cell>
         <mat-cell *matCellDef="let recurso"> {{ recurso.tipoDeRecurso }} </mat-cell>
       </ng-container>
-    
+
       <ng-container matColumnDef="precio">
         <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
         <mat-cell *matCellDef="let recurso"> {{ recurso.precio | currency }} </mat-cell>
       </ng-container>
-    
+
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
         <mat-cell *matCellDef="let recurso">
@@ -51,14 +46,17 @@
             <button mat-raised-button color="accent" (click)="actualizarRecurso(recurso.id)">
              Actualizar
             </button>
+            <button mat-raised-button color="warn" (click)="eliminarRecurso(recurso.id)">
+              Eliminar
+            </button>
           </div>
         </mat-cell>
       </ng-container>
-    
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-    
+
     <mat-paginator
       [length]="totalElements"
       [pageSize]="pageSize"
@@ -70,4 +68,3 @@
     } @else {
     <p>No hay recursos registrados</p>
     }
-    

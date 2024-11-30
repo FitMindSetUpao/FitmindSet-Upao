@@ -1,4 +1,3 @@
-
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { RecursoListComponent } from './recurso-management/recurso-list/recurso-list.component';

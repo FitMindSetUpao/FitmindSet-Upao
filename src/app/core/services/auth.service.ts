@@ -2,7 +2,7 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { StorageService } from '../services/storage.services';
+import { StorageService} from './storage.services';
 import { AuthRequest } from '../../shared/models/auth-request.model';
 import { AuthResponse } from '../../shared/models/auth-response.model';
 import { Observable, tap } from 'rxjs';
@@ -27,7 +27,9 @@ export class AuthService {
   login(authRequest: AuthRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseURL}/login`, authRequest)
       .pipe(
-        tap(response => this.storageService.setAuthData(response))
+        tap(response => {
+          this.storageService.setAuthData(response);
+        })
       );
   }
 
@@ -42,13 +44,13 @@ export class AuthService {
 
   logout(): void {
     this.storageService.clearAuthData();
-    this.storageService.clearUserName(); 
+    this.storageService.clearUserName();
     this.router.navigate(['/auth/login']);
   }
   sendRecoveryEmail(correo: string): Observable<any> {
     return this.http.post(`${this.baseURL}/forgot-password`, { correo });
   }
-  
+
 
   isAuthenticated(): boolean {
     return this.storageService.getAuthData() !== null;
@@ -65,7 +67,7 @@ export class AuthService {
   }
 
   getUserName(): string | null {
-    return this.storageService.getUserName(); 
+    return this.storageService.getUserName();
   }
   loginWithGoogle(googleToken: string): Observable<any> {
     return this.http.post('login/oauth2/code/google', { token: googleToken });
@@ -73,15 +75,15 @@ export class AuthService {
   resetPassword(token: string, newPassword: string): Observable<any> {
     const url = `${this.baseURL}/reset-password`;
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-  
+
     // Crea el objeto que contiene el token y la nueva contraseña
     const body = {
       token: token,
       newPassword: newPassword
     };
-  
+
     // Envía el objeto como el cuerpo de la solicitud
     return this.http.post(url, body, { headers: headers });
   }
-  
+
 }

@@ -1,22 +1,21 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MetaService } from '../../../../../core/services/meta.services';
-import { FormBuilder, FormGroup, FormsModule, Validators,ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetaDTO } from '../../../../../shared/models/meta.model';
 import { MetaResponseDTO } from '../../../../../shared/models/meta-response.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 
-
 @Component({
   selector: 'app-meta-form',
   standalone: true,
-  imports: [ 
+  imports: [
     MatFormFieldModule,
     MatSelectModule,
     MatDatepickerModule,
@@ -51,6 +50,7 @@ export class MetaFormComponent implements OnInit {
   ngOnInit(): void {
     this.habitoId = Number(this.route.snapshot.paramMap.get('habitoId'));
     this.metaId = Number(this.route.snapshot.paramMap.get('metaId'));
+    
     if (this.metaId) {
       this.cargarMeta();
     }
@@ -66,6 +66,7 @@ export class MetaFormComponent implements OnInit {
     this.metaService.getMetaById(this.metaId.toString()).subscribe(
       (meta) => {
         console.log('Meta cargada:', meta);  // Verifica que los datos de la meta estén llegando correctamente
+        
         if (meta) {
           this.form.patchValue({
             descripcion: meta.descripcion,
@@ -85,7 +86,7 @@ export class MetaFormComponent implements OnInit {
       }
     );
   }
-  
+
   guardarMeta(): void {
     console.log('Meta ID:', this.metaId);  // Verifica si el ID de la meta está presente
 
@@ -94,7 +95,7 @@ export class MetaFormComponent implements OnInit {
       console.log('Formulario inválido');
       return;
     }
-  
+
     const metaDTO: MetaDTO = {
       id: this.metaId,
       ...this.form.value,
@@ -121,7 +122,6 @@ export class MetaFormComponent implements OnInit {
       );
     } else {
       console.log("Creando nueva meta...");
-  
       // Aquí no deberías pasar metaId al crear una nueva meta
       if (this.habitoId !== undefined) {
         this.metaService.crearMeta(this.habitoId, metaDTO).subscribe(
