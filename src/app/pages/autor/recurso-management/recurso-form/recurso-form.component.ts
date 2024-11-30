@@ -90,7 +90,7 @@ export class RecursoFormComponent implements OnInit {
     });
   }
   private loadTipoDeRecurso(): void {
-    this.tipoDeHabitoService.getAllTiposDeHabitos().subscribe({
+    this.tipoDeHabitoService.getAllTiposDeRecurso().subscribe({
       next: (tiposDeRecurso) => {
         this.tiporecursos = tiposDeRecurso;
         if (this.recursoid) this.loadRecursosForActualizar();

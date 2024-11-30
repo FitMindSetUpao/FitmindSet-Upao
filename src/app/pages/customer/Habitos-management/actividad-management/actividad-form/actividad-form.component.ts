@@ -9,7 +9,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SeguimientoDTO } from '../../../../../shared/models/seguimiento.model';
 
 @Component({
   selector: 'app-actividad-form',
@@ -70,15 +69,12 @@ export class ActividadFormComponent implements OnInit {
       return;
     }
   
-    // Asegúrate de incluir 'metaId' en el objeto de seguimiento
-    const seguimientoData: SeguimientoDTO = {
-      id: 0, // Si el id es generado por el backend, puedes dejarlo en 0 o no pasarlo
+    const seguimientoData = {
       tiempoInvertido: this.form.value.tiempoInvertido,
       observaciones: this.form.value.observaciones,
       estado: this.form.value.estado,
-      porcentajeCumplido: 0,  // Aquí puedes poner el valor real si es necesario
-      fecha: new Date().toISOString(),
-      metaId: this.metaId // Asegúrate de que metaId se pasa correctamente
+      porcentajeCumplido: 0,
+      fecha: new Date().toISOString()
     };
   
     this.seguimientoService.registrarSeguimiento(seguimientoData, this.metaId).subscribe(
@@ -93,8 +89,7 @@ export class ActividadFormComponent implements OnInit {
         console.error(error);
       }
     );
-  }
-   
+  }    
   
   cancel(): void {
     this.router.navigate(['customer/habitos/metas',]);

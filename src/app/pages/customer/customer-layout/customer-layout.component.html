@@ -1,68 +1,69 @@
 <div class="layout-dashboard">
-  <!-- Botón de Toggle para el Sidebar -->
-  <button
-    class="sidebar-toggle-btn"
-    [class.active]="isSidebarActive"
-    (click)="toggleSidebar()">
-    <mat-icon *ngIf="!isSidebarActive">menu</mat-icon>
-    <mat-icon *ngIf="isSidebarActive">close</mat-icon>
-  </button>
-
-  <!-- Sidebar con opciones específicas -->
-  <div class="layout-sidebar" [class.collapsed]="isSidebarActive">
-    <nav>
-      <ul>
-        <li>
-          <a routerLink="mi-perfil" routerLinkActive="active">
-            <mat-icon>account_circle</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Perfil</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/metas-salud" routerLinkActive="active">
-            <mat-icon>fitness_center</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Metas de Salud</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/notificaciones" routerLinkActive="active">
-            <mat-icon>notifications</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Notificaciones</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="habitos/list" routerLinkActive="active">
-            <mat-icon>fitness_center</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Mis Habitos</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/reportes" routerLinkActive="active">
-            <mat-icon>bar_chart</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Reportes</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/graficos" routerLinkActive="active">
-            <mat-icon>pie_chart</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Gráficos</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/pagos-suscripciones" routerLinkActive="active">
-            <mat-icon>credit_card</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Pagos y Suscripciones</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            <span class="nav-label" *ngIf="!isSidebarActive">Cerrar Sesión</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    
+    <!-- Botón de Toggle para el Sidebar -->
+    <button
+      class="sidebar-toggle-btn"
+      [class.active]="isSidebarActive"
+      (click)="toggleSidebar()">
+      <mat-icon *ngIf="!isSidebarActive">menu</mat-icon>
+      <mat-icon *ngIf="isSidebarActive">close</mat-icon>
+    </button>
+  
+    <!-- Sidebar con opciones específicas -->
+    <div class="layout-sidebar" [class.collapsed]="isSidebarActive">
+      <nav>
+        <ul>
+          <li>
+            <a routerLink="habitos/mi-perfil" routerLinkActive="active">
+              <mat-icon>account_circle</mat-icon>
+              <span class="nav-label" *ngIf="!isSidebarActive">Perfil</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="habitos/metas/list" routerLinkActive="active">
+              <mat-icon>stars</mat-icon>
+              <span class="nav-label" *ngIf="!isSidebarActive">Mis Metas</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/notificaciones" routerLinkActive="active">
+              <mat-icon>notifications</mat-icon>
+              <span class="nav-label" *ngIf="!isSidebarActive">Notificaciones</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="habitos/list" routerLinkActive="active">
+              <mat-icon>fitness_center</mat-icon>
+              <span class="nav-label" *ngIf="!isSidebarActive">Mis Habitos</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/reportes" routerLinkActive="active">
+              <mat-icon>bar_chart</mat-icon>
+              <span class="nav-label" *ngIf="!isSidebarActive">Reportes</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/graficos" routerLinkActive="active">
+              <mat-icon>pie_chart</mat-icon>
+              <span class="nav-label" *ngIf="!isSidebarActive">Gráficos</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/pagos-suscripciones" routerLinkActive="active">
+              <mat-icon>credit_card</mat-icon>
+              <span class="nav-label" *ngIf="!isSidebarActive">Pagos y Suscripciones</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" (click)="logout()">
+              <mat-icon>logout</mat-icon>
+              <span class="nav-label" *ngIf="!isSidebarActive">Cerrar Sesión</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+    </div>
   </div>
   
    <div class="layout-content">
@@ -84,25 +85,25 @@
                   Ver más detalles
                 </button>
               </div>
-            </mat-card-actions>
-          </mat-card>
-        </mat-grid-tile>
-        
-        <!-- Card Metas de Salud -->
-        <mat-grid-tile>
-          <mat-card class="dashboard-card">
-            <div class="custom-card-header">
-              <mat-icon class="header-icon">fitness_center</mat-icon>
-              <span class="header-title">Mis Habitos</span>
-            </div>
-            <mat-card-content>
-              <p class="descripcion">Establece y sigue tus metas de salud y bienestar en base a tus habitos creados.</p>
-            </mat-card-content>
-            <mat-card-actions>
-              <div fxLayout="row" fxLayoutAlign="start center">
-                <button mat-button color="primary" [routerLink]="['habitos/list']">
-                  Ver más detalles
-                </button>
+              <mat-card-content>
+                <p class="descripcion">Administra tu información personal y configuraciones.</p>
+              </mat-card-content>
+              <mat-card-actions>
+                <div fxLayout="row" fxLayoutAlign="start center">
+                  <button mat-button color="primary" [routerLink]="['habitos/mi-perfil']">
+                    Ver más detalles
+                  </button>
+                </div>
+              </mat-card-actions>
+            </mat-card>
+          </mat-grid-tile>
+          
+          <!-- Card Metas de Salud -->
+          <mat-grid-tile>
+            <mat-card class="dashboard-card">
+              <div class="custom-card-header">
+                <mat-icon class="header-icon">fitness_center</mat-icon>
+                <span class="header-title">Mis Habitos</span>
               </div>
             </mat-card-actions>
           </mat-card>
@@ -189,36 +190,43 @@
         </mat-grid-tile>
       </mat-grid-list>
     </div>
-    
-  </div>
-  <div class="sidebar-right">
-    <h2>Recursos Suscritos</h2>
-    <div *ngIf="recursosSuscritos && recursosSuscritos.length > 0; else noRecursos">
-      <mat-card *ngFor="let recurso of recursosSuscritos">
-        <mat-card-header>
-          <mat-icon>description</mat-icon>
-          <mat-card-title>{{ recurso.nombre }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-actions>
-          <button mat-button color="primary">Ver</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <ng-template #noRecursos>
-      <p>No tienes recursos suscritos disponibles en este momento.</p>
-    </ng-template>
-
-    <h2>Reporte de Pagos</h2>
-    <div *ngIf="reportePagos && reportePagos.length > 0; else noPagos">
-      <mat-card *ngFor="let pago of reportePagos">
-        <mat-card-header>
-          <mat-icon>credit_card</mat-icon>
-          <mat-card-title>{{ pago.descripcion }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-actions>
-          <button mat-button color="primary">Ver</button>
-        </mat-card-actions>
-      </mat-card>
+    <div class="sidebar-right">
+      <h2>Recursos Suscritos</h2>
+      <div *ngIf="recursosSuscritos && recursosSuscritos.length > 0; else noRecursos">
+        <mat-card *ngFor="let recurso of recursosSuscritos">
+          <mat-card-header>
+            <mat-icon>description</mat-icon>
+            <mat-card-title>{{ recurso.nombre }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-actions>
+            <button mat-button color="primary">Ver</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <ng-template #noRecursos>
+        <p>No tienes recursos suscritos disponibles en este momento.</p>
+      </ng-template>
+  
+      <h2>Reporte de Pagos</h2>
+      <div *ngIf="reportePagos && reportePagos.length > 0; else noPagos">
+        <mat-card *ngFor="let pago of reportePagos">
+          <mat-card-header>
+            <mat-icon>credit_card</mat-icon>
+            <mat-card-title>{{ pago.descripcion }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-actions>
+            <button mat-button color="primary">Ver</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <ng-template #noPagos>
+        <p>No tienes pagos registrados aún.</p>
+      </ng-template>
+      <br>
+      <div class="forum-actions">
+        <button mat-button color="primary" [routerLink]="['foro']" class="btn-details">
+          Foros de la Comunidad
+        </button></div>
     </div>
     <ng-template #noPagos>
       <p>No tienes pagos registrados aún.</p>

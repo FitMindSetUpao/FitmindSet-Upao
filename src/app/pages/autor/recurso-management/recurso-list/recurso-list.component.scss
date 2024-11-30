@@ -14,12 +14,12 @@ h2 {
     margin-bottom: 20px;
     flex-wrap: wrap;
     gap: 10px;
-
+    
     .filter-input {
       width: 100%;
       max-width: 250px;
       margin-left: 20px;
-
+      
       mat-form-field {
         width: 100%;
       }
@@ -43,19 +43,11 @@ h2 {
       color: #555;
       background-color: #f5f5f5;
     }
-
+  
     .mat-row:nth-child(even) {
       background-color: #fafafa; // Alternancia de colores para filas pares
     }
-    .book-cover-img {
-      width: 100px; /* Ajusta según tus necesidades */
-      height: 100px;
-      object-fit: cover;
-      border-radius: 4px;
-      border: 1px solid #ddd;
-    }
   }
-
   .mat-paginator {
     margin-top: 20px;
     display: flex;
@@ -142,3 +134,4 @@ h2 {
     background:#388e3c ;
     color: #fff;
   }
+

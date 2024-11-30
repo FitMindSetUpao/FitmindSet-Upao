@@ -33,9 +33,4 @@ export class RecursoService{
     return this.http.get<RecursoResponse>(`${this.baseUrl}/${id}`);
   }
 
-  deleteRecurso(id: number): Observable<void> {
-    const url = `${this.baseUrl}/eliminar/${id}`;
-    return this.http.delete<void>(url);
-  }
-
 }

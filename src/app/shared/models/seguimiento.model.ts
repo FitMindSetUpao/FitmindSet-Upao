@@ -1,9 +1,9 @@
-export interface SeguimientoDTO {
+export interface Seguimiento {
   id: number;
-  fecha: string; // Formato ISO string (YYYY-MM-DD)
+  fecha: string;  // Formato ISO string
   porcentajeCumplido: number;
   tiempoInvertido: number;
-  estado: string; // Estado del seguimiento
-  metaId: number; // ID de la meta asociada
-  observaciones: string; // Notas adicionales
+  estado: string;  // Podría ser un enum si es necesario
+  metaId: number;
+  observaciones: string;
 }

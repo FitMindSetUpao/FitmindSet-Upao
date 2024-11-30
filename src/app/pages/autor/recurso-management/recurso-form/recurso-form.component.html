@@ -43,7 +43,7 @@
 
         <!-- Selector de tipo de recurso -->
  <!-- Selector de tipo de recurso -->
- <mat-form-field class="form-field w-100" appearance="outline">
+<mat-form-field class="form-field w-100" appearance="outline">
   <mat-label>Tipo de Recurso</mat-label>
   <mat-select formControlName="tiporecurso">
     <mat-option *ngFor="let tiporecurso of tiporecursos" [value]="tiporecurso.id">
@@ -54,7 +54,8 @@
 </mat-form-field>
 
 
-     <mat-form-field class="form-field w-100" appearance="outline">
+        <!-- Selector de tipo de hábito -->
+        <mat-form-field class="form-field w-100" appearance="outline">
           <mat-label>Tipo de Hábito</mat-label>
           <mat-select formControlName="tipoDeHabitosId">
             <mat-option *ngFor="let tipoDeHabito of tipoDeHabitos" [value]="tipoDeHabito.id">

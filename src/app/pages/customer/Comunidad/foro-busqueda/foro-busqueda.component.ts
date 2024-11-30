@@ -4,6 +4,7 @@ import { FooterComponent } from '../../../../shared/components/footer/footer.com
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-foro-busqueda',
@@ -19,42 +20,34 @@ import { Router } from '@angular/router';
   styleUrls: ['./foro-busqueda.component.scss']
 })
 export class ForoBusquedaComponent implements OnInit {
-
   forums: Array<{ title: string, description: string, creator: string, status: string }> = [];
-  usuarioActual: string = 'UsuarioDemo';
+  usuarioActual: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    // Definimos los foros base
-    const baseForums = [
-      { title: 'Proteína', description: 'Crecen el músculo.', creator: '', status: 'Desconocido' },
-      { title: 'Carbohidrato', description: 'Otorgan energía.', creator: '', status: 'Desconocido' },
-      { title: 'Grasas Saludables', description: 'Mantienen la piel y cabello saludables.', creator: '', status: 'Desconocido' }
-    ];
+    this.usuarioActual = this.authService.getUser()?.nombre || 'UsuarioDemo';
 
-    // Obtenemos foros guardados en localStorage
-    const storedForums = JSON.parse(localStorage.getItem('forums') || '[]');
+    // Recuperar foros globales y personalizados
+    const globalForums = JSON.parse(localStorage.getItem('forums_global') || '[]');
+    const userForums = JSON.parse(localStorage.getItem(`forums_${this.usuarioActual}`) || '[]');
 
-    // Combinamos los foros base con los guardados y eliminamos duplicados basados en el título
-    const combinedForums = [...baseForums, ...storedForums];
+    // Combinar foros sin duplicados
+    const combinedForums = [...globalForums, ...userForums];
     this.forums = combinedForums.filter((forum, index, self) =>
       index === self.findIndex((f) => f.title === forum.title)
     );
 
-    // Actualizamos el estado de cada foro
+    // Determinar estado para cada foro
     this.forums.forEach(forum => {
       if (forum.creator === this.usuarioActual) {
         forum.status = 'Propietario';
-      } else if (JSON.parse(localStorage.getItem(`joined_${forum.title}`) || 'false')) {
+      } else if (JSON.parse(localStorage.getItem(`joined_${this.usuarioActual}_${forum.title}`) || 'false')) {
         forum.status = 'Unido';
       } else {
         forum.status = 'Desconocido';
       }
     });
-
-    // Guardamos en localStorage para asegurar que los foros base estén siempre presentes
-    localStorage.setItem('forums', JSON.stringify(this.forums));
   }
 
   createForum() {
@@ -65,5 +58,27 @@ export class ForoBusquedaComponent implements OnInit {
     this.router.navigate(['/customer/foro/foro-co'], {
       queryParams: { title: forumTitle }
     });
+  }
+
+  deleteForum(forumTitle: string) {
+    // Confirmación para eliminar
+    if (!confirm(`¿Estás seguro de que deseas eliminar el foro "${forumTitle}"?`)) {
+      return;
+    }
+
+    // Eliminar de la lista específica del usuario
+    const userForums = JSON.parse(localStorage.getItem(`forums_${this.usuarioActual}`) || '[]');
+    const updatedUserForums = userForums.filter((forum: any) => forum.title !== forumTitle);
+    localStorage.setItem(`forums_${this.usuarioActual}`, JSON.stringify(updatedUserForums));
+
+    // Eliminar de la lista global
+    const globalForums = JSON.parse(localStorage.getItem('forums_global') || '[]');
+    const updatedGlobalForums = globalForums.filter((forum: any) => forum.title !== forumTitle);
+    localStorage.setItem('forums_global', JSON.stringify(updatedGlobalForums));
+
+    // Actualizar la vista
+    this.ngOnInit();
+
+    alert(`El foro "${forumTitle}" ha sido eliminado.`);
   }
 }

@@ -1,27 +1,60 @@
 <app-navbar></app-navbar>
 
 <section class="forum-detail">
-    <div class="forum-header">
-      <h1>Título del Foro: {{ foroActual }}</h1>
-      <p>{{ foroDescripcion }}</p>
-  
-      <button *ngIf="!esPropietario" (click)="toggleJoin()" class="btn-join">
-        {{ isJoined ? 'Salir del foro' : 'Unirse al foro' }}
+  <!-- Información básica del foro -->
+  <div class="forum-header">
+    <h1>Título del Foro: {{ foroActual }}</h1>
+    <p>{{ foroDescripcion }}</p>
+
+    <!-- Botón para unirse o salir del foro -->
+    <button *ngIf="!esPropietario" (click)="toggleJoin()" class="btn-join">
+      {{ isJoined ? 'Salir del foro' : 'Unirse al foro' }}
+    </button>
+  </div>
+
+  <!-- Sección de comentarios -->
+  <div class="comments-section">
+    <h2>Comentarios</h2>
+
+    <!-- Mostrar mensaje si el usuario no está unido -->
+    <p *ngIf="!isJoined" class="restricted-message">
+      Debes unirte al foro para ver o añadir comentarios.
+    </p>
+
+    <!-- Formulario de añadir comentarios (solo si está unido) -->
+    <div *ngIf="isJoined">
+      <textarea #commentInput placeholder="Añadir un comentario..."></textarea>
+      <button 
+        (click)="addComment(commentInput.value); commentInput.value = ''" 
+        class="btn-add-comment">
+        Añadir comentario
       </button>
     </div>
-  
-    <div *ngIf="isJoined" class="comments-section">
-      <h2>Comentarios</h2>
-      <textarea #commentInput placeholder="Añadir un comentario..."></textarea>
-      <button (click)="addComment(commentInput.value); commentInput.value = ''" class="btn-add-comment">Añadir comentario</button>
-  
-      <ul>
-        <li *ngFor="let comment of comments" class="comment-item">
-          <strong>{{ comment.user }}:</strong> {{ comment.comment }}
-        </li>
-      </ul>
-    </div>
-  </section>
-  
 
+    <!-- Lista de comentarios (visible solo si está unido) -->
+    <ul *ngIf="isJoined">
+      <li *ngFor="let comment of comments; let i = index" class="comment-item">
+        <strong>{{ comment.user }}:</strong> {{ comment.comment }}
 
+        <!-- Respuestas a los comentarios -->
+        <ul *ngIf="comment.replies && comment.replies.length > 0">
+          <li *ngFor="let reply of comment.replies" class="reply-item">
+            <strong>{{ reply.user }}:</strong> {{ reply.comment }}
+          </li>
+        </ul>
+
+        <!-- Formulario para responder a un comentario (solo si está unido) -->
+        <div class="reply-section">
+          <textarea #replyInput placeholder="Responder..."></textarea>
+          <button 
+            (click)="addReply(i, replyInput.value); replyInput.value = ''" 
+            class="btn-reply">
+            Responder
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<app-footer></app-footer>

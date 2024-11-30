@@ -80,8 +80,7 @@ export class MetaListComponent implements OnInit {
   }
 
   viewDetails(habitoId: number): void {
-    // Navigating to the habit's metas details page
-    this.router.navigate(['/customer/habitos/metas/detalles', habitoId]);
+    this.router.navigate(['/customer/habitos/metas', habitoId]);
   }
 
   private showSnackBar(message: string): void {

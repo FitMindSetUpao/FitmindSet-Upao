@@ -39,7 +39,24 @@ import { planService } from '../../../../core/services/planes.service';
   templateUrl: './recurso-form.component.html',
   styleUrl: './recurso-form.component.scss'
 })
-export class RecursoFormComponent implements OnInit {
+export class RecursoListComponent implements OnInit {
+  recursos: RecursoResponse[] = [];
+  filteredRecursos: RecursoResponse[] = [];
+  filterText = '';
+
+  displayedColumns: string[] = [
+    'cover',
+    'nombreRecurso',
+    'nombreAutor',
+    'tipoDeHabito',
+    'tipoDeRecurso',
+    'precio',
+    'actions',
+  ];
+  totalElements = 0;
+  pageSize = 5;
+  pageIndex = 0;
+  
   private recursoService = inject(RecursoService);
   private mediaService = inject(MediaService);
   private tipoDeHabitoService = inject(TipoDeHabitoService);
@@ -79,104 +96,47 @@ export class RecursoFormComponent implements OnInit {
     this.loadtipoDeHabito();
     this.loadTipoDeRecurso();
     this.loadTiposSuscripcion();
-  }
-  private loadtipoDeHabito(): void {
-    this.tipoDeHabitoService.getAllTiposDeHabitos().subscribe({
-      next: (tipoDeHabitos) => {
-        this.tipoDeHabitos = tipoDeHabitos;
-        if (this.recursoid) this.loadRecursosForActualizar();
+    }
+
+  loadRecursos(pageIndex: number = 0, pageSize: number = 5): void {
+    this.recursoService.paginateRecursos(pageIndex, pageSize).subscribe({
+      next: (response: PageableResponse<RecursoResponse>) => {
+        this.recursos = response.content;
+        this.filteredRecursos = response.content;
+        this.totalElements = response.totalElements;
+        this.pageSize = response.size;
+        this.pageIndex = response.number;
       },
-      error: () => this.errors.push('Error al cargar los tipos de hábitos.'),
+      error: () => this.showSnackBar('Error al cargar la lista de recursos'),
     });
   }
-  private loadTipoDeRecurso(): void {
-    this.tipoDeHabitoService.getAllTiposDeHabitos().subscribe({
-      next: (tiposDeRecurso) => {
-        this.tiporecursos = tiposDeRecurso;
-        if (this.recursoid) this.loadRecursosForActualizar();
-      },
-      error: () => this.errors.push('Error al cargar los tipos de recursos.')
-    });
-  }
-  loadTiposSuscripcion() {
-    this.tipoDeHabitoService.getAllTiposSuscripcion().subscribe(
-      (data) => {
-        this.tiposSuscripcion = data;
-      },
-      (error) => {
-        console.error('Error loading tipos de suscripción:', error);
-      }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+    this.filteredRecursos = this.recursos.filter((recurso) =>
+      recurso.nombreRecurso.toLowerCase().includes(filterValue)
     );
   }
-  private loadRecursosForActualizar(): void {
-    this.recursoService.getRecursoDetailsById(this.recursoid!).subscribe({
-      next: (recurso: RecursoResponse) => {
-        const tipoDeHabito = this.tipoDeHabitos.find(
-          (habito) => habito.nombre === recurso.tipoDeHabito 
-        );
-        this.form.patchValue({
-          ...recurso,
-          tiporecurso: recurso.recursoid,
-          tipoDeHabitosId: tipoDeHabito ? tipoDeHabito.id : null, 
-        });
-      },
-      error: () => this.errors.push('Error al cargar los detalles del Recurso.'),
-    });
+
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadRecursos(this.pageIndex, this.pageSize);
   }
-  
 
-  uploadFile(event: Event, control: string): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append('file', file); // Solo se agrega el archivo, sin recursoId
-  
-      this.mediaService.upload(formData).subscribe({
-        next: (response) => {
-          if (response && response.path) {
-            this.form.controls[control].setValue(response.path); // Asignamos el path recibido al control
-          } else {
-            this.errors.push('Respuesta inesperada del servidor.');
-          }
-        },
-        error: (err) => {
-          console.error('Error de carga de archivo:', err);
-          this.errors.push('Error al cargar el archivo. Verifica los detalles en la consola.');
-        },
-      });
-    } else {
-      this.errors.push('No se seleccionó ningún archivo.');
-    }
+  createNewRecurso(): void {
+    this.router.navigate(['/autor/recursos/crear']);
   }
-  
-  save(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
 
-    const formData: Recurso = {
-      ...this.form.value,
-      authorId: this.authService.getUser()?.autorId
-    };
+  actualizarRecurso(recursoid: number): void {
+    this.router.navigate(['/autor/recursos/edit', recursoid]);
+  }
 
-    const request: Observable<RecursoResponse> = this.recursoid
-      ? this.recursoService.updateRecurso(this.recursoid, formData)
-      : this.recursoService.createRecursos(formData);
-
-    request.subscribe({
-      next: () => {
-        this.snackBar.open('Recurso guardado exitosamente', 'Cerrar', {
-          duration: 3000,
-        });
-        this.router.navigate(['/autor/recursos/list']);
-      },
-      error: (error) => {
-        this.errors = error.error.errors || ['Error al guardar el Recurso'];
-        this.snackBar.open('Error al guardar el recurso', 'Cerrar', {
-          duration: 3000,
-        });
-      },
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
     });
   }
 }

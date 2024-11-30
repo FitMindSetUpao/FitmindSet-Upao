@@ -17,6 +17,17 @@
   }
 }
 
+.forum-actions {
+  .btn-details {
+    background-color: #4caf50; // Verde para el botón "Ver detalles"
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
 .layout-sidebar {
   background-color: #4CAF50;
   color: #fff;
